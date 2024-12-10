@@ -12,26 +12,26 @@
 
 #include "../../../include/minishell.h"
 
-void	ft_unset(t_command_exec *command, t_minishell *minishell)
+int	ft_unset(t_command *command, t_minishell *minishell)
 {
 	int	i;
 	int	line;
 
 	i = 0;
 	line = 0;
-	if (nbr_of_line(command->cmd_args) > 1)
+	if (nbr_of_line(command->clean_arg) > 1)
 	{
-		while (command->cmd_args[i])
+		while (command->clean_arg[i])
 		{
-			line = get_env_var(minishell, command->cmd_args[i],
-					ft_strlen(command->cmd_args[i]));
+			line = get_env_var(minishell, command->clean_arg[i],
+					ft_strlen(command->clean_arg[i]));
 			if (line != -1)
 			{
 				delete_var(minishell, line);
-				delete_export_node(minishell->exportList, command->cmd_args[i]);
+				delete_export_node(minishell->exportList, command->clean_arg[i]);
 			}
 			i++;
 		}
 	}
-	exit(0);
+    return (0);
 }

@@ -16,7 +16,6 @@ static int	print_line(char *line)
 {
 	size_t	len;
 
-	len = 0;
 	len = printf("%s", line);
 	if (len != ft_strlen(line))
 		return (1);

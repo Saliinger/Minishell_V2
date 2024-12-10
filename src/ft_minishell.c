@@ -50,7 +50,7 @@ static void	process_input_line(char *line, t_minishell *m)
 		AINSI_BLUE, AINSI_RESET, c);
 	}
 	else
-		m->exit_status[0] = ft_exec(&c, m);
+		m->exit_status[0] = ft_exec(m, c);
 }
 
 int	ft_minishell(t_minishell *m)
@@ -67,11 +67,8 @@ int	ft_minishell(t_minishell *m)
 		get_line(&line, prompt, m);
 		if (!line)
 			return (free(prompt), EXIT_EOF);
-		else if (*line)
+		else
 			process_input_line(line, m);
-		if (restore_std_fds(m->std_fds) == -1)
-			return (free(prompt), ERR);
-		// break ; //temporaire si tu veux tester un seul input
 	}
 	return (EXIT_SUCCESS);
 }

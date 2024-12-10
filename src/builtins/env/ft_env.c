@@ -14,17 +14,17 @@
 
 #include "../../../include/minishell.h"
 
-void	ft_env(t_minishell *minishell)
+int	ft_env(t_minishell *minishell)
 {
 	int	i;
 
 	if (!minishell->env)
-		exit(1);
+        return (1);
 	i = 0;
 	while (minishell->env[i])
 	{
 		printf("%s\n", minishell->env[i]);
 		i++;
 	}
-	exit(0);
+    return (0);
 }

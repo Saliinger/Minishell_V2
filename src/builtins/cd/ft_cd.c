@@ -12,14 +12,14 @@
 
 #include "../../../include/minishell.h"
 
-void	ft_cd(t_command_exec *command, t_minishell *minishell)
+int	ft_cd(t_command *command, t_minishell *minishell)
 {
 	int		error;
 	char	*path;
 
-	if (nbr_of_line(command->cmd_args) > 2)
-		exit(1);
-	path = get_path(command->cmd_args[1], minishell);
+	if (nbr_of_line(command->clean_arg) > 2)
+        return (1);
+	path = get_path(command->clean_arg[1], minishell);
 	if (!path)
 		exit(1);
 	error = chdir(path);
@@ -32,8 +32,8 @@ void	ft_cd(t_command_exec *command, t_minishell *minishell)
 	else
 	{
 		printerr("No such file\n");
-		exit(1);
+        return (1);
 	}
 	free(path);
-	exit(0);
+    return (0);
 }

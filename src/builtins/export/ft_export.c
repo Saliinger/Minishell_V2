@@ -79,37 +79,37 @@ static void	export_handler(char *line, char *name, char *value,
 	merge_sort(minishell->exportList);
 }
 
-void	ft_export(t_command_exec *command, t_minishell *minishell)
+int	ft_export(t_command*command, t_minishell *minishell)
 {
 	int		i;
 	char	*name;
 	char	*value;
 
 	i = 1;
-	if (nbr_of_line(command->cmd_args) > 1)
+	if (nbr_of_line(command->clean_arg) > 1)
 	{
-		while (command->cmd_args[i])
+		while (command->clean_arg[i])
 		{
-			name = get_name_env(command->cmd_args[i]);
+			name = get_name_env(command->clean_arg[i]);
 			if (!check_name(name))
 			{
 				printerr("bash: export: `%s': not a valid identifier\n", name);
 				free(name);
-				exit(1);
+                return (1);
 			}
 			free(name);
 			i++;
 		}
 		i = 1;
-		while (command->cmd_args[i])
+		while (command->clean_arg[i])
 		{
-			name = get_name_env(command->cmd_args[i]);
-			value = get_value_env(command->cmd_args[i]);
-			export_handler(command->cmd_args[i], name, value, minishell);
+			name = get_name_env(command->clean_arg[i]);
+			value = get_value_env(command->clean_arg[i]);
+			export_handler(command->clean_arg[i], name, value, minishell);
 			i++;
 		}
 	}
 	else
 		print_export_list(minishell->exportList);
-	exit(0);
+    return(0);
 }

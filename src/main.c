@@ -51,10 +51,10 @@ int	main(int ac, char **av, char **env)
 	minishell = init(env, getcwd(buffer, 4096), &exit_status);
 	if (!minishell)
 		return (1);
-	if (save_std_fds(minishell->std_fds) == -1)
-		return (ERR_PRIM);
+//	if (save_std_fds(minishell->std_fds) == -1)
+//		return (ERR_PRIM);
 	ft_minishell(minishell);
 	clear_history();
-	free_t_minishell(&minishell);
+	free_minishell(minishell);
 	return (exit_status);
 }

@@ -32,18 +32,8 @@ void		free_minishell(t_minishell *minishell);
 void		free_command(t_command *command);
 
 void		ft_free(void **address);
-int			ft_close(int *fd);
 void		ft_free_nullterm_tab(char ***ptab);
-void		free_t_command(t_command **c);
 void		free_t_minishell(t_minishell **m);
-
-// EXEC
-int			ft_exec(t_command **old, t_minishell *m);
-// transitionning out :
-void		builtin_slector(t_command *cmd, t_minishell *m);
-void		old_ft_exec(t_command *command, t_minishell *minishell);
-void		ft_extern(t_command *command, t_minishell *minishell);
-
 
 int	ft_minishell(t_minishell *minishell);
 

@@ -6,8 +6,6 @@ CFLAGS =	-Wall \
 			-g3 \
 			#-fsanitize=address
 
-LIBFT_A		=	libft/libft/libft.a
-PRINTF_A	=	libft/printf/libprintf.a
 LIBS = -L./libft/compiled -lft -lprintf -lreadline
 
 VALGRIND = valgrind					\
@@ -58,7 +56,7 @@ OBJ_MAC = $(SRC:.c=.mac.o)  # macOS-specific object files
 
 .PHONY: all clean fclean re libft mac clone
 
-all: clone $(LIBFT_A) $(PRINTF_A) $(NAME)
+all: clone libft $(NAME)
 
 
 $(NAME): $(OBJ) 
@@ -66,15 +64,12 @@ $(NAME): $(OBJ)
 	@echo "$(CC) $(CFLAGS) \$$(OBJ) $(LIBS) -o $(NAME)"
 	@echo "\n$(GREEN)\t$(NAME) compiled successfully$(RESET)\n"
 
-$(LIBFT_A):
-	echo "test"
+libft:
+	echo "Start LibFT"
 	@$(MAKE) all -C ./libft
+	echo "End LibFT"
 
-$(PRINTF_A):
-	echo "test2"
-	@$(MAKE) all -C ./libft
-
-mac: $(LIBFT_A) $(PRINTF_A) $(OBJ_MAC)
+mac: clone libft $(OBJ_MAC)
 	@$(CC) $(CFLAGS) $(OBJ_MAC) -o $(NAME) $(LIBS_MAC)
 	@echo "$(CC) $(CFLAGS_MAC) \$$(OBJ_MAC) -o $(NAME) $(LIBS_MAC)"
 	@echo "\n$(GREEN)\t$(NAME) compiled successfully on macOS$(RESET)\n"
@@ -92,46 +87,9 @@ fclean: clean
 
 re: fclean all
 
-project_re:
-	rm -f $(OBJ)
-	rm -f $(NAME)
+leaks: mac
 	clear
-	make $(NAME) -j
-
-exec_re: 
-	rm -f $(EXED)/*.o
-	rm -f $(EXED)/*/*.o
-	rm -f $(EXED)/*/*/*.o
-	rm -f $(EXED)/*/*/*/*.o
-	rm -f $(NAME)
-	clear
-	make $(NAME) -j
-
-utils_re:
-	rm -f $(UTILSD)/*.o
-	rm -f $(UTILSD)/*/*.o
-	rm -f $(NAME)
-	clear
-	make $(NAME) -j
-
-parsing_re:
-	rm -f $(PARSD)/*.o
-	rm -f $(NAME)
-	clear
-	make $(NAME) -j
-
-builtins_re:
-	rm -f $(BINS)/*/*.o
-	rm -f $(NAME)
-	clear
-	make $(NAME) -j
-
-test: project_re
-	clear
-	./$(NAME) || lldb $(NAME)
-
-lldb: all
-	lldb $(NAME)
+	leaks --atExit -- ./$(NAME)
 
 valgrind: all
 	clear
