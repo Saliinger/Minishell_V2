@@ -6,11 +6,13 @@ char *find_path(t_minishell *minishell, t_command *command)
 
     while (minishell->paths[i])
     {
+        fprintf(stderr, "%s\n", minishell->paths[i]);
         if (ft_strcmp(command->clean_arg[0], minishell->paths[i]))
             return (minishell->paths[i]);
     }
     return (NULL);
 }
+
 
 int    ft_exec_extern(t_minishell *minishell, t_command *command)
 {

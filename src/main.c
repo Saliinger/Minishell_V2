@@ -12,6 +12,16 @@
 
 #include "../include/minishell.h"
 
+char **init_paths(t_minishell *minishell)
+{
+    t_export_list *path;
+
+    path = find_export_node("PATH", minishell->exportList);
+    if (!path)
+        return (NULL);
+    return (split_element(path->value, ':'));
+}
+
 static t_minishell	*init(char **env, char *pwd, int *adr_int)
 {
 	t_minishell	*minishell;
@@ -32,6 +42,7 @@ static t_minishell	*init(char **env, char *pwd, int *adr_int)
 	minishell->hidden_env = NULL;
 	minishell->exportList = init_export_list(minishell->env);
 	merge_sort(minishell->exportList);
+    minishell->paths = init_paths(minishell);
 	return (minishell);
 }
 
