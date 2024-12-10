@@ -1,0 +1,9 @@
+*.txt
+*.out
+**.txt
+**.out
+tests/**
+*.o
+minishell
+
+./minishell_tester

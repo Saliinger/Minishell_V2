@@ -1,0 +1,9 @@
+{
+  "makefile.configureOnOpen": false,
+  "files.associations": {
+    "*.embeddedhtml": "html",
+    "stdbool.h": "c",
+    "minishell.h": "c",
+    "stat.h": "c"
+  }
+}
