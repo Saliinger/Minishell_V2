@@ -38,77 +38,119 @@ static int	get_line(char **line, char *prompt, t_minishell *m)
 	executes it then returns exit status
  *
  *  */
-
-static void	process_input_line(char *line, t_minishell *m)
+static int handle_redirections(t_command *cmd)
 {
-	int		i = 0;
-	int		status;
-	int		pipe_fds[2];
-	int		prev_pipe_fd = -1;
-	pid_t	pid;
-	t_command *cmd = parsing(line, m);
-	
-	if (!cmd)
-		return ;
-	if (cmd->id == EXIT_ID || cmd->id == CD_ID || cmd->id == EXPORT_ID)
-	{
-		ft_exec(m, cmd);
-		return ;
-	}
-	while (cmd)
-	{
-		if (cmd->subcommand && pipe(pipe_fds) < 0) {
-			perror("Erreur de pipe");
-			break;
-		}
-		pid = fork();
-		if (pid < 0) {
-			perror("Erreur lors du fork");
-			break;
-		}
-		else if (pid == 0) {
-			if (prev_pipe_fd != -1)
-				dup2(prev_pipe_fd, STDIN_FILENO);
-			if (cmd->subcommand) 
-				dup2(pipe_fds[1], STDOUT_FILENO);
-			if (prev_pipe_fd != -1)
-				close(prev_pipe_fd);
-			if (cmd->subcommand) {
-				close(pipe_fds[0]);
-				close(pipe_fds[1]);
-			}
-			exit(ft_exec(m, cmd));
-		}
-		if (prev_pipe_fd != -1)
-			close(prev_pipe_fd);
-		if (cmd->subcommand)
-			close(pipe_fds[1]);
-		prev_pipe_fd = pipe_fds[0];
-		i++;
-		cmd = cmd->subcommand;
-	}
-	while (waitpid(-1, &status, 0) > 0) {
-		if (WIFEXITED(status))
-			m->exit_status[0] = WEXITSTATUS(status);
-	}
+    t_redir *redir = cmd->redirection;
+    int fd;
+
+    while (redir)
+    {
+        if (redir->type == R_OUTPUT)
+            fd = open(redir->redir, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+        else if (redir->type == R_APPEND)
+            fd = open(redir->redir, O_WRONLY | O_CREAT | O_APPEND, 0644);
+        else if (redir->type == R_INPUT || redir->type == R_HEREDOC)
+            fd = open(redir->redir, O_RDONLY);
+        else
+            return (perror("Type de redirection inconnu"), -1);
+
+        if (fd < 0)
+            return (perror(redir->redir), -1);
+
+        if (redir->type == R_INPUT || redir->type == R_HEREDOC)
+        {
+            if (dup2(fd, STDIN_FILENO) < 0)
+                return (perror("dup2 (entrée)"), close(fd), -1);
+        }
+        else
+        {
+            if (dup2(fd, STDOUT_FILENO) < 0)
+                return (perror("dup2 (sortie)"), close(fd), -1);
+        }
+
+        close(fd); // Toujours fermer après duplication
+        redir = redir->next;
+    }
+    return (0);
 }
 
-int	ft_minishell(t_minishell *m)
-{
-	char	*line;
-	char	*prompt;
 
-	line = NULL;
-	prompt = NULL;
-	using_history();
-	while (1)
-	{
-		prompt = display_prompt(prompt, m);
-		get_line(&line, prompt, m);
-		if (!line)
-			return (free(prompt), EXIT_EOF);
-		else
-			process_input_line(line, m);
-	}
-	return (EXIT_SUCCESS);
+static void process_input_line(char *line, t_minishell *m)
+{
+    int status;
+    int pipe_fds[2];
+    int prev_pipe_fd = -1;
+    pid_t pid;
+    t_command *cmd = parsing(line, m);
+
+    if (!cmd)
+        return;
+    if (cmd->id == EXIT_ID || cmd->id == CD_ID || cmd->id == EXPORT_ID)
+    {
+        ft_exec(m, cmd);
+        return;
+    }
+    while (cmd)
+    {
+        if (cmd->subcommand && pipe(pipe_fds) < 0)
+        {
+            perror("Erreur de pipe");
+            break;
+        }
+        pid = fork();
+        if (pid < 0)
+        {
+            perror("Erreur lors du fork");
+            break;
+        }
+        else if (pid == 0)
+        {
+            if (prev_pipe_fd != -1)
+                dup2(prev_pipe_fd, STDIN_FILENO);
+            if (cmd->subcommand)
+                dup2(pipe_fds[1], STDOUT_FILENO);
+
+            if (handle_redirections(cmd) < 0)
+                exit(EXIT_FAILURE);
+
+            if (prev_pipe_fd != -1)
+                close(prev_pipe_fd);
+            if (cmd->subcommand)
+            {
+                close(pipe_fds[0]);
+                close(pipe_fds[1]);
+            }
+            exit(ft_exec(m, cmd));
+        }
+        if (prev_pipe_fd != -1)
+            close(prev_pipe_fd);
+        if (cmd->subcommand)
+            close(pipe_fds[1]);
+        prev_pipe_fd = pipe_fds[0];
+        cmd = cmd->subcommand;
+    }
+    while (waitpid(-1, &status, 0) > 0)
+    {
+        if (WIFEXITED(status))
+            m->exit_status[0] = WEXITSTATUS(status);
+    }
+}
+
+int ft_minishell(t_minishell *m)
+{
+    char *line;
+    char *prompt;
+
+    line = NULL;
+    prompt = NULL;
+    using_history();
+    while (1)
+    {
+        prompt = display_prompt(prompt, m);
+        if (get_line(&line, prompt, m) == EXIT_EOF)
+            return (free(prompt), EXIT_EOF);
+        if (line && line[0] != '\0')
+            process_input_line(line, m);
+    }
+    return (EXIT_SUCCESS);
 }
