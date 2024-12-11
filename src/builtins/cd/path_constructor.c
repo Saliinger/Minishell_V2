@@ -110,8 +110,3 @@ char	*path_constructor(t_minishell *minishell, char *in)
 	res = get_res(new_in, in_cut, current_path);
 	return (res);
 }
-
-// ../
-// ./
-//
-// all the function need to write in the dest

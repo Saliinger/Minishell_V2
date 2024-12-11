@@ -31,5 +31,5 @@ int	ft_pwd(t_minishell *minishell)
 	pwd++;
 	printf("%s\n", pwd);
 	free(temp);
-	return (0);
+	exit(0);
 }

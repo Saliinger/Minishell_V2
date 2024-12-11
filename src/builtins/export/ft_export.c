@@ -111,5 +111,5 @@ int	ft_export(t_command*command, t_minishell *minishell)
 	}
 	else
 		print_export_list(minishell->exportList);
-    return(0);
+    exit(0);
 }

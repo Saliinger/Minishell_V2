@@ -19,7 +19,7 @@ char **init_paths(t_minishell *minishell)
     path = find_export_node("PATH", minishell->exportList);
     if (!path)
         return (NULL);
-    return (split_element(path->value, ':'));
+    return (ft_split(path->value, ':'));
 }
 
 static t_minishell	*init(char **env, char *pwd, int *adr_int)

@@ -33,5 +33,5 @@ int	ft_unset(t_command *command, t_minishell *minishell)
 			i++;
 		}
 	}
-    return (0);
+    exit(0);
 }

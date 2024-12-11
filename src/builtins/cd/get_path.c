@@ -16,12 +16,14 @@ char	*get_path(char *in, t_minishell *minishell)
 {
 	char	*res;
 
+    res = NULL;
 	if (!in || (ft_strlen(in) == 1 && *in == '~') || (ft_strlen(in) == 1
 			&& *in == '/'))
 	{
 		res = get_home(minishell);
 		if (!res)
 			perror("Error: Home is not set\n");
+        return (NULL);
 	}
 	else
 		res = path_constructor(minishell, in);
