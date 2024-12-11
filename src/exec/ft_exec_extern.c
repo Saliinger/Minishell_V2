@@ -36,21 +36,6 @@ char	*ft_strcat(char *dst, const char *src)
 	return (dst);
 }
 
-void	free_split(char **split)
-{
-	int	i;
-
-	if (!split)
-		return ;
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
-}
-
 char	*build_full_path(char *dir, char *cmd)
 {
 	char	*full_path;
@@ -77,18 +62,18 @@ static char	*get_value(char **splited_path, char *full_path, t_command *command)
 				command->clean_arg[0]);
 		if (!full_path)
 		{
-			free_split(splited_path);
+            ft_free_tab(splited_path);
 			return (NULL);
 		}
 		if (access(full_path, X_OK) == 0)
 		{
-			free_split(splited_path);
+			ft_free_tab(splited_path);
 			return (full_path);
 		}
 		free(full_path);
 		i++;
 	}
-	free_split(splited_path);
+	ft_free_tab(splited_path);
 	return (NULL);
 }
 
