@@ -40,17 +40,33 @@ static int	get_line(char **line, char *prompt, t_minishell *m)
  *  */
 static void	process_input_line(char *line, t_minishell *m)
 {
-	t_command	*c;
+	int	i = 0;
+	char **splited_cmd = ft_split(line, '|');
+	int		status;
 
-	c = parsing(line, m);
-	if (PARSING_LEAK_TRACKING)
+	while (splited_cmd[i])
 	{
-		free_command(c);
-		printerr("%s\n\tPARSING_LEAK_TRACKING: ON !%s\n\t\toutput is now %p. (destroyed via free_t_command).\n\n", 
-		AINSI_BLUE, AINSI_RESET, c);
+		pid_t pid = fork();
+
+		if (pid < 0) {
+			perror("Erreur lors du fork");
+			return ;
+		}
+		else if (pid == 0) {
+			ft_exec(m, parsing(line, m));
+		}
+		else {
+			printf("end\n");
+		}
+		i++;
 	}
-	else
-		m->exit_status[0] = ft_exec(m, c);
+	while (waitpid(-1, &status, 0) > 0)
+	{
+		if (WIFEXITED(status))
+			m->exit_status[0] = status;
+	}
+	//free split here bro
+	return ;
 }
 
 int	ft_minishell(t_minishell *m)
