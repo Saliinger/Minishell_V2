@@ -74,7 +74,7 @@ static char	*get_value(char **splited_path, char *full_path, t_command *command)
 	while (splited_path[i])
 	{
 		full_path = build_full_path(splited_path[i],
-				command->command);
+				command->clean_arg[0]);
 		if (!full_path)
 		{
 			free_split(splited_path);
