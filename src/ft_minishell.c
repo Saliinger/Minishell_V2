@@ -49,8 +49,31 @@ static int handle_redirections(t_command *cmd)
             fd = open(redir->redir, O_WRONLY | O_CREAT | O_TRUNC, 0644);
         else if (redir->type == R_APPEND)
             fd = open(redir->redir, O_WRONLY | O_CREAT | O_APPEND, 0644);
-        else if (redir->type == R_INPUT || redir->type == R_HEREDOC)
+        else if (redir->type == R_INPUT)
             fd = open(redir->redir, O_RDONLY);
+        else if (redir->type == R_HEREDOC)
+        {
+            char *delimiter = redir->redir;
+            char *temp_file = "temp_heredoc_file";
+
+            fd = open(temp_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+            if (fd < 0)
+                return (perror("Erreur ouverture heredoc"), -1);
+
+            char *line = NULL;
+            while (1)
+            {
+                line = readline("> ");
+                if (!line || ft_strcmp(line, delimiter) == 0)
+                    break;
+                write(fd, line, ft_strlen(line));
+                write(fd, "\n", 1);
+                free(line);
+            }
+            free(line);
+            close(fd);
+            fd = open(temp_file, O_RDONLY);
+        }
         else
             return (perror("Type de redirection inconnu"), -1);
 
@@ -68,11 +91,12 @@ static int handle_redirections(t_command *cmd)
                 return (perror("dup2 (sortie)"), close(fd), -1);
         }
 
-        close(fd); // Toujours fermer après duplication
+        close(fd);
         redir = redir->next;
     }
     return (0);
 }
+
 
 
 static void process_input_line(char *line, t_minishell *m)
