@@ -18,10 +18,10 @@ int	ft_cd(t_command *command, t_minishell *minishell)
 	char	*path;
 
 	if (nbr_of_line(command->clean_arg) > 2)
-		return (1);
+		return (printerr("cd: Too many arguments\n"), minishell->exit_status[0] = 1, 1);
 	path = get_path(command->clean_arg[1], minishell);
 	if (!path)
-		return (1);
+		return (minishell->exit_status[0] = 1, 1);
 	error = chdir(path);
 	if (error == 0)
 	{
@@ -31,8 +31,8 @@ int	ft_cd(t_command *command, t_minishell *minishell)
 	}
 	else
 	{
-		printerr("No such file\n");
-		return (1);
+		printerr("No such file or directory\n");
+		return (minishell->exit_status[0] = 1, 1);
 	}
 	free(path);
 	return (0);
