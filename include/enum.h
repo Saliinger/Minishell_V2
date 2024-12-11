@@ -19,11 +19,10 @@
 
 typedef enum e_redir
 {
-	R_IN_FILE= 1,
-    R_IN_HEREDOC,
-	R_IN_HEREDOC_Q,
-    R_OUT_FILE_TRUNC,
-	R_OUT_FILE_APPEND,
+	R_OUTPUT,
+    R_INPUT,
+    R_HEREDOC,
+    R_APPEND,
 	R_INVALID,
 }	t_enum_redir;
 

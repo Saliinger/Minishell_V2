@@ -19,7 +19,7 @@ int	ft_cd(t_command *command, t_minishell *minishell)
 
 	if (nbr_of_line(command->clean_arg) > 2)
 		return (printerr("cd: Too many arguments\n"), minishell->exit_status[0] = 1, 1);
-	path = get_path(command->clean_arg[1], minishell);
+	path = command->clean_arg[1];
 	if (!path)
 		return (minishell->exit_status[0] = 1, 1);
 	error = chdir(path);

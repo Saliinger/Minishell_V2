@@ -37,13 +37,13 @@ static void	add_node(t_enum_redir type, char *str, t_redir **head)
 static t_enum_redir	get_redir_type(char *str)
 {
 	if (!ft_strncmp(str, ">>", 2))
-		return (R_OUT_FILE_APPEND);
+		return (R_APPEND);
 	else if (!ft_strncmp(str, ">", 1))
-		return (R_OUT_FILE_TRUNC);
+		return (R_OUTPUT);
 	else if (!ft_strncmp(str, "<<", 2))
-		return (R_IN_HEREDOC);
+		return (R_HEREDOC);
 	else if (!ft_strncmp(str, "<", 1))
-		return (R_IN_FILE);
+		return (R_INPUT);
 	return (R_INVALID);
 }
 
