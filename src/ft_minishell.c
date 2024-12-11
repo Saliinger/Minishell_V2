@@ -48,6 +48,11 @@ static void	process_input_line(char *line, t_minishell *m)
 	pid_t	pid;
 	t_command *cmd = parsing(line, m);
 	
+	if (cmd->id == EXIT_ID || cmd->id == CD_ID)
+	{
+		ft_exec(m, cmd);
+		return ;
+	}
 	while (cmd)
 	{
 		if (cmd->subcommand && pipe(pipe_fds) < 0) {
