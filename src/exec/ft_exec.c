@@ -4,9 +4,7 @@ int ft_exec(t_minishell *minishell, t_command *command)
 {
     int exit = 0;
 
-    if (count_cmd(command) > 1)
-        exec_error("minishell: too many arguments", minishell, command);
-    else if (command->builtin)
+    if (command->builtin)
         exit = ft_exec_builtins(minishell, command);
     else
         exit = ft_exec_extern(minishell, command);

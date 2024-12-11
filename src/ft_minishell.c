@@ -38,6 +38,7 @@ static int	get_line(char **line, char *prompt, t_minishell *m)
 	executes it then returns exit status
  *
  *  */
+
 static void	process_input_line(char *line, t_minishell *m)
 {
 	int		i = 0;
@@ -45,14 +46,11 @@ static void	process_input_line(char *line, t_minishell *m)
 	int		pipe_fds[2];
 	int		prev_pipe_fd = -1;
 	pid_t	pid;
-	char	**splited_cmd;
-
-	splited_cmd = ft_split(line, '|');
-	if (!splited_cmd)
-		return ;
-	while (splited_cmd[i])
+	t_command *cmd = parsing(line, m);
+	
+	while (cmd)
 	{
-		if (splited_cmd[i + 1] && pipe(pipe_fds) < 0) {
+		if (cmd->subcommand && pipe(pipe_fds) < 0) {
 			perror("Erreur de pipe");
 			break;
 		}
@@ -64,33 +62,30 @@ static void	process_input_line(char *line, t_minishell *m)
 		else if (pid == 0) {
 			if (prev_pipe_fd != -1)
 				dup2(prev_pipe_fd, STDIN_FILENO);
-			if (splited_cmd[i + 1]) 
+			if (cmd->subcommand) 
 				dup2(pipe_fds[1], STDOUT_FILENO);
 			if (prev_pipe_fd != -1)
 				close(prev_pipe_fd);
-			if (splited_cmd[i + 1]) {
+			if (cmd->subcommand) {
 				close(pipe_fds[0]);
 				close(pipe_fds[1]);
 			}
-			ft_exec(m, parsing(splited_cmd[i], m));
+			ft_exec(m, cmd);
 			exit(EXIT_FAILURE);
 		}
 		if (prev_pipe_fd != -1)
 			close(prev_pipe_fd);
-		if (splited_cmd[i + 1])
+		if (cmd->subcommand)
 			close(pipe_fds[1]);
 		prev_pipe_fd = pipe_fds[0];
 		i++;
+		cmd = cmd->subcommand;
 	}
 	while (waitpid(-1, &status, 0) > 0) {
 		if (WIFEXITED(status))
 			m->exit_status[0] = WEXITSTATUS(status);
 	}
-	for (i = 0; splited_cmd[i]; i++)
-		free(splited_cmd[i]);
-	free(splited_cmd);
 }
-
 
 int	ft_minishell(t_minishell *m)
 {
