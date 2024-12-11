@@ -23,18 +23,21 @@ bool	quote_checker(char *in, char c)
 	flag = 0;
 	while (in[i])
 	{
-		if (in[i] == c)
+        flag = in_quote(flag, in[i]);
+		if (flag != 0)
 		{
-			flag = 1;
-			i++;
-			while (in[i] && in[i] != c)
-				i++;
-			if (in[i] == c)
-				flag = 0;
+            i++;
+            while (flag != 0)
+            {
+                if (!in[i])
+                    break;
+                flag = in_quote(flag, in[i]);
+                i++;
+            }
 		}
 		i++;
 	}
-	if (flag == 1)
+	if (flag != 0)
 		return (printerr("Error syntax: the %c is not closed. Go fuck yourself\n",
 				c), false);
 	return (true);
@@ -124,7 +127,12 @@ bool check_end(char *s, char c)
 
 bool input_checker(t_minishell *minishell, char *command)
 {
-	if (!check_start(command, '|') || !check_start(command, '>') || !check_end(command, '|') || !check_end(command, '<'))
+	if (!check_start(command, '|')
+    || !check_start(command, '>')
+    || !check_end(command, '|')
+    || !check_end(command, '<')
+    || !quote_checker(command, '\"')
+    || !quote_checker(command, '\''))
         return (minishell->exit_status[0] = 2, false);
     return (true);
 }

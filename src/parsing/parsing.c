@@ -17,6 +17,7 @@ t_command	*parsing(char *str, t_minishell *minishell)
 	t_command	*current;
 	t_command	*temp;
 
+    str = tiny_expand(str, minishell);
     current = command_init(str);
 	temp = current;
 	while (temp)

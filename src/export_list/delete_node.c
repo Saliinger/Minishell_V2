@@ -25,7 +25,7 @@ int	delete_export_node(t_export_list **lst, char *name)
 		*lst = (*lst)->next;
 	if ((*lst)->next == tmp)
 	{
-		(*lst)->next = tmp->next;
+		(*lst)->next = (*lst)->next->next;
 		free(tmp->name);
 		free(tmp->value);
 		free(tmp);

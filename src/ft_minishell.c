@@ -108,7 +108,7 @@ static void process_input_line(char *line, t_minishell *m)
 
     if ( cmd == NULL)
         return free(line);
-    if (cmd->id == EXIT_ID || cmd->id == CD_ID || cmd->id == EXPORT_ID)
+    if (count_cmd(cmd) == 1 && (cmd->id == EXIT_ID || cmd->id == CD_ID || cmd->id == EXPORT_ID || cmd->id == UNSET_ID))
     {
         ft_exec(m, cmd);
         return;

@@ -37,8 +37,9 @@ char    **remove_quote(char **arg);
 // Divider for parsing
 int			check_pipe(char *in);
 
-
 // Input chekcer
 bool input_checker(t_minishell *minishell, char *command);
+
+char *tiny_expand(char *s, t_minishell *minishell);
 
 #endif
