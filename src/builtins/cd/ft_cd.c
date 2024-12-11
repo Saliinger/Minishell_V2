@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:29:59 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/10 18:18:44 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/11 02:15:55 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ int	ft_cd(t_command *command, t_minishell *minishell)
 	char	*path;
 
 	if (nbr_of_line(command->clean_arg) > 2)
-        return (1);
+		return (1);
 	path = get_path(command->clean_arg[1], minishell);
 	if (!path)
-		exit(1);
+		return (1);
 	error = chdir(path);
 	if (error == 0)
 	{
@@ -32,8 +32,8 @@ int	ft_cd(t_command *command, t_minishell *minishell)
 	else
 	{
 		printerr("No such file\n");
-        return (1);
+		return (1);
 	}
 	free(path);
-    return (0);
+	return (0);
 }

@@ -23,7 +23,7 @@ static int	get_line(char **line, char *prompt, t_minishell *m)
 	if (line[0] == NULL)
 		return (EXIT_EOF);
 	else if (line[0][0] == '\0')
-		m->exit_status[0] = 0;
+		*m->exit_status = 0;
 	else
 		add_history(line[0]);
 	return (EXIT_SUCCESS);
@@ -48,7 +48,7 @@ static void	process_input_line(char *line, t_minishell *m)
 	pid_t	pid;
 	t_command *cmd = parsing(line, m);
 	
-	if (cmd->id == EXIT_ID || cmd->id == CD_ID)
+	if (cmd->id == EXIT_ID || cmd->id == CD_ID || cmd->id == EXPORT_ID)
 	{
 		ft_exec(m, cmd);
 		return ;

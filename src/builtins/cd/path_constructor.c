@@ -79,7 +79,7 @@ char	*get_res(char *new_in, char **in_cut, char *current_path)
 	res = ft_strdup(current_path);
 	ft_free_tab(in_cut);
 	free(new_in);
-	return (0);
+	return (res);
 }
 
 char	*path_constructor(t_minishell *minishell, char *in)

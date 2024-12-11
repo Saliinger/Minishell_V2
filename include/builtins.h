@@ -54,5 +54,6 @@ int	ft_unset(t_command *command, t_minishell *minishell);
 int	ft_export(t_command *command, t_minishell *minishell);
 int		create_var(t_minishell *minishell, char *var);
 int		delete_var(t_minishell *minishell, int line);
+int modify_value_env(t_minishell *minishell, char *name, char *value);
 
 #endif

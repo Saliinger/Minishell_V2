@@ -17,6 +17,6 @@ int ft_exec_builtins(t_minishell *minishell, t_command *command)
     else if (command->id == ENV_ID)
         exit = ft_env(minishell);
     else if (command->id == EXIT_ID)
-        ft_exit(minishell, command, true);
+        ft_exit(minishell, command, false);
     return (exit);
 }

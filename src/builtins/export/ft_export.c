@@ -47,35 +47,37 @@ static void	manage_export(t_minishell *minishell, char *name, char *value,
 		char *line)
 {
 	modify_value(minishell->exportList, name, value);
-	delete_var(minishell, get_env_var(minishell, name, ft_strlen(name)));
-	create_var(minishell, line);
+//	delete_var(minishell, get_env_var(minishell, name, ft_strlen(name)));
+//	create_var(minishell, line);
+    modify_value_env(minishell, name, value);
 }
 
 static void	export_handler(char *line, char *name, char *value,
 		t_minishell *minishell)
 {
-	int	status;
-
-	status = var_exist(name, minishell);
-	if (status == 0)
-	{
-		add_node_export(minishell->exportList, name, value);
-		if (value)
-			create_var(minishell, line);
-	}
-	else if (status == 1)
-	{
-		if (value)
-		{
-			modify_value(minishell->exportList, name, value);
-			create_var(minishell, line);
-		}
-	}
-	else
-	{
-		if (value)
-			manage_export(minishell, name, value, line);
-	}
+//	int	status;
+//
+//	status = var_exist(name, minishell);
+//	if (status == 0)
+//	{
+//		add_node_export(minishell->exportList, name, value);
+//		if (value)
+//			create_var(minishell, line);
+//	}
+//	else if (status == 1)
+//	{
+//		if (value)
+//		{
+//			modify_value(minishell->exportList, name, value);
+//			create_var(minishell, line);
+//		}
+//	}
+//	else
+//	{
+//		if (value)
+//			manage_export(minishell, name, value, line);
+//	}
+    modify_value_env(minishell, name, value);
 	merge_sort(minishell->exportList);
 }
 
@@ -111,5 +113,5 @@ int	ft_export(t_command*command, t_minishell *minishell)
 	}
 	else
 		print_export_list(minishell->exportList);
-    exit(0);
+    return (0);
 }
