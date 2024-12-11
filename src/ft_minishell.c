@@ -77,8 +77,7 @@ static void	process_input_line(char *line, t_minishell *m)
 				close(pipe_fds[0]);
 				close(pipe_fds[1]);
 			}
-			ft_exec(m, cmd);
-			exit(EXIT_FAILURE);
+			exit(ft_exec(m, cmd));
 		}
 		if (prev_pipe_fd != -1)
 			close(prev_pipe_fd);
