@@ -12,16 +12,6 @@
 
 #include "../include/minishell.h"
 
-char **init_paths(t_minishell *minishell)
-{
-    t_export_list *path;
-
-    path = find_export_node("PATH", minishell->exportList);
-    if (!path)
-        return (NULL);
-    return (ft_split(path->value, ':'));
-}
-
 static t_minishell	*init(char **env, char *pwd, int *adr_int)
 {
 	t_minishell	*minishell;
@@ -33,8 +23,6 @@ static t_minishell	*init(char **env, char *pwd, int *adr_int)
 	minishell->pwd = ft_strdup(pwd);
 	minishell->old_pwd = ft_strdup(pwd);
 	minishell->res_last_command = 0;
-	// minishell->hd = (char **)malloc(sizeof(char *));
-	// minishell->hd[0] = NULL;
 	minishell->std_fds[0] = -1;
 	minishell->std_fds[1] = -1;
 	minishell->paths = NULL;
@@ -42,7 +30,6 @@ static t_minishell	*init(char **env, char *pwd, int *adr_int)
 	minishell->hidden_env = NULL;
 	minishell->exportList = init_export_list(minishell->env);
 	merge_sort(minishell->exportList);
-    minishell->paths = init_paths(minishell);
 	return (minishell);
 }
 

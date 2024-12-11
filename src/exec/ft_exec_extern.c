@@ -1,41 +1,5 @@
 #include "../../include/exec.h"
 
-char	*ft_strcpy(char *dst, const char *src)
-{
-	size_t	i;
-
-	i = 0;
-	while (src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
-}
-
-char	*ft_strcat(char *dst, const char *src)
-{
-	size_t	dst_len;
-	size_t	i;
-
-	if (!dst && !src)
-		return (NULL);
-	if (!dst)
-		return ((char *)src);
-	if (!src)
-		return (dst);
-	dst_len = ft_strlen(dst);
-	i = 0;
-	while (src[i])
-	{
-		dst[dst_len + i] = src[i];
-		i++;
-	}
-	dst[dst_len + i] = '\0';
-	return (dst);
-}
-
 char	*build_full_path(char *dir, char *cmd)
 {
 	char	*full_path;
@@ -85,12 +49,11 @@ char	*get_path_abs(t_minishell *data, t_command *command)
 
 	full_path = NULL;
 	tmp = data->env[get_env_var(data, "PATH", 4)];
-	splited_path = ft_split(tmp, ':');
+	splited_path = ft_split(tmp , ':');
 	if (!splited_path)
 		return (NULL);
 	return (get_value(splited_path, full_path, command));
 }
-
 
 int    ft_exec_extern(t_minishell *minishell, t_command *command)
 {
@@ -99,8 +62,8 @@ int    ft_exec_extern(t_minishell *minishell, t_command *command)
     path = get_path_abs(minishell, command);
     if (!path)
     {
-        perror("Paths doesn't exist\n");
-        return (1);
+        perror("Exec: Command not found\n");
+        return (127);
     }
     if (execve(path, command->clean_arg, minishell->env) == -1)
     {

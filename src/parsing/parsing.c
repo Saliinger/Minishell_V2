@@ -17,7 +17,7 @@ t_command	*parsing(char *str, t_minishell *minishell)
 	t_command	*current;
 	t_command	*temp;
 
-	current = command_init(str);
+    current = command_init(str);
 	temp = current;
 	while (temp)
 	{
@@ -30,5 +30,5 @@ t_command	*parsing(char *str, t_minishell *minishell)
 			return (free_command(current), NULL);
 		temp = temp->subcommand;
 	}
-	return (current);
+    return (current);
 }

@@ -26,7 +26,6 @@ char **expand_in(char **arg, t_minishell *minishell);
 t_command	*command_init(char *in);
 t_command	*parsing(char *str, t_minishell *minishell);
 t_command	*trim(char *in, char *in_command, bool builtin, int id);
-bool		input_checker(char *in);
 t_redir		*extract_redir(char **in);
 char		**clean_arg(char **arg);
 
@@ -37,5 +36,9 @@ char    **remove_quote(char **arg);
 
 // Divider for parsing
 int			check_pipe(char *in);
+
+
+// Input chekcer
+bool input_checker(t_minishell *minishell, char *command);
 
 #endif

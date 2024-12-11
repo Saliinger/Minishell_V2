@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   input_checker.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anoukan <anoukan@42mulhouse.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/27 12:35:28 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/06 23:03:56 by anoukan          ###   ########.fr       */
+/*   Created: 2024/12/11 17:58:21 by anoukan           #+#    #+#             */
+/*   Updated: 2024/12/11 17:58:21 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+
+
+#include "../../../include/minishell.h"
 
 bool	quote_checker(char *in, char c)
 {
@@ -33,7 +35,7 @@ bool	quote_checker(char *in, char c)
 		i++;
 	}
 	if (flag == 1)
-		return (printf("Error syntax: the %c is not closed. Go fuck yourself\n",
+		return (printerr("Error syntax: the %c is not closed. Go fuck yourself\n",
 				c), false);
 	return (true);
 }
@@ -49,13 +51,13 @@ bool	divider_checker(char *in, char c)
 		{
 			if (in[i + 1] == c && c == '|')
 			{
-				printf("Error syntax: too many %c. Are you really trying ?\n",
+				printerr("Error syntax: too many %c. Are you really trying ?\n",
 					c);
 				return (false);
 			}
 			if (in[i + 1] == c && in[i + 2] == c && (c == '<' || c == '>'))
 			{
-				printf("Error syntax: too many %c. Are you really trying ?\n",
+				printerr("Error syntax: too many %c. Are you really trying ?\n",
 					c);
 				return (false);
 			}
@@ -95,12 +97,34 @@ bool	forbiden_checker(char *in, char c)
 	return (true);
 }
 
-bool	input_checker(char *in)
+
+
+bool check_start(char *s, char c)
 {
-	if (divider_checker(in, '<') && quote_checker(in, '\'')
-		&& divider_checker(in, '>') && divider_checker(in, '|')
-		&& quote_checker(in, '\"') && forbiden_checker(in, ';'))
-		return (printf("true\n"), true);
-	else
-		return (false);
+    int i = 0;
+
+    while (s[i] && (s[i] == '\n' || s[i] == '\t' || s[i] == ' '))
+        i++;
+    if (s[i] == c)
+        return (printerr(" syntax error near unexpected token `%c'\n", c), false);
+    return (true);
+}
+
+bool check_end(char *s, char c)
+{
+    int i = 0;
+
+    i = ft_strlen(s) - 1;
+    while (s[i] && (s[i] == '\n' || s[i] == '\t' || s[i] == ' '))
+        i--;
+    if (s[i] == c)
+        return (printerr(" syntax error near unexpected token `%c'\n", c), false);
+    return (true);
+}
+
+bool input_checker(t_minishell *minishell, char *command)
+{
+	if (!check_start(command, '|') || !check_start(command, '>') || !check_end(command, '|') || !check_end(command, '<'))
+        return (minishell->exit_status[0] = 2, false);
+    return (true);
 }

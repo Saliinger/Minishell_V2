@@ -98,10 +98,6 @@ static int handle_redirections(t_command *cmd)
     return (0);
 }
 
-
-
-
-
 static void process_input_line(char *line, t_minishell *m)
 {
     int status;
@@ -110,8 +106,8 @@ static void process_input_line(char *line, t_minishell *m)
     pid_t pid;
     t_command *cmd = parsing(line, m);
 
-    if (!cmd)
-        return;
+    if ( cmd == NULL)
+        return free(line);
     if (cmd->id == EXIT_ID || cmd->id == CD_ID || cmd->id == EXPORT_ID)
     {
         ft_exec(m, cmd);
@@ -175,8 +171,8 @@ int ft_minishell(t_minishell *m)
     {
         prompt = display_prompt(prompt, m);
         if (get_line(&line, prompt, m) == EXIT_EOF)
-            return (free(prompt), EXIT_EOF);
-        if (line && line[0] != '\0')
+            return (free(prompt), EXIT_EOF );
+        if (line && line[0] != '\0' && input_checker(m, line) == true)
             process_input_line(line, m);
     }
     return (EXIT_SUCCESS);
