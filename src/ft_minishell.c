@@ -59,7 +59,6 @@ static int handle_redirections(t_command *cmd)
             fd = open(temp_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
             if (fd < 0)
                 return (perror("Erreur ouverture heredoc"), -1);
-
             char *line = NULL;
             while (1)
             {
@@ -73,6 +72,8 @@ static int handle_redirections(t_command *cmd)
             free(line);
             close(fd);
             fd = open(temp_file, O_RDONLY);
+            if (fd < 0)
+                return (perror("Erreur ouverture fichier heredoc"), -1);
         }
         else
             return (perror("Type de redirection inconnu"), -1);
@@ -90,12 +91,14 @@ static int handle_redirections(t_command *cmd)
             if (dup2(fd, STDOUT_FILENO) < 0)
                 return (perror("dup2 (sortie)"), close(fd), -1);
         }
-
         close(fd);
         redir = redir->next;
     }
+    unlink("temp_heredoc_file");
     return (0);
 }
+
+
 
 
 
