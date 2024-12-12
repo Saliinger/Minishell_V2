@@ -54,12 +54,12 @@ char	**get_env(char **env)
 	nbr_lines = nbr_of_line(env);
 	if (!env)
 		return (NULL);
-	res = (char **)malloc(sizeof(char *) * (nbr_lines + 1));
+	res = (char **)safe_malloc(sizeof(char *) * (nbr_lines + 1), ALLOC_MINISHELL);
 	if (!res)
 		return (NULL);
 	while (i < nbr_lines)
 	{
-		res[i] = ft_strdup(env[i]);
+		res[i] = safe_strdup(env[i], ALLOC_MINISHELL);
 		i++;
 	}
 	res[i] = NULL;

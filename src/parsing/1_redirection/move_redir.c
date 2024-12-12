@@ -17,10 +17,10 @@ static void	add_node(t_enum_redir type, char *str, t_redir **head)
 	t_redir	*new;
 	t_redir	*temp;
 
-	new = (t_redir *)malloc(sizeof(t_redir));
+	new = (t_redir *)safe_malloc(sizeof(t_redir), ALLOC_COMMAND);
 	if (!new)
 		return ;
-	new->redir = ft_strdup(str);
+	new->redir = safe_strdup(str, ALLOC_COMMAND);
 	new->type = type;
 	new->next = NULL;
 	if (!*head)

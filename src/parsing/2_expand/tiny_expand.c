@@ -26,19 +26,22 @@ char *tiny_expand(char *s, t_minishell *minishell)
 
     if (*s == '$')
     {
-        name = get_name(s);
-        var = find_export_node(name + 1, minishell->exportList);
-        if (!var || !var->value)
+        if (*s + 1 == '?')
+            res = ft_itoa_safe(*minishell->exit_status);
+        else
         {
-            res = safe_strdup(s + ft_strlen(name), ALLOC_COMMAND);
-            free(s);
-            return (res);
+            name = get_name(s);
+            var = find_export_node(name + 1, minishell->exportList);
+            if (!var || !var->value) {
+                res = safe_strdup(s + ft_strlen(name), ALLOC_COMMAND);
+                free(s);
+                return (res);
+            }
+            res = safe_strdup(var->value, ALLOC_COMMAND);
+            res = ft_strjoin_safe(res, s + ft_strlen(name), ALLOC_COMMAND);
         }
-        res = safe_strdup(var->value, ALLOC_COMMAND);
-        res = ft_strjoin_frees1(res, s + ft_strlen(name));
     }
     else
         return (s);
-    free(s);
     return (res);
 }

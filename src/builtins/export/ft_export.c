@@ -94,10 +94,8 @@ int	ft_export(t_command*command, t_minishell *minishell)
 			if (!check_name(name))
 			{
 				printerr("bash: export: `%s': not a valid identifier\n", name);
-				free(name);
                 return (minishell->exit_status[0] = 1, 1);
 			}
-			free(name);
 			i++;
 		}
 		i = 1;

@@ -21,6 +21,6 @@ int ft_exec(t_minishell *minishell, t_command *command)
         exit = ft_exec_builtins(minishell, command);
     else
         exit = ft_exec_extern(minishell, command);
-    // free_command(command);
+    safe_malloc(0, DESTROY_COMMAND);
     return (exit);
 }

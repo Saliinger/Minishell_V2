@@ -28,4 +28,8 @@ void    *safe_malloc(size_t size, enum e_action action);
 // strdup but safe
 char *safe_strdup(char *s,  enum e_action action);
 
+char	*ft_itoa_safe(int n);
+
+char	*ft_strjoin_safe(char const *s1, char const *s2, enum e_action action);
+
 #endif //MINISHELL_V2_SAFE_MALLOC_H

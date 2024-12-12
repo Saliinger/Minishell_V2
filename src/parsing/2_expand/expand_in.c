@@ -65,7 +65,7 @@ char	*expand(t_minishell *minishell, char *name)
 	if (name[0] == '$' && name[1] == '?' && name[2] == '\0')
 	{
 		exit = minishell->exit_status;
-		res = ft_itoa(*exit);
+		res = ft_itoa_safe(*exit);
 	}
 	else if (ft_strlen(name) == 1 && *name == '$')
 		res = safe_strdup("$", ALLOC_COMMAND);

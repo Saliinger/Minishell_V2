@@ -22,17 +22,6 @@ bool	quote_checker(char *in, char c)
 	while (in[i])
 	{
         flag = in_quote(flag, in[i]);
-		if (flag != 0)
-		{
-            i++;
-            while (flag != 0)
-            {
-                if (!in[i])
-                    break;
-                flag = in_quote(flag, in[i]);
-                i++;
-            }
-		}
 		i++;
 	}
 	if (flag != 0)
@@ -50,24 +39,15 @@ bool	divider_checker(char *in, char c)
     status = 0;
 	while (in[i])
 	{
-        if (in[i] == '\'' || in[i] == '\"')
+
+        status = in_quote(status, in[i]);
+        if (in[i + 1] == c && c == '|' && status == 0)
         {
-            status = in_quote(status, in[i]);
-            i++;
-            while (in[i] && status != 0) {
-                status = in_quote(status, in[i]);
-                i++;
-            }
+            printerr("Error syntax: too many %c. Are you really trying ?\n",
+                c);
+            return (false);
         }
-		if (in[i] == c && in[i + 1] == c && status == 0)
-		{
-			if (in[i + 1] == c && c == '|')
-			{
-				printerr("Error syntax: too many %c. Are you really trying ?\n",
-					c);
-				return (false);
-			}
-		}
+
 		i++;
 	}
 	return (true);
@@ -82,16 +62,8 @@ bool	forbiden_checker(char *in, char c)
     status = 0;
 	while (in[i])
 	{
-        if (in[i] == '\'' || in[i] == '\"')
-        {
-            status = in_quote(status, in[i]);
-            i++;
-            while (in[i] && status != 0) {
-                status = in_quote(status, in[i]);
-                i++;
-            }
-        }
-		if (in[i] == c)
+        status = in_quote(status, in[i]);
+		if (in[i] == c && status == 0)
 		{
             printerr("Error syntax: too many %c. Are you really trying ?\n",
                 c);
@@ -99,7 +71,6 @@ bool	forbiden_checker(char *in, char c)
 		}
 		i++;
 	}
-	return (true);
 	return (true);
 }
 
@@ -135,9 +106,7 @@ bool input_checker(t_minishell *minishell, char *command)
     || !check_end(command, '|')
     || !check_end(command, '<')
     || !quote_checker(command, '\"')
-    || !quote_checker(command, '\'')
-    || !divider_checker(command, '|')
-    || !forbiden_checker(command, ';'))
+    || !quote_checker(command, '\''))
         return (minishell->exit_status[0] = 2, false);
     return (true);
 }

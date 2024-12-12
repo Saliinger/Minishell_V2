@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   delete_node.c                                      :+:      :+:    :+:   */
+/*   ft_strjoin_safe.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/06 23:18:10 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/06 23:18:14 by anoukan          ###   ########.fr       */
+/*   Created: 2024/12/12 23:11:57 by anoukan           #+#    #+#             */
+/*   Updated: 2024/12/12 23:11:57 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//
-// Created by anoukan on 12/6/24.
-//
+#include "../../../include/safe_malloc.h"
 
-#include "../../include/minishell.h"
-
-int	delete_export_node(t_export_list **lst, char *name)
+char	*ft_strjoin_safe(char const *s1, char const *s2, enum e_action action)
 {
-	t_export_list	*tmp;
+	size_t	i;
+	size_t	j;
+	char	*d;
 
-	tmp = find_export_node(name, lst);
-	while ((*lst)->next != tmp)
-		*lst = (*lst)->next;
-	if ((*lst)->next == tmp)
-		(*lst)->next = (*lst)->next->next;
-	else
-		return (1);
-	return (0);
+	if (!s1 || !s2)
+		return (NULL);
+	i = ft_strlen(s1);
+	j = ft_strlen(s2);
+	d = (char *)safe_malloc(i + j + 1, action);
+	if (d == NULL)
+		return (NULL);
+	ft_strcpy(d, (char *)s1);
+	ft_strcpy(d + i, (char *)s2);
+	return (d);
 }

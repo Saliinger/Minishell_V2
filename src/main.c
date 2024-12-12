@@ -16,19 +16,18 @@ static t_minishell	*init(char **env, char *pwd, int *adr_int)
 {
 	t_minishell	*minishell;
 
-	minishell = (t_minishell *)malloc(sizeof(t_minishell));
+	minishell = (t_minishell *)safe_malloc(sizeof(t_minishell), ALLOC_MINISHELL);
 	if (!minishell)
 		return (NULL);
 	minishell->env = get_env(env);
-	minishell->pwd = ft_strdup(pwd);
-	minishell->old_pwd = ft_strdup(pwd);
+	minishell->pwd = safe_strdup(pwd, ALLOC_MINISHELL);
+	minishell->old_pwd = safe_strdup(pwd, ALLOC_MINISHELL);
 	minishell->res_last_command = 0;
 	minishell->std_fds[0] = -1;
 	minishell->std_fds[1] = -1;
 	minishell->paths = NULL;
 	minishell->exit_status = adr_int;
 	minishell->hidden_env = NULL;
-    minishell->exit_status = (int *) safe_malloc(sizeof(int), ALLOC_MINISHELL);
 	minishell->exportList = init_export_list(minishell->env);
 	merge_sort(minishell->exportList);
 	return (minishell);
@@ -54,6 +53,6 @@ int	main(int ac, char **av, char **env)
 //		return (ERR_PRIM);
 	ft_minishell(minishell);
 	clear_history();
-	free_minishell(minishell);
+    safe_malloc(0, NUKE);
 	return (exit_status);
 }

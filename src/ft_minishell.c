@@ -21,7 +21,7 @@ static int	get_line(char **line, char *prompt, t_minishell *m)
 		m->exit_status[0] = 130;
 	}
 	if (line[0] == NULL)
-		return (EXIT_EOF);
+		return (free(*line), EXIT_EOF);
 	else if (line[0][0] == '\0')
 		*m->exit_status = 0;
 	else
@@ -105,6 +105,12 @@ static void process_input_line(char *line, t_minishell *m)
     pid_t pid;
     t_command *cmd = parsing(line, m);
 
+    if (PARSING_LEAK_TRACKING == ON)
+    {
+        safe_malloc(0, DESTROY_COMMAND);
+        free(line);
+        return;
+    }
     if ( cmd == NULL)
         return ;
     if (count_cmd(cmd) == 1 && (cmd->id == EXIT_ID || cmd->id == CD_ID || cmd->id == EXPORT_ID || cmd->id == UNSET_ID))
@@ -174,6 +180,9 @@ int ft_minishell(t_minishell *m)
             return (free(prompt), EXIT_EOF );
         if (line && line[0] != '\0' && input_checker(m, line) == true)
             process_input_line(line, m);
+        //break ; // pour le debug des leaks
     }
+    if (prompt)
+        free(prompt);
     return (EXIT_SUCCESS);
 }

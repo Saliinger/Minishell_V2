@@ -14,23 +14,28 @@
 
 int	check_redir(char *in)
 {
-	int	i;
-	int	status;
-	int	nbr;
-
-	i = 0;
-	status = 0;
-	nbr = 0;
-	while (in[i])
-	{
-		status = in_quote(status, in[i]);
-		if ((in[i] == '<' || in[i] == '>') && status == 0)
-			nbr++;
-		while (in[i] && (in[i] == '<' || in[i] == '>'))
-			i++;
-		i++;
-	}
-	return (nbr);
+    int	i;
+    int	status;
+    int	nbr;
+    i = 0;
+    status = 0;
+    nbr = 0;
+    while (in[i])
+    {
+        status = in_quote(status, in[i]);
+        if ((in[i] == '<' || in[i] == '>') && status == 0)
+        {
+            nbr++;
+            while (in[i] && (in[i] == '<' || in[i] == '>'))
+            {
+                if (in[i+1] == '\0')
+                    break;
+                i++;
+            }
+        }
+        i++;
+    }
+    return (nbr);
 }
 
 char	**add_redir(char **tab, char **to_add)
@@ -112,7 +117,6 @@ static char	**get_redir(char *line)
 			to_add = (char *)safe_malloc(sizeof(char) * (end + 1), ALLOC_COMMAND);
 			ft_strlcpy(to_add, line + start, end + 1);
 			res = add_line(res, to_add, ALLOC_COMMAND);
-			free(to_add);
 			start += end;
 			end = 0;
 		}
@@ -143,6 +147,5 @@ char	**relexer(char **in)
 			res = add_line(res, in[i], ALLOC_COMMAND);
 		i++;
 	}
-	//ft_free_tab(in);
 	return (res);
 }

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-#include <stdio.h>
 
 char	*get_name_env(char *var)
 {
@@ -24,10 +23,8 @@ char	*get_name_env(char *var)
 	if (var[i] == '=')
 		i++;
 	if (i == ft_strlen(var))
-		return (ft_strdup(var));
-	name = (char *)malloc(sizeof(char) * i + 1);
-	if (!name)
-		return (NULL);
+		return (safe_strdup(var, ALLOC_MINISHELL));
+	name = (char *)safe_malloc(sizeof(char) * i + 1, ALLOC_MINISHELL);
 	ft_strlcpy(name, var, i);
 	return (name);
 }
@@ -47,9 +44,7 @@ char	*get_value_env(char *var)
 	len = ft_strlen(var) - i;
 	if (len == 0)
 		return (NULL);
-	value = (char *)malloc(sizeof(char) * len + 1);
-	if (!value)
-		return (NULL);
+	value = (char *)safe_malloc(sizeof(char) * len + 1, ALLOC_MINISHELL);
 	ft_strlcpy(value, var + i, len + 1);
 	return (value);
 }
@@ -62,7 +57,7 @@ t_export_list	**init_export_list(char **env)
 	t_export_list	**init;
 
 	i = 0;
-	init = (t_export_list **)malloc(sizeof(t_export_list));
+	init = (t_export_list **)safe_malloc(sizeof(t_export_list), ALLOC_MINISHELL);
 	*init = NULL;
 	while (env[i])
 	{

@@ -20,9 +20,7 @@ char	*add_char(char *s, char c)
 
 	i = 0;
 	len = ft_strlen(s);
-	res = (char *)malloc(sizeof(char) * (len + 2));
-	if (!res)
-		return (free(s), NULL);
+	res = (char *)safe_malloc(sizeof(char) * (len + 2), ALLOC_COMMAND);
 	while (s[i])
 	{
 		res[i] = s[i];
@@ -30,7 +28,6 @@ char	*add_char(char *s, char c)
 	}
 	res[i] = c;
 	res[i + 1] = '\0';
-	free(s);
 	return (res);
 }
 
@@ -56,7 +53,7 @@ char	*clean_name(char *var)
 
 	len = 0;
 	len = get_var_name(var);
-	res = (char *)malloc(sizeof(char) * len + 1);
+	res = (char *)safe_malloc(sizeof(char) * len + 1, ALLOC_COMMAND);
 	ft_strlcpy(res, var, len + 1);
 	return (res);
 }
