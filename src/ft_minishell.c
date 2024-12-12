@@ -179,7 +179,10 @@ int ft_minishell(t_minishell *m)
         if (get_line(&line, prompt, m) == EXIT_EOF)
             return (free(prompt), EXIT_EOF );
         if (line && line[0] != '\0' && input_checker(m, line) == true)
+        {
             process_input_line(line, m);
+            free(line);
+        }
         //break ; // pour le debug des leaks
     }
     if (prompt)
