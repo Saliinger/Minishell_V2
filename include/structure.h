@@ -96,6 +96,7 @@ typedef struct s_minishell
 	int					res_last_command;
 	char				**hd;
     t_export_list       **exportList;
+    t_safe_malloc       *cmd_gc;
 }						t_minishell;
 
 #endif

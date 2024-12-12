@@ -29,6 +29,7 @@
 # include <sys/wait.h>
 # include "display.h"
 # include "exec.h"
+# include "safe_malloc.h"
 
 int	printerr(const char *format, ...);
 

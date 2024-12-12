@@ -50,13 +50,16 @@ bool	divider_checker(char *in, char c)
     status = 0;
 	while (in[i])
 	{
-        status = in_quote(status, in[i]);
-        while (in[i] && status != 0)
+        if (in[i] == '\'' || in[i] == '\"')
         {
             status = in_quote(status, in[i]);
             i++;
+            while (in[i] && status != 0) {
+                status = in_quote(status, in[i]);
+                i++;
+            }
         }
-		if (in[i] == c && in[i + 1] == c)
+		if (in[i] == c && in[i + 1] == c && status == 0)
 		{
 			if (in[i + 1] == c && c == '|')
 			{
@@ -79,11 +82,14 @@ bool	forbiden_checker(char *in, char c)
     status = 0;
 	while (in[i])
 	{
-        status = in_quote(status, in[i]);
-        while (in[i] && status != 0)
+        if (in[i] == '\'' || in[i] == '\"')
         {
             status = in_quote(status, in[i]);
             i++;
+            while (in[i] && status != 0) {
+                status = in_quote(status, in[i]);
+                i++;
+            }
         }
 		if (in[i] == c)
 		{
