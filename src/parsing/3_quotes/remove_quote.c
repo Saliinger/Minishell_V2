@@ -19,6 +19,8 @@ char	**remove_quote(char **arg)
 	char	**res;
 	int		status;
 
+    if (!arg)
+        return (NULL);
 	i = 0;
 	res = (char **)malloc(sizeof(char *) * (nbr_of_line(arg) + 1));
 	if (!res)

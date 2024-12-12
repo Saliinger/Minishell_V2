@@ -27,8 +27,6 @@ t_command	*parsing(char *str, t_minishell *minishell)
 		temp->clean_arg = clean_arg(temp->arg);
 		temp->clean_arg = expand_in(temp->clean_arg, minishell);
 		temp->clean_arg = remove_quote(temp->clean_arg);
-		if (!temp->clean_arg)
-			return (free_command(current), NULL);
 		temp = temp->subcommand;
 	}
     return (current);

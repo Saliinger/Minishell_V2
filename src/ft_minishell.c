@@ -29,15 +29,24 @@ static int	get_line(char **line, char *prompt, t_minishell *m)
 	return (EXIT_SUCCESS);
 }
 
+void heredoc_handler(char *line, int fd, char *delimiter)
+{
+    while (1)
+    {
+        line = readline("> ");
+        if (!line || ft_strcmp(line, delimiter) == 0)
+            break;
+        write(fd, line, ft_strlen(line));
+        write(fd, "\n", 1);
+        free(line);
+    }
+    close(fd);
+}
+
 #define ON true
 #define OFF false
 #define PARSING_LEAK_TRACKING OFF
 
-/**
- * brief : adds the line to history, parses it,
-	executes it then returns exit status
- *
- *  */
 static int handle_redirections(t_command *cmd)
 {
     t_redir *redir = cmd->redirection;
@@ -60,17 +69,7 @@ static int handle_redirections(t_command *cmd)
             if (fd < 0)
                 return (perror("Erreur ouverture heredoc"), -1);
             char *line = NULL;
-            while (1)
-            {
-                line = readline("> ");
-                if (!line || ft_strcmp(line, delimiter) == 0)
-                    break;
-                write(fd, line, ft_strlen(line));
-                write(fd, "\n", 1);
-                free(line);
-            }
-            free(line);
-            close(fd);
+            heredoc_handler(line, fd, delimiter);
             fd = open(temp_file, O_RDONLY);
             if (fd < 0)
                 return (perror("Erreur ouverture fichier heredoc"), -1);
@@ -107,7 +106,7 @@ static void process_input_line(char *line, t_minishell *m)
     t_command *cmd = parsing(line, m);
 
     if ( cmd == NULL)
-        return free(line);
+        return ;
     if (count_cmd(cmd) == 1 && (cmd->id == EXIT_ID || cmd->id == CD_ID || cmd->id == EXPORT_ID || cmd->id == UNSET_ID))
     {
         ft_exec(m, cmd);

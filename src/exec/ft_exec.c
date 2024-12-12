@@ -16,6 +16,7 @@ int ft_exec(t_minishell *minishell, t_command *command)
 {
     int exit = 0;
 
+    //printf("builtin: %d\nbin id: %d\n", command->builtin, command->id);
     if (command->builtin)
         exit = ft_exec_builtins(minishell, command);
     else

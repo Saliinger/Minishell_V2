@@ -60,5 +60,7 @@ char	**add_line(char **tab, char *to_add)
 			return (ft_free_tab(res), NULL);
 		res[i + 1] = NULL;
 	}
-	return (ft_free_tab(tab), res);
+    if (tab)
+        ft_free_tab(tab);
+	return (res);
 }

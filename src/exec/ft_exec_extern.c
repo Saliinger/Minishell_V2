@@ -1,5 +1,7 @@
 #include "../../include/exec.h"
 
+// add a checker if it's something else than a command
+
 char	*build_full_path(char *dir, char *cmd)
 {
 	char	*full_path;

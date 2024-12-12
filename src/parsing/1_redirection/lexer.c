@@ -44,11 +44,12 @@ char	**add_redir(char **tab, char **to_add)
 	if (!res)
 		return (ft_free_tab(tab), ft_free_tab(to_add), NULL);
 	i = 0;
-	while (tab[i])
-	{
-		res[i] = ft_strdup(tab[i]);
-		i++;
-	}
+    if (tab) {
+        while (tab[i]) {
+            res[i] = ft_strdup(tab[i]);
+            i++;
+        }
+    }
 	j = 0;
 	while (to_add[j])
 	{
@@ -57,7 +58,7 @@ char	**add_redir(char **tab, char **to_add)
 		j++;
 	}
 	res[i] = NULL;
-	ft_free_tab(tab);
+    ft_free_tab(tab);
 	ft_free_tab(to_add);
 	return (res);
 }
@@ -149,6 +150,6 @@ char	**relexer(char **in)
 			res = add_line(res, in[i]);
 		i++;
 	}
-	ft_free_tab(in);
+	//ft_free_tab(in);
 	return (res);
 }
