@@ -151,11 +151,11 @@ static void process_input_line(char *line, t_minishell *m)
         prev_pipe_fd = pipe_fds[0];
         cmd = cmd->subcommand;
     }
-    // while (waitpid(-1, &status, 0) > 0)
-    // {
-    //     if (WIFEXITED(status))
-    //         m->exit_status[0] = WEXITSTATUS(status);
-    // }
+     while (waitpid(-1, &status, 0) > 0)
+     {
+         if (WIFEXITED(status))
+             m->exit_status[0] = WEXITSTATUS(status);
+     }
     safe_malloc(0, DESTROY_COMMAND);
 }
 

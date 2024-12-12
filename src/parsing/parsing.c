@@ -18,6 +18,7 @@ t_command	*parsing(char *str, t_minishell *minishell)
 	t_command	*temp;
 
     str = tiny_expand(str, minishell);
+    printerr("%s\n", str);
     current = command_init(str);
 	temp = current;
 	while (temp)
