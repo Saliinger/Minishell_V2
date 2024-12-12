@@ -24,26 +24,23 @@ char	**remove_env(char **env, int to_delete)
 	i = 0;
 	j = 0;
 	len = nbr_of_line(env);
-	res = (char **)malloc(sizeof(char *) * len + 1);
-	if (!res)
-		return (ft_free_tab(env), NULL);
+	res = (char **)safe_malloc(sizeof(char *) * len + 1, ALLOC_MINISHELL);
 	while (env[j])
 	{
 		if (j != to_delete)
 		{
-			res[i] = ft_strdup(env[j]);
+			res[i] = safe_strdup(env[j], ALLOC_MINISHELL);
 			i++;
 		}
 		j++;
 	}
 	res[i] = NULL;
-	ft_free_tab(env);
 	return (res);
 }
 
 int	create_var(t_minishell *minishell, char *var)
 {
-	minishell->env = add_line(minishell->env, var);
+	minishell->env = add_line(minishell->env, var, ALLOC_MINISHELL);
 	if (!minishell->env)
 		return (1);
 	return (0);

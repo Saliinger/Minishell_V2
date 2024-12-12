@@ -7,7 +7,7 @@
 
 #include "imports.h"
 
-typedef enum e_action
+enum e_action
 {
     ALLOC_COMMAND,
     ALLOC_MINISHELL,

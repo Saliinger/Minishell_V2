@@ -31,7 +31,7 @@ char	**clean_arg(char **arg)
 			i += 2;
 		else
 		{
-			res = add_line(res, arg[i]);
+			res = add_line(res, arg[i], ALLOC_COMMAND);
 			i++;
 		}
 	}

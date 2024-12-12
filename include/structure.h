@@ -87,6 +87,7 @@ typedef struct s_minishell
 {
 	char				**env;
     t_export_list       **env_node;
+	char				**hidden_env;
 	int					std_fds[2];
 	int					*exit_status;		//don't free me.
 	char				**hidden_path;

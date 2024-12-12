@@ -52,15 +52,11 @@ char	** add_line(char **tab, char *to_add, enum e_action action)
 		return (ft_free_tab(tab), NULL);
 	i = 0;
 	if (tab)
-		copy_tab(tab, res, to_add);
+		copy_tab(tab, res, to_add, action);
 	else
 	{
-		res[i] = ft_strdup(to_add);
-		if (!res[i])
-			return (ft_free_tab(res), NULL);
+		res[i] = safe_strdup(to_add, action);
 		res[i + 1] = NULL;
 	}
-    if (tab)
-        ft_free_tab(tab);
 	return (res);
 }
