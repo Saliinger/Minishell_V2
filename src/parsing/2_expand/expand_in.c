@@ -38,7 +38,7 @@ char	*add_expand(char *s, char *to_add)
 	int		i;
 
 	i = 0;
-	res = ft_strdup("");
+	res = safe_strdup("", ALLOC_COMMAND);
 	while (s[i])
 	{
 		res = add_char(res, s[i]);
@@ -69,12 +69,12 @@ char	*expand(t_minishell *minishell, char *name)
 		res = ft_itoa(*exit);
 	}
 	else if (ft_strlen(name) == 1 && *name == '$')
-		res = safe_strdup("$", minishell->cmd_gc);
+		res = safe_strdup("$", ALLOC_COMMAND);
 	else
 	{
 		data = find_export_node(name + 1, minishell->exportList);
 		if (data)
-			res = safe_strdup(data->value, minishell->cmd_gc);
+			res = safe_strdup(data->value, ALLOC_COMMAND);
 		else
 			return (NULL);
 	}
@@ -90,7 +90,7 @@ char	*new_line(t_minishell *minishell, char *line)
 	char	*extend;
 
 	i = 0;
-	res = safe_strdup("", minishell->cmd_gc);
+	res = safe_strdup("", ALLOC_COMMAND);
 	status = 0;
 	while (line[i])
 	{

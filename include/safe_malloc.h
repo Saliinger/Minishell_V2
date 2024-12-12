@@ -7,6 +7,14 @@
 
 #include "imports.h"
 
+typedef enum e_action
+{
+    ALLOC_COMMAND,
+    ALLOC_MINISHELL,
+    DESTROY_COMMAND,
+    NUKE,
+};
+
 typedef struct s_safe_malloc
 {
     void                    *ptr;
@@ -15,12 +23,9 @@ typedef struct s_safe_malloc
 }                           t_safe_malloc;
 
 // sert a creer des mallocs dans une liste chaine
-void    *safe_malloc(size_t size, t_safe_malloc *head);
-
-// sert a free le garbage collector
-void *safe_destroy(t_safe_malloc *head);
+void    *safe_malloc(size_t size, enum e_action action);
 
 // strdup but safe
-char *safe_strdup(char *s, t_safe_malloc *head);
+char *safe_strdup(char *s,  enum e_action action);
 
 #endif //MINISHELL_V2_SAFE_MALLOC_H

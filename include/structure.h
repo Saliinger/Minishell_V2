@@ -86,9 +86,9 @@ typedef struct s_export_list
 typedef struct s_minishell
 {
 	char				**env;
+    t_export_list       **env_node;
 	int					std_fds[2];
 	int					*exit_status;		//don't free me.
-	char				**hidden_env;
 	char				**hidden_path;
 	char				**paths;
 	char				*pwd;
@@ -96,7 +96,6 @@ typedef struct s_minishell
 	int					res_last_command;
 	char				**hd;
     t_export_list       **exportList;
-    t_safe_malloc       *cmd_gc;
 }						t_minishell;
 
 #endif

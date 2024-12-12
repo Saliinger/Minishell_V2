@@ -33,5 +33,5 @@ void							ft_free_t_redir(t_redir **r);
 void							free_t_infos(t_infos *i);
 void							ft_free_tab(char **tab);
 int								in_quote(int status, char type);
-char							**add_line(char **tab, char *to_add);
+char	                        ** add_line(char **tab, char *to_add, enum e_action action);
 #endif
