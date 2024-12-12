@@ -26,7 +26,9 @@ char *tiny_expand(char *s, t_minishell *minishell)
 
     if (*s == '$')
     {
-        if (*s + 1 == '?')
+        if (ft_strcmp(s, "$") == 0)
+            return (s);
+        if (ft_strcmp(s,"$?") == 0)
             res = ft_itoa_safe(*minishell->exit_status);
         else
         {
@@ -34,7 +36,6 @@ char *tiny_expand(char *s, t_minishell *minishell)
             var = find_export_node(name + 1, minishell->exportList);
             if (!var || !var->value) {
                 res = safe_strdup(s + ft_strlen(name), ALLOC_COMMAND);
-                free(s);
                 return (res);
             }
             res = safe_strdup(var->value, ALLOC_COMMAND);
