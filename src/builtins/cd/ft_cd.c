@@ -34,6 +34,5 @@ int	ft_cd(t_command *command, t_minishell *minishell)
 		printerr(" No such file or directory\n");
 		return (minishell->exit_status[0] = 1, 1);
 	}
-	free(path);
 	return (0);
 }
