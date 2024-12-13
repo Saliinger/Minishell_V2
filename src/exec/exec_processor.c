@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_processor.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/14 00:07:20 by anoukan           #+#    #+#             */
+/*   Updated: 2024/12/14 00:07:20 by anoukan          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../include/exec.h"
 
@@ -132,7 +143,8 @@ void	process_input_line(char *line, t_minishell *m)
 	else
 	{
 		process_fork(cmd, m);
-		while (waitpid(-1, &status, 0) > 0) {
+		while (waitpid(-1, &status, 0) > 0)
+		{
 			if (WIFEXITED(status))
 				m->exit_status[0] = WEXITSTATUS(status);
 		}

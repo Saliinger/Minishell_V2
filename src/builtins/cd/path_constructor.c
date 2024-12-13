@@ -13,6 +13,7 @@
 #include "../../../include/minishell.h"
 
 // init path handle the start of the path that we wan't to go to ~ / or nothing
+
 static int	init_path(char *in, t_minishell *minishell, char **new_in)
 {
 	char	*temp;
@@ -34,7 +35,7 @@ static int	init_path(char *in, t_minishell *minishell, char **new_in)
 		{
 			if (*in != '/')
 				temp = ft_strjoin_safe(temp, "/", ALLOC_COMMAND);
-			*new_in = ft_strjoin(temp, in);
+			*new_in = ft_strjoin_safe(temp, in, ALLOC_COMMAND);
 		}
 		else
 			*new_in = ft_strdup(in);
@@ -78,9 +79,9 @@ char	*get_res(char *current_path)
 
 	res = NULL;
 	if (ft_strlen(current_path) > 0)
-		res = safe_strdup(current_path, ALLOC_COMMAND);
+		res = (char *)safe_strdup(current_path, ALLOC_COMMAND);
 	else
-		res = safe_strdup("/", ALLOC_COMMAND);
+		res = (char *)safe_strdup("/", ALLOC_COMMAND);
 	return (res);
 }
 
@@ -96,7 +97,7 @@ char	*path_constructor(t_minishell *minishell, char *in)
 	if (!check_dot(new_in))
 		return (new_in);
 	in_cut = ft_split(new_in, '/');
-	current_path = (char *) safe_malloc(sizeof(char) * PATH_MAX + 1, ALLOC_COMMAND);
+	current_path = (char *)safe_malloc(sizeof(char) * PATH_MAX + 1, ALLOC_COMMAND);
 	while (in_cut[i])
 	{
 		if (ft_strlen(in_cut[i]) <= 3 && *in_cut[i] == '.')
