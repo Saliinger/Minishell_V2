@@ -12,6 +12,8 @@
 
 #include "../../include/minishell.h"
 
+// this functions are used to initialise the command that we're gonna process and '|' aka subcommand
+
 static char	*cut_first_cmd(char *in, int pipe_position)
 {
 	char	*res;

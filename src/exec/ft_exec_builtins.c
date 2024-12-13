@@ -1,5 +1,7 @@
 #include "../../include/exec.h"
 
+// execute all builtins
+
 int ft_exec_builtins(t_minishell *minishell, t_command *command)
 {
     int exit = 0;

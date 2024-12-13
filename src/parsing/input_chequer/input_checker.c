@@ -12,6 +12,8 @@
 
 #include "../../../include/minishell.h"
 
+// check if there's any synthax error or unauthorize test like || ; <<< etc get fucked super tester
+
 bool	quote_checker(char *in, char c)
 {
 	int	i;

@@ -1,5 +1,7 @@
 #include "../../../include/minishell.h"
 
+// expand if the first char is $ in case it's empty or else
+
 char *get_name(char *s)
 {
     int i = 0;

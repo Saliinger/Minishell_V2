@@ -12,6 +12,8 @@
 
 #include "../../include/minishell.h"
 
+// chekc if there's pipe and give their position in the char *in
+
 int	check_pipe(char *in)
 {
 	int	i;

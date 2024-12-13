@@ -28,6 +28,7 @@ typedef struct s_redir t_redir;
 int     ft_exec(t_minishell *minishell, t_command *command);
 int     ft_exec_builtins(t_minishell *minishell, t_command *command);
 int    ft_exec_extern(t_minishell *minishell, t_command *command);
+void process_input_line(char *line, t_minishell *m);
 
 // Utils
 void exec_error(char *error, t_minishell *minishell, t_command *command);

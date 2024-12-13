@@ -12,6 +12,8 @@
 
 #include "../../../include/minishell.h"
 
+// remove redirections and keys form the command arg
+
 static bool	is_redirection(char *str)
 {
 	return (ft_strcmp(str, "<<") == 0 || ft_strcmp(str, ">>") == 0

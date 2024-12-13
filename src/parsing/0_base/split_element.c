@@ -12,6 +12,8 @@
 
 #include "../../../include/minishell.h"
 
+// basic split to remove all the unecessary spaces or white spaces
+
 static void	ft_split_write_extend(size_t *i, size_t *j, const char *s, char c)
 {
 	int	status;

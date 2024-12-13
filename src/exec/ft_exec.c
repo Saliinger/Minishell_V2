@@ -12,6 +12,8 @@
 
 #include "../../include/minishell.h"
 
+// launch exec for builtins and extern command
+
 int ft_exec(t_minishell *minishell, t_command *command)
 {
     int exit = 0;

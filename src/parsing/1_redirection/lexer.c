@@ -12,6 +12,8 @@
 
 #include "../../../include/minishell.h"
 
+// split all the weird redir case like <<sdf > sdf >asd <sdf etc
+
 int	check_redir(char *in)
 {
     int	i;

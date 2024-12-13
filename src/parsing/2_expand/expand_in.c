@@ -12,6 +12,8 @@
 
 #include "../../../include/minishell.h"
 
+// expand all the vars in "" or out
+
 static int	check_nbr_var(char *line)
 {
 	int	i;

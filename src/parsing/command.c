@@ -12,6 +12,8 @@
 
 #include "../../include/minishell.h"
 
+// determine if the command is a builtin or not and initialise the command for the parsing
+
 static char	*extract_command(char *line)
 {
 	char	*command;

@@ -12,6 +12,8 @@
 
 #include "../../../include/minishell.h"
 
+// create the linked list containing all the redir for one command
+
 static void	add_node(t_enum_redir type, char *str, t_redir **head)
 {
 	t_redir	*new;

@@ -12,6 +12,8 @@
 
 #include "../../../include/minishell.h"
 
+// remove external quote
+
 char	**remove_quote(char **arg)
 {
 	int		i;

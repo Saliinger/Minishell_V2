@@ -12,6 +12,13 @@
 
 #include "../../include/minishell.h"
 
+// just add few step to the arg to:
+// - split and create new line for every redirection
+// - create the t_redir linked list
+// - remove all the '<' || '>' and their key
+// - expand all the env var in "" or out
+// - remove all the exteranal quote '' || ""
+
 t_command	*parsing(char *str, t_minishell *minishell)
 {
 	t_command	*current;
