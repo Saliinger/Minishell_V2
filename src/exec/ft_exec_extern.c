@@ -22,7 +22,7 @@ char	*build_full_path(char *dir, char *cmd)
 	int		total_len;
 
 	total_len = ft_strlen(dir) + ft_strlen(cmd) + 2;
-	full_path = malloc(sizeof(char) * total_len);
+	full_path = (char *)safe_malloc(sizeof(char) * total_len, ALLOC_COMMAND);
 	if (!full_path)
 		return (NULL);
 	ft_strcpy(full_path, dir);
@@ -49,7 +49,6 @@ static char	*get_value(char **splited_path, char *full_path, t_command *command)
 			ft_free_tab(splited_path);
 			return (full_path);
 		}
-		free(full_path);
 		i++;
 	}
 	ft_free_tab(splited_path);

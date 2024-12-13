@@ -27,7 +27,7 @@ static int	undpate_pwd(t_minishell *minishell, char *path, int oldpwd_line,
 	{
 		char *temp2;
 
-		temp2 = ft_strjoin("PWD=", path);
+		temp2 = ft_strjoin_safe("PWD=", path, ALLOC_MINISHELL);
 		create_var(minishell, temp2);
 		add_node_export(minishell->exportList, "PWD", path);
 		temp = find_export_node("PWD", minishell->exportList);
