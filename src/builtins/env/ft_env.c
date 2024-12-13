@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:29:52 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/10 18:10:17 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/13 21:45:48 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int	ft_env(t_minishell *minishell)
 	int	i;
 
 	if (!minishell->env)
-        return (1);
+		return (1);
 	i = 0;
 	while (minishell->env[i])
 	{
 		printf("%s\n", minishell->env[i]);
 		i++;
 	}
-    exit(0);
+	exit(0);
 }

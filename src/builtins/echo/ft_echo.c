@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:54:00 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/10 18:20:35 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/13 21:45:56 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ int	ft_echo(t_command *command)
 		error = echo_print(cmd, false, i);
 	else
 		error = echo_print(cmd, true, i);
-	exit (error);
+	exit(error);
 }

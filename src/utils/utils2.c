@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 17:33:22 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/10 17:43:43 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/13 21:46:44 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	copy_tab(char **tab, char **res, char *to_add, enum e_action action)
 	res[i + 1] = NULL;
 }
 
-char	** add_line(char **tab, char *to_add, enum e_action action)
+char	**add_line(char **tab, char *to_add, enum e_action action)
 {
 	char	**res;
 	int		i;

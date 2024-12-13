@@ -31,9 +31,13 @@ t_command	*parsing(char *str, t_minishell *minishell)
 	{
 		temp->arg = relexer(temp->arg);
 		temp->redirection = extract_redir(temp->arg);
-		temp->clean_arg = clean_arg(temp->arg);
-		temp->clean_arg = expand_in(temp->clean_arg, minishell);
-		temp->clean_arg = remove_quote(temp->clean_arg);
+		if (temp->arg)
+			temp->clean_arg = clean_arg(temp->arg);
+		if (temp->clean_arg)
+		{
+			temp->clean_arg = expand_in(temp->clean_arg, minishell);
+			temp->clean_arg = remove_quote(temp->clean_arg);
+		}
 		temp = temp->subcommand;
 	}
     return (current);

@@ -111,6 +111,5 @@ char	*path_constructor(t_minishell *minishell, char *in)
 		i++;
 	}
 	res = get_res(current_path);
-	fprintf(stderr, "res: %s\n", res);
 	return (res);
 }

@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa_safe.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/13 21:46:12 by anoukan           #+#    #+#             */
+/*   Updated: 2024/12/13 21:46:14 by anoukan          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../../include/safe_malloc.h"
 
-static	int	ft_digits(long n)
+static int	ft_digits(long n)
 {
 	int	i;
 
@@ -21,7 +32,7 @@ static	int	ft_digits(long n)
 	return (i);
 }
 
-static	void	ft_itoa_2(long nbr, char *dest, size_t *i)
+static void	ft_itoa_2(long nbr, char *dest, size_t *i)
 {
 	if (nbr >= 10)
 	{

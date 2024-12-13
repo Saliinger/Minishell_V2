@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:23:53 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/10 17:34:09 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/13 21:46:40 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ char	**get_env(char **env)
 	nbr_lines = nbr_of_line(env);
 	if (!env)
 		return (NULL);
-	res = (char **)safe_malloc(sizeof(char *) * (nbr_lines + 1), ALLOC_MINISHELL);
+	res = (char **)safe_malloc(sizeof(char *) * (nbr_lines + 1),
+			ALLOC_MINISHELL);
 	if (!res)
 		return (NULL);
 	while (i < nbr_lines)

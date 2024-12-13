@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:32:10 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/06 22:59:01 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/13 21:47:03 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static t_minishell	*init(char **env, char *pwd, int *adr_int)
 {
 	t_minishell	*minishell;
 
-	minishell = (t_minishell *)safe_malloc(sizeof(t_minishell), ALLOC_MINISHELL);
+	minishell = (t_minishell *)safe_malloc(sizeof(t_minishell),
+			ALLOC_MINISHELL);
 	if (!minishell)
 		return (NULL);
 	minishell->env = get_env(env);
@@ -44,16 +45,16 @@ int	main(int ac, char **av, char **env)
 	set_signals_to_minishell();
 	(void)av;
 	(void)ac;
-//	if (ac > 1)
-//		return (printerr("err: case not asked by subject\n."), 1);
+	//	if (ac > 1)
+	//		return (printerr("err: case not asked by subject\n."), 1);
 	exit_status = 0;
 	minishell = init(env, getcwd(buffer, 4096), &exit_status);
 	if (!minishell)
 		return (1);
-//	if (save_std_fds(minishell->std_fds) == -1)
-//		return (ERR_PRIM);
+	//	if (save_std_fds(minishell->std_fds) == -1)
+	//		return (ERR_PRIM);
 	ft_minishell(minishell);
 	clear_history();
-    safe_malloc(0, NUKE);
+	safe_malloc(0, NUKE);
 	return (exit_status);
 }
