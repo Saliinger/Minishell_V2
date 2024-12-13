@@ -18,7 +18,7 @@ static char	*no_pwd(void)
 	char	*temp;
 
 	getcwd(buffer, PATH_MAX);
-	temp = ft_strdup(buffer);
+	temp = safe_strdup(buffer, ALLOC_COMMAND);
 	return (temp);
 }
 
@@ -32,7 +32,7 @@ char	*get_current_path(t_minishell *minishell)
 	line = get_env_var(minishell, "PWD", 3);
 	if (line == -1)
 		return (no_pwd());
-	current_path = ft_strdup(minishell->env[line]);
+	current_path = safe_strdup(minishell->env[line], ALLOC_COMMAND);
 	if (!current_path)
 		return (NULL);
 	temp = current_path;
@@ -40,7 +40,6 @@ char	*get_current_path(t_minishell *minishell)
 		temp++;
 	if (*temp == '=')
 		temp++;
-	res = ft_strdup(temp);
-	free(current_path);
+	res = safe_strdup(temp, ALLOC_COMMAND);
 	return (res);
 }

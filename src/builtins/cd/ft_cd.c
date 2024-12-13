@@ -12,6 +12,8 @@
 
 #include "../../../include/minishell.h"
 
+// check: perm / type of file : dir or else / is a symlink
+
 int	ft_cd(t_command *command, t_minishell *minishell)
 {
 	int		error;
@@ -19,7 +21,8 @@ int	ft_cd(t_command *command, t_minishell *minishell)
 
 	if (nbr_of_line(command->clean_arg) > 2)
 		return (printerr("cd: too many arguments\n"), minishell->exit_status[0] = 1, 1);
-	path = command->clean_arg[1];
+	path = get_path(command->clean_arg[1], minishell);
+	fprintf(stderr, "Path : %s\n", path);
 	if (!path)
 		return (minishell->exit_status[0] = 1, 1);
 	error = chdir(path);
@@ -27,10 +30,11 @@ int	ft_cd(t_command *command, t_minishell *minishell)
 	{
 		error = change_pwd(minishell, path);
 		if (error != 0)
-			printerr("cd: Fail to change PWD and OLDPWD\n");
+			printerr("cd: Fail to change PWD or OLDPWD\n");
 	}
 	else
 	{
+		// check permission or type
 		printerr(" No such file or directory\n");
 		return (minishell->exit_status[0] = 1, 1);
 	}

@@ -23,7 +23,7 @@
 // CD
 int	ft_cd(t_command *command, t_minishell *minishell);
 char	*get_path(char *in, t_minishell *minishell);
-char	*get_home(t_minishell *minishell);
+char	*get_home(t_minishell **minishell);
 char	*path_constructor(t_minishell *minishell, char *in);
 char	*get_current_path(t_minishell *minishell);
 int		change_pwd(t_minishell *minishell, char *in);

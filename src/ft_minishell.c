@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-static int	get_line(char **line, char *prompt, t_minishell *m)
+static int get_line(char **line, char *prompt, t_minishell *m)
 {
 	line[0] = readline(prompt);
 	if (g_sig == SIGINT)
@@ -31,7 +31,7 @@ static int	get_line(char **line, char *prompt, t_minishell *m)
 
 int ft_minishell(t_minishell *m)
 {
-    char *line;
+	char *line;
     char *prompt;
 
     line = NULL;

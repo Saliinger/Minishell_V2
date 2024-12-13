@@ -20,10 +20,10 @@ char	*get_path(char *in, t_minishell *minishell)
 	if (!in || (ft_strlen(in) == 1 && *in == '~') || (ft_strlen(in) == 1
 			&& *in == '/'))
 	{
-		res = get_home(minishell);
+		res = get_home(&minishell);
 		if (!res)
 			perror("Error: Home is not set\n");
-        return (NULL);
+        return (res);
 	}
 	else
 		res = path_constructor(minishell, in);

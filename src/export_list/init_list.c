@@ -57,7 +57,7 @@ t_export_list	**init_export_list(char **env)
 	t_export_list	**init;
 
 	i = 0;
-	init = (t_export_list **)safe_malloc(sizeof(t_export_list), ALLOC_MINISHELL);
+	init = (t_export_list **)safe_malloc(sizeof(t_export_list *), ALLOC_MINISHELL);
 	*init = NULL;
 	while (env[i])
 	{

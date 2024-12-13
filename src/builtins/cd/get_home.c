@@ -12,15 +12,15 @@
 
 #include "../../../include/minishell.h"
 
-char	*get_home(t_minishell *minishell)
+char	*get_home(t_minishell **minishell)
 {
 	t_export_list	*home;
 	char			*line;
 
-	home = find_export_node("HOME", minishell->exportList);
+	home = find_export_node("HOME", (*minishell)->exportList);
 	if (home)
 	{
-		line = ft_strdup(home->value);
+		line = safe_strdup(home->value,ALLOC_COMMAND);
 		return (line);
 	}
 	return (NULL);

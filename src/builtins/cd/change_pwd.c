@@ -19,22 +19,25 @@ static int	undpate_pwd(t_minishell *minishell, char *path, int oldpwd_line,
 		int pwd_line)
 {
 	int	error;
+	t_export_list *temp;
 
 	error = 0;
-	free(minishell->old_pwd);
-	minishell->old_pwd = ft_strdup(minishell->pwd);
-	if (!minishell->old_pwd)
-		return (1);
-	free(minishell->env[oldpwd_line]);
-	minishell->env[oldpwd_line] = ft_strjoin("OLDPWD=", minishell->old_pwd);
-	free(minishell->pwd);
-	minishell->pwd = ft_strdup(path);
-	if (!minishell->pwd)
-		return (1);
-	free(minishell->env[pwd_line]);
-	minishell->env[pwd_line] = ft_strjoin("PWD=", path);
-	error += modify_value(minishell->exportList, "PWD", minishell->pwd);
-	error += modify_value(minishell->exportList, "OLDPWD", minishell->old_pwd);
+	temp = find_export_node("PWD", minishell->exportList);
+	if (!temp)
+	{
+		char *temp2;
+
+		temp2 = ft_strjoin("PWD=", path);
+		create_var(minishell, temp2);
+		add_node_export(minishell->exportList, "PWD", path);
+		temp = find_export_node("PWD", minishell->exportList);
+	}
+	error += modify_value(minishell->exportList, "OLDPWD", temp->value);
+	minishell->old_pwd = ft_strjoin_safe("OLDPWD=", temp->value, ALLOC_MINISHELL);
+	minishell->env[oldpwd_line] = safe_strdup(minishell->old_pwd, ALLOC_MINISHELL);
+	error += modify_value(minishell->exportList, "PWD", path);
+	minishell->pwd = safe_strdup(path, ALLOC_MINISHELL);
+	minishell->env[pwd_line] = ft_strjoin_safe("PWD=", minishell->pwd, ALLOC_MINISHELL);
 	return (error);
 }
 

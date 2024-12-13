@@ -19,12 +19,12 @@ void	remove_path(char *dest)
 	len = ft_strlen(dest);
 	if (len == 0)
 		return ;
-	while (len > 0 && dest[len - 1] != '/')
+	while (len > 0 && dest[len] != '/')
+	{
+		dest[len] = 0;
 		len--;
-	if (len == 0)
-		dest[0] = '\0';
-	else
-		dest[len - 1] = '\0';
+	}
+	dest[len] = 0;
 }
 
 void	add_path(char *dest, char *to_add)

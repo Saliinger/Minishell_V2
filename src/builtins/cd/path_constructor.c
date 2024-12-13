@@ -19,13 +19,13 @@ static int	init_path(char *in, t_minishell *minishell, char **new_in)
 
 	if (*in == '~' || *in == '/' || !in)
 	{
-		temp = get_home(minishell);
+		temp = get_home(&minishell);
 		if (*in != '~' && ft_strcmp(temp, in) != 0)
-			*new_in = ft_strjoin(temp, in);
+			*new_in = ft_strjoin_safe(temp, in, ALLOC_COMMAND);
 		else if (ft_strcmp(temp, in) != 0)
-			*new_in = ft_strjoin(temp, in + 1);
+			*new_in = ft_strjoin_safe(temp, in + 1, ALLOC_COMMAND);
 		else
-			*new_in = ft_strdup(in);
+			*new_in = safe_strdup(in, ALLOC_COMMAND);
 	}
 	else
 	{
@@ -33,13 +33,13 @@ static int	init_path(char *in, t_minishell *minishell, char **new_in)
 		if (ft_strcmp(temp, in) != 0)
 		{
 			if (*in != '/')
-				temp = ft_strjoin_frees1(temp, "/");
+				temp = ft_strjoin_safe(temp, "/", ALLOC_COMMAND);
 			*new_in = ft_strjoin(temp, in);
 		}
 		else
 			*new_in = ft_strdup(in);
 	}
-	return (free(temp), 0);
+	return (0);
 }
 
 bool	check_dot(char *in)
@@ -72,21 +72,23 @@ int	nbr_of_dot(char *line)
 	return (nbr);
 }
 
-char	*get_res(char *new_in, char **in_cut, char *current_path)
+char	*get_res(char *current_path)
 {
 	char	*res;
 
-	res = ft_strdup(current_path);
-	ft_free_tab(in_cut);
-	free(new_in);
-	return (0);
+	res = NULL;
+	if (ft_strlen(current_path) > 0)
+		res = safe_strdup(current_path, ALLOC_COMMAND);
+	else
+		res = safe_strdup("/", ALLOC_COMMAND);
+	return (res);
 }
 
 char	*path_constructor(t_minishell *minishell, char *in)
 {
 	char	*res;
 	char	*new_in;
-	char	current_path[PATH_MAX];
+	char	*current_path;
 	int		i;
 	char	**in_cut;
 
@@ -94,6 +96,7 @@ char	*path_constructor(t_minishell *minishell, char *in)
 	if (!check_dot(new_in))
 		return (new_in);
 	in_cut = ft_split(new_in, '/');
+	current_path = (char *) safe_malloc(sizeof(char) * PATH_MAX + 1, ALLOC_COMMAND);
 	while (in_cut[i])
 	{
 		if (ft_strlen(in_cut[i]) <= 3 && *in_cut[i] == '.')
@@ -107,6 +110,7 @@ char	*path_constructor(t_minishell *minishell, char *in)
 			add_path(current_path, in_cut[i]);
 		i++;
 	}
-	res = get_res(new_in, in_cut, current_path);
+	res = get_res(current_path);
+	fprintf(stderr, "res: %s\n", res);
 	return (res);
 }
