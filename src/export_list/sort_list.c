@@ -38,7 +38,7 @@ t_export_list	*merge_sorted_lists(t_export_list *left, t_export_list *right)
 	if (!right)
 		return (left);
 	result = NULL;
-	if (strcmp(left->name, right->name) <= 0)
+	if (ft_strcmp(left->name, right->name) <= 0)
 	{
 		result = left;
 		result->next = merge_sorted_lists(left->next, right);

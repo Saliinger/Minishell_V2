@@ -18,13 +18,17 @@
 
 int	delete_export_node(t_export_list **lst, char *name)
 {
-	t_export_list	*tmp;
+	t_export_list	*to_delete;
+	t_export_list   *current;
 
-	tmp = find_export_node(name, lst);
-	while ((*lst)->next != tmp)
-		*lst = (*lst)->next;
-	if ((*lst)->next == tmp)
-		(*lst)->next = (*lst)->next->next;
+	to_delete = find_export_node(name, lst);
+	if (!to_delete)
+		return (0);
+	current = *lst;
+	while (current->next != to_delete)
+		current = current->next;
+	if (current->next == to_delete)
+		current->next = current->next->next;
 	else
 		return (1);
 	return (0);

@@ -1,8 +1,18 @@
 
 #include "../../include/exec.h"
 
-void	heredoc_handler(char *line, int fd, char *delimiter)
+static int	heredoc_handler(int fd, t_redir *redir)
 {
+	char	*delimiter;
+	char	*temp_file;
+	char	*line;
+
+	delimiter = redir->redir;
+	temp_file = "temp_heredoc_file";
+	fd = open(temp_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd < 0)
+		return (perror("Erreur ouverture heredoc"), -1);
+	line = NULL;
 	while (1)
 	{
 		line = readline("> ");
@@ -13,6 +23,10 @@ void	heredoc_handler(char *line, int fd, char *delimiter)
 		free(line);
 	}
 	close(fd);
+	fd = open(temp_file, O_RDONLY);
+	if (fd < 0)
+		return (perror("Erreur ouverture fichier heredoc"), -1);
+	return (fd);
 }
 
 #define ON true
@@ -23,9 +37,6 @@ static int	handle_redirections(t_command *cmd)
 {
 	t_redir	*redir;
 	int		fd;
-	char	*delimiter;
-	char	*temp_file;
-	char	*line;
 
 	redir = cmd->redirection;
 	while (redir)
@@ -37,22 +48,9 @@ static int	handle_redirections(t_command *cmd)
 		else if (redir->type == R_INPUT)
 			fd = open(redir->redir, O_RDONLY);
 		else if (redir->type == R_HEREDOC)
-		{
-			// here doc handler
-			delimiter = redir->redir;
-			temp_file = "temp_heredoc_file";
-			fd = open(temp_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			if (fd < 0)
-				return (perror("Erreur ouverture heredoc"), -1);
-			line = NULL;
-			heredoc_handler(line, fd, delimiter);
-			fd = open(temp_file, O_RDONLY);
-			if (fd < 0)
-				return (perror("Erreur ouverture fichier heredoc"), -1);
-		}
+			fd = heredoc_handler(fd, redir);
 		else
 			return (perror("Type de redirection inconnu"), -1);
-				// redir impossible
 		if (fd < 0)
 			return (perror(redir->redir), -1);
 		if (redir->type == R_INPUT || redir->type == R_HEREDOC)
@@ -72,33 +70,15 @@ static int	handle_redirections(t_command *cmd)
 	return (0);
 }
 
-void	process_input_line(char *line, t_minishell *m)
+void    process_fork(t_command *cmd, t_minishell*m)
 {
-	int			status;
-	int			pipe_fds[2];
 	int			prev_pipe_fd;
 	pid_t		pid;
-	t_command	*cmd;
 
 	prev_pipe_fd = -1;
-	cmd = parsing(line, m);
-	if (PARSING_LEAK_TRACKING == ON)
-	{
-		safe_malloc(0, DESTROY_COMMAND);
-		free(line);
-		return ;
-	}
-	if (cmd == NULL)
-		return ;
-	if (count_cmd(cmd) == 1 && (cmd->id == EXIT_ID || cmd->id == CD_ID
-			|| cmd->id == EXPORT_ID || cmd->id == UNSET_ID))
-	{
-		ft_exec(m, cmd);
-		return ;
-	}
 	while (cmd)
 	{
-		if (cmd->subcommand && pipe(pipe_fds) < 0)
+		if (cmd->subcommand && pipe(cmd->pipe_fds) < 0)
 		{
 			perror("Erreur de pipe");
 			break ;
@@ -114,29 +94,48 @@ void	process_input_line(char *line, t_minishell *m)
 			if (prev_pipe_fd != -1)
 				dup2(prev_pipe_fd, STDIN_FILENO);
 			if (cmd->subcommand)
-				dup2(pipe_fds[1], STDOUT_FILENO);
+				dup2(cmd->pipe_fds[1], STDOUT_FILENO);
 			if (handle_redirections(cmd) < 0)
 				exit(EXIT_FAILURE);
 			if (prev_pipe_fd != -1)
 				close(prev_pipe_fd);
 			if (cmd->subcommand)
 			{
-				close(pipe_fds[0]);
-				close(pipe_fds[1]);
+				close(cmd->pipe_fds[0]);
+				close(cmd->pipe_fds[1]);
 			}
 			exit(ft_exec(m, cmd));
 		}
 		if (prev_pipe_fd != -1)
 			close(prev_pipe_fd);
 		if (cmd->subcommand)
-			close(pipe_fds[1]);
-		prev_pipe_fd = pipe_fds[0];
+			close(cmd->pipe_fds[1]);
+		prev_pipe_fd = cmd->pipe_fds[0];
 		cmd = cmd->subcommand;
 	}
-	while (waitpid(-1, &status, 0) > 0)
+}
+
+void	process_input_line(char *line, t_minishell *m)
+{
+	int			status;
+	t_command	*cmd;
+
+	cmd = parsing(line, m);
+	if (cmd == NULL)
+		return ;
+	if (count_cmd(cmd) == 1 && (cmd->id == EXIT_ID || cmd->id == CD_ID
+			|| cmd->id == EXPORT_ID || cmd->id == UNSET_ID))
 	{
-		if (WIFEXITED(status))
-			m->exit_status[0] = WEXITSTATUS(status);
+		ft_exec(m, cmd);
+		return ;
+	}
+	else
+	{
+		process_fork(cmd, m);
+		while (waitpid(-1, &status, 0) > 0) {
+			if (WIFEXITED(status))
+				m->exit_status[0] = WEXITSTATUS(status);
+		}
 	}
 	safe_malloc(0, DESTROY_COMMAND);
 }
