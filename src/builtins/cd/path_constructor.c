@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 12:37:06 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/10 15:32:09 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/14 19:07:42 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ char	*path_constructor(t_minishell *minishell, char *in)
 	if (!check_dot(new_in))
 		return (new_in);
 	in_cut = ft_split_safe(new_in, '/', ALLOC_COMMAND);
-	current_path = (char *)safe_malloc(sizeof(char) * PATH_MAX + 1, ALLOC_COMMAND);
+	current_path = (char *)safe_malloc(sizeof(char) * PATH_MAX + 1,
+			ALLOC_COMMAND);
 	while (in_cut[i])
 	{
 		if (check_dot(in_cut[i]))

@@ -54,9 +54,9 @@ OBJ_MAC = $(SRC:.c=.mac.o)  # macOS-specific object files
 %.mac.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE_MAC)
 
-.PHONY: all clean fclean re libft mac clone
+.PHONY: all clean fclean re libft mac clone_libft clone_tester tester
 
-all: clone libft $(NAME)
+all: clone_libft libft $(NAME)
 
 
 $(NAME): $(OBJ) 
@@ -95,15 +95,30 @@ valgrind: all
 	clear
 	$(VALGRIND) ./$(NAME)
 
+tester: clone_tester all
+	cd tester
+	./tester
+	cd ..
 
-REPO_URL := https://github.com/Saliinger/libft.git
-CLONE_DIR := libft
+REPO_URL_LIB := https://github.com/Saliinger/libft.git
+CLONE_DIR_LIB := libft
 
 # Clone target
-clone:
-	@if [ ! -d "$(CLONE_DIR)" ]; then \
+clone_libft:
+	@if [ ! -d "$(CLONE_DIR_LIB)" ]; then \
 		echo "Cloning repository..."; \
-		git clone $(REPO_URL) $(CLONE_DIR); \
+		git clone $(REPO_URL_LIB) $(CLONE_DIR_LIB); \
+	else \
+		echo "Repository already cloned."; \
+	fi
+
+REPO_URL_TESTER := https://github.com/LucasKuhn/minishell_tester.git
+CLONE_DIR_TESTER := tester
+
+clone_tester:
+	@if [ ! -d "$(CLONE_DIR_TESTER)" ]; then \
+		echo "Cloning repository..."; \
+		git clone $(REPO_URL_TESTER) $(CLONE_DIR_TESTER); \
 	else \
 		echo "Repository already cloned."; \
 	fi

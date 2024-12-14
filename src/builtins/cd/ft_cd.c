@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:29:59 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/11 02:15:55 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/14 19:07:30 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 // check: perm / type of file : dir or else / is a symlink
 
-static char *start_path(t_command *command, t_minishell *minishell)
+static char	*start_path(t_command *command, t_minishell *minishell)
 {
-	char    *path;
+	char	*path;
 
 	path = NULL;
 	if (!command->clean_arg[1])
@@ -39,7 +39,8 @@ int	ft_cd(t_command *command, t_minishell *minishell)
 	char	*path;
 
 	if (nbr_of_line(command->clean_arg) > 2)
-		return (printerr("cd: too many arguments\n"), minishell->exit_status[0] = 1, 1);
+		return (printerr("cd: too many arguments\n"),
+			minishell->exit_status[0] = 1, 1);
 	path = start_path(command, minishell);
 	error = chdir(path);
 	if (error == 0)

@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 11:42:23 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/10 12:51:14 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/14 19:07:25 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,28 @@
 static int	undpate_pwd(t_minishell *minishell, char *path, int oldpwd_line,
 		int pwd_line)
 {
-	int	error;
-	t_export_list *temp;
+	int				error;
+	t_export_list	*temp;
+	char			*temp2;
 
 	error = 0;
 	temp = find_export_node("PWD", minishell->exportList);
 	if (!temp)
 	{
-		char *temp2;
-
 		temp2 = ft_strjoin_safe("PWD=", path, ALLOC_MINISHELL);
 		create_var(minishell, temp2);
 		add_node_export(minishell->exportList, "PWD", path);
 		temp = find_export_node("PWD", minishell->exportList);
 	}
 	error += modify_value(minishell->exportList, "OLDPWD", temp->value);
-	minishell->old_pwd = ft_strjoin_safe("OLDPWD=", temp->value, ALLOC_MINISHELL);
-	minishell->env[oldpwd_line] = safe_strdup(minishell->old_pwd, ALLOC_MINISHELL);
+	minishell->old_pwd = ft_strjoin_safe("OLDPWD=", temp->value,
+			ALLOC_MINISHELL);
+	minishell->env[oldpwd_line] = safe_strdup(minishell->old_pwd,
+			ALLOC_MINISHELL);
 	error += modify_value(minishell->exportList, "PWD", path);
 	minishell->pwd = safe_strdup(path, ALLOC_MINISHELL);
-	minishell->env[pwd_line] = ft_strjoin_safe("PWD=", minishell->pwd, ALLOC_MINISHELL);
+	minishell->env[pwd_line] = ft_strjoin_safe("PWD=", minishell->pwd,
+			ALLOC_MINISHELL);
 	return (error);
 }
 
