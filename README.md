@@ -15,6 +15,6 @@ Anoukan
 
 # ISSUE
 ```
-need check leak on child + free minishell structure
+need to fix the error code when no permition or a dir everything that is not an exe 
 ```
 # Minishell_V2
