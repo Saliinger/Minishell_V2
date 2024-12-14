@@ -34,7 +34,8 @@ void	add_path(char *dest, char *to_add)
 	int	len;
 
 	len = ft_strlen(dest);
-	dest[len] = '/';
+	if (dest[len] != '/')
+		dest[len] = '/';
 	j = len + 1;
 	i = 0;
 	while (to_add[i])

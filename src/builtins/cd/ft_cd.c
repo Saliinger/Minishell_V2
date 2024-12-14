@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
 #include "../../../include/minishell.h"
 
 // check: perm / type of file : dir or else / is a symlink
@@ -24,7 +25,7 @@ int	ft_cd(t_command *command, t_minishell *minishell)
 	path = get_path(command->clean_arg[1], minishell);
 	if (!path)
 		return (minishell->exit_status[0] = 1, 1);
-	error = chdir(command->clean_arg[1]);
+	error = chdir(path);
 	if (error == 0)
 	{
 		error = change_pwd(minishell, path);
@@ -33,9 +34,7 @@ int	ft_cd(t_command *command, t_minishell *minishell)
 	}
 	else
 	{
-		// check permission or type
-		// use of access for perm
-		printerr(" No such file or directory\n");
+		printerr("minishell: cd: %s: %s\n", path, strerror(error));
 		return (minishell->exit_status[0] = 1, 1);
 	}
 	return (0);
