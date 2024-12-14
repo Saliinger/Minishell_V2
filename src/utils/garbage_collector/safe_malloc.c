@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/safe_malloc.h"
+#include "../../../include/minishell.h"
 
 void	*safe_destroy(t_safe_malloc **head_ref)
 {

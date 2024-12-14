@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/signals.h"
+#include "../../include/minishell.h"
 
 int	set_signals_to_heredoc(void)
 {

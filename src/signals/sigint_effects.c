@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/signals.h"
+#include "../../include/minishell.h"
 
 /**
  * brief : Ctrl + C effect when in mode heredoc

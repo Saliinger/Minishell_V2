@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/safe_malloc.h"
+#include "../../../include/minishell.h"
 
 char	*ft_strjoin_safe(char const *s1, char const *s2, enum e_action action)
 {

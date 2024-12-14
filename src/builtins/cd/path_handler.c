@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/builtins.h"
+#include "../../../include/minishell.h"
 
 void	remove_path(char *dest)
 {

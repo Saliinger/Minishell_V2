@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/safe_malloc.h"
+#include "../../../include/minishell.h"
 
 static void	ft_split_write_word_safe(char *dest, const char *src, char c)
 {

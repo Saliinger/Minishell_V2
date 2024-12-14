@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/safe_malloc.h"
+#include "../../../include/minishell.h"
 
 static int	ft_digits(long n)
 {

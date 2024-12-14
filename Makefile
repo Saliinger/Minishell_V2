@@ -69,7 +69,7 @@ libft:
 	@$(MAKE) all -C ./libft
 	echo "End LibFT"
 
-mac: clone libft $(OBJ_MAC)
+mac: clone_libft libft $(OBJ_MAC)
 	@$(CC) $(CFLAGS) $(OBJ_MAC) -o $(NAME) $(LIBS_MAC)
 	@echo "$(CC) $(CFLAGS_MAC) \$$(OBJ_MAC) -o $(NAME) $(LIBS_MAC)"
 	@echo "\n$(GREEN)\t$(NAME) compiled successfully on macOS$(RESET)\n"
