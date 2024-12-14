@@ -6,13 +6,14 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:22:58 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/09 18:34:28 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/14 19:23:43 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// determine if the command is a builtin or not and initialise the command for the parsing
+// determine if the command is a builtin or not 
+// and initialise the command for the parsing
 
 static char	*extract_command(char *line)
 {
@@ -49,11 +50,11 @@ t_command	*command_init(char *in)
 	else if (checker_command(line, EXPORT))
 		return (trim(in, safe_strdup(EXPORT, ALLOC_COMMAND), true, EXPORT_ID));
 	else if (checker_command(line, UNSET))
-		return ( trim(in, safe_strdup(UNSET, ALLOC_COMMAND), true, UNSET_ID));
+		return (trim(in, safe_strdup(UNSET, ALLOC_COMMAND), true, UNSET_ID));
 	else if (checker_command(line, ENV))
 		return (trim(in, safe_strdup(ENV, ALLOC_COMMAND), true, ENV_ID));
 	else if (checker_command(line, EXIT))
-		return ( trim(in, safe_strdup(EXIT, ALLOC_COMMAND), true, EXIT_ID));
+		return (trim(in, safe_strdup(EXIT, ALLOC_COMMAND), true, EXIT_ID));
 	else
 		return (trim(in, line, false, -1));
 }

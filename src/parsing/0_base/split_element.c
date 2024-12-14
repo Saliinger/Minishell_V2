@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:24:12 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/09 18:25:52 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/14 19:24:47 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ static int	ft_split_write(char **dest, char const *s, char c)
 			ft_split_write_extend(&i, &j, s, c);
 			if (j > 0)
 			{
-				*dest = (char *)safe_malloc(sizeof(char) * (j + 1), ALLOC_COMMAND);
+				*dest = (char *)safe_malloc(sizeof(char) * (j + 1),
+						ALLOC_COMMAND);
 				ft_split_write_word(*dest, s, i, j);
 				dest++;
 			}
@@ -70,7 +71,8 @@ char	**split_element(char *s, char c)
 
 	if (!s)
 		return (NULL);
-	dest = (char **)safe_malloc(sizeof(char *) * (ft_countword(s, c) + 1), ALLOC_COMMAND);
+	dest = (char **)safe_malloc(sizeof(char *) * (ft_countword(s, c) + 1),
+			ALLOC_COMMAND);
 	ft_split_write(dest, s, c);
 	return (dest);
 }

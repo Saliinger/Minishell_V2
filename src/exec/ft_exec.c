@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 01:59:00 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/13 21:45:14 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/14 19:13:14 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	ft_exec(t_minishell *minishell, t_command *command)
 	int	exit;
 
 	exit = 0;
-	// printf("builtin: %d\nbin id: %d\n", command->builtin, command->id);
 	if (command->builtin)
 		exit = ft_exec_builtins(minishell, command);
 	else

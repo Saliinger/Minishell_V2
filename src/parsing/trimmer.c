@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:58:12 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/06 23:01:15 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/14 19:14:01 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static char	*cut_first_cmd(char *in, int pipe_position)
 	int		i;
 
 	i = 0;
-	res = (char *)safe_malloc(sizeof(char) * (pipe_position + 1), ALLOC_COMMAND);
+	res = (char *)safe_malloc(sizeof(char) * (pipe_position + 1),
+			ALLOC_COMMAND);
 	if (!res)
 		return (NULL);
 	while (i < pipe_position)
@@ -39,7 +40,8 @@ static char	*remove_first_cmd(char *in, int pipe_position)
 
 	if (in[pipe_position] == '|')
 		pipe_position++;
-	res = (char *)safe_malloc(sizeof(char) * (ft_strlen(in + pipe_position) + 1), ALLOC_COMMAND);
+	res = (char *)safe_malloc(sizeof(char) * (ft_strlen(in + pipe_position)
+				+ 1), ALLOC_COMMAND);
 	if (!res)
 		return (NULL);
 	i = 0;

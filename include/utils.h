@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 04:48:42 by ekrebs            #+#    #+#             */
-/*   Updated: 2024/12/10 11:55:56 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/14 19:10:16 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_minishell		t_minishell;
 typedef struct s_command_exec	t_command_exec;
 typedef struct s_infos			t_infos;
 
-//int								ft_strcmp(char *s1, char *s2);
+// int								ft_strcmp(char *s1, char *s2);
 
 void							ft_free(void **add);
 void							ft_free_nullterm_tab(char ***ptab);
@@ -33,5 +33,6 @@ void							ft_free_t_redir(t_redir **r);
 void							free_t_infos(t_infos *i);
 void							ft_free_tab(char **tab);
 int								in_quote(int status, char type);
-char	                        ** add_line(char **tab, char *to_add, enum e_action action);
+char							**add_line(char **tab, char *to_add,
+									enum e_action action);
 #endif

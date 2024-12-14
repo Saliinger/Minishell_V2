@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 23:18:10 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/06 23:18:14 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/14 19:22:25 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 int	delete_export_node(t_export_list **lst, char *name)
 {
 	t_export_list	*to_delete;
-	t_export_list   *current;
+	t_export_list	*current;
 
 	to_delete = find_export_node(name, lst);
 	if (!to_delete)

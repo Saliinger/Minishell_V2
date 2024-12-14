@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 16:26:16 by ekrebs            #+#    #+#             */
-/*   Updated: 2024/12/10 17:31:29 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/14 19:12:34 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@ void	ft_free_tab(char **tab)
 {
 	int	i;
 
-    if (tab)
-    {
-        i = 0;
-        while (tab[i]) {
-            free(tab[i]);
-            i++;
-        }
-        free(tab);
-    }
+	if (tab)
+	{
+		i = 0;
+		while (tab[i])
+		{
+			free(tab[i]);
+			i++;
+		}
+		free(tab);
+	}
 }

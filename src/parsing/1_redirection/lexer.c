@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 09:51:50 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/10 12:54:40 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/14 19:15:50 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,29 @@
 
 int	check_redir(char *in)
 {
-    int	i;
-    int	status;
-    int	nbr;
-    i = 0;
-    status = 0;
-    nbr = 0;
-    while (in[i])
-    {
-        status = in_quote(status, in[i]);
-        if ((in[i] == '<' || in[i] == '>') && status == 0)
-        {
-            nbr++;
-            while (in[i] && (in[i] == '<' || in[i] == '>'))
-            {
-                if (in[i+1] == '\0')
-                    break;
-                i++;
-            }
-        }
-        i++;
-    }
-    return (nbr);
+	int	i;
+	int	status;
+	int	nbr;
+
+	i = 0;
+	status = 0;
+	nbr = 0;
+	while (in[i])
+	{
+		status = in_quote(status, in[i]);
+		if ((in[i] == '<' || in[i] == '>') && status == 0)
+		{
+			nbr++;
+			while (in[i] && (in[i] == '<' || in[i] == '>'))
+			{
+				if (in[i + 1] == '\0')
+					break ;
+				i++;
+			}
+		}
+		i++;
+	}
+	return (nbr);
 }
 
 char	**add_redir(char **tab, char **to_add)
@@ -46,14 +47,17 @@ char	**add_redir(char **tab, char **to_add)
 	int		i;
 	int		j;
 
-	res = (char **)safe_malloc(sizeof(char *) * (nbr_of_line(tab) + nbr_of_line(to_add) + 1), ALLOC_COMMAND);
+	res = (char **)safe_malloc(sizeof(char *) * (nbr_of_line(tab)
+				+ nbr_of_line(to_add) + 1), ALLOC_COMMAND);
 	i = 0;
-    if (tab) {
-        while (tab[i]) {
-            res[i] = safe_strdup(tab[i], ALLOC_COMMAND);
-            i++;
-        }
-    }
+	if (tab)
+	{
+		while (tab[i])
+		{
+			res[i] = safe_strdup(tab[i], ALLOC_COMMAND);
+			i++;
+		}
+	}
 	j = 0;
 	while (to_add[j])
 	{
@@ -80,14 +84,17 @@ void	extend_get_redir(char *line, int *start, int *end)
 	}
 	else if (line[*start + *end] == '\'' || line[*start + *end] == '\"')
 	{
-		while (line[*start + *end] && line[*start + *end] != '<' && line[*start + *end] != '>' && line[*start + *end] != ' ' && line[*start + *end] != '\t' && line[*start + *end] != '\n')
+		while (line[*start + *end] && line[*start + *end] != '<' && line[*start
+			+ *end] != '>' && line[*start + *end] != ' ' && line[*start
+			+ *end] != '\t' && line[*start + *end] != '\n')
 		{
 			if (line[*start + *end] == '\'' || line[*start + *end] == '\"')
 			{
 				status = in_quote(status, line[*start + *end]);
 				(*end)++;
 			}
-			while (line[*start + *end] && status != 0) {
+			while (line[*start + *end] && status != 0)
+			{
 				status = in_quote(status, line[*start + *end]);
 				(*end)++;
 			}
@@ -121,7 +128,8 @@ static char	**get_redir(char *line)
 		extend_get_redir(line, &start, &end);
 		if (end > 0)
 		{
-			to_add = (char *)safe_malloc(sizeof(char) * (end + 1), ALLOC_COMMAND);
+			to_add = (char *)safe_malloc(sizeof(char) * (end + 1),
+					ALLOC_COMMAND);
 			ft_strlcpy(to_add, line + start, end + 1);
 			res = add_line(res, to_add, ALLOC_COMMAND);
 			start += end;

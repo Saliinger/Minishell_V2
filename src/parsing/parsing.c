@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:58:08 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/10 12:46:50 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/14 19:13:57 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ t_command	*parsing(char *str, t_minishell *minishell)
 	t_command	*current;
 	t_command	*temp;
 
-    str = tiny_expand(str, minishell);
-    current = command_init(str);
+	str = tiny_expand(str, minishell);
+	current = command_init(str);
 	temp = current;
 	while (temp)
 	{
@@ -42,5 +42,5 @@ t_command	*parsing(char *str, t_minishell *minishell)
 		}
 		temp = temp->subcommand;
 	}
-    return (current);
+	return (current);
 }

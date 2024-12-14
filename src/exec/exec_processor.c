@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 00:07:20 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/14 00:07:20 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/14 19:13:02 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,23 @@ static int	heredoc_handler(int fd, t_redir *redir)
 #define OFF false
 #define PARSING_LEAK_TRACKING OFF
 
-int get_fd(t_redir *redir)
+int	get_fd(t_redir *redir)
 {
-	int fd;
+	int	fd;
 
 	fd = 0;
 	if (redir->type == R_OUTPUT)
-			fd = open(redir->redir, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		else if (redir->type == R_APPEND)
-			fd = open(redir->redir, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		else if (redir->type == R_INPUT)
-			fd = open(redir->redir, O_RDONLY);
-		else if (redir->type == R_HEREDOC)
-			fd = heredoc_handler(fd, redir);
-		else
-			return (perror("Type de redirection inconnu"), -1);
-		if (fd < 0)
-			return (perror(redir->redir), -1);
+		fd = open(redir->redir, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	else if (redir->type == R_APPEND)
+		fd = open(redir->redir, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else if (redir->type == R_INPUT)
+		fd = open(redir->redir, O_RDONLY);
+	else if (redir->type == R_HEREDOC)
+		fd = heredoc_handler(fd, redir);
+	else
+		return (perror("Type de redirection inconnu"), -1);
+	if (fd < 0)
+		return (perror(redir->redir), -1);
 	return (fd);
 }
 
@@ -72,7 +72,7 @@ static int	handle_redirections(t_command *cmd)
 	redir = cmd->redirection;
 	while (redir)
 	{
-		fd = get_fd(redir) ;
+		fd = get_fd(redir);
 		if (redir->type == R_INPUT || redir->type == R_HEREDOC)
 		{
 			if (dup2(fd, STDIN_FILENO) < 0)
@@ -90,10 +90,10 @@ static int	handle_redirections(t_command *cmd)
 	return (0);
 }
 
-void    process_fork(t_command *cmd, t_minishell*m)
+void	process_fork(t_command *cmd, t_minishell *m)
 {
-	int			prev_pipe_fd;
-	pid_t		pid;
+	int		prev_pipe_fd;
+	pid_t	pid;
 
 	prev_pipe_fd = -1;
 	while (cmd)

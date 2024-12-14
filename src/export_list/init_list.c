@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 23:18:42 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/06 23:19:06 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/14 19:19:28 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*get_name_env(char *var)
 {
-	size_t		i;
+	size_t	i;
 	char	*name;
 
 	i = 0;
@@ -31,8 +31,8 @@ char	*get_name_env(char *var)
 
 char	*get_value_env(char *var)
 {
-	size_t		i;
-	size_t		len;
+	size_t	i;
+	size_t	len;
 	char	*value;
 
 	i = 0;
@@ -49,15 +49,15 @@ char	*get_value_env(char *var)
 	return (value);
 }
 
-
 // add free list on return NULL
 t_export_list	**init_export_list(char **env)
 {
-	size_t				i;
+	size_t			i;
 	t_export_list	**init;
 
 	i = 0;
-	init = (t_export_list **)safe_malloc(sizeof(t_export_list *), ALLOC_MINISHELL);
+	init = (t_export_list **)safe_malloc(sizeof(t_export_list *),
+			ALLOC_MINISHELL);
 	*init = NULL;
 	while (env[i])
 	{

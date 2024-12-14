@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:32:10 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/14 19:07:05 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/14 19:12:16 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,12 @@ int	main(int ac, char **av, char **env)
 	set_signals_to_minishell();
 	(void)av;
 	(void)ac;
-	//	if (ac > 1)
-	//		return (printerr("err: case not asked by subject\n."), 1);
+	if (ac > 1)
+		return (printerr("err: case not asked by subject\n."), 1);
 	exit_status = 0;
 	minishell = init(env, getcwd(buffer, 4096), &exit_status);
 	if (!minishell)
 		return (1);
-	//	if (save_std_fds(minishell->std_fds) == -1)
-	//		return (ERR_PRIM);
 	ft_minishell(minishell);
 	clear_history();
 	safe_malloc(0, NUKE);

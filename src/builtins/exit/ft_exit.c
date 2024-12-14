@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:54:09 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/10 18:11:14 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/14 19:11:29 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,14 @@ static bool	check_arg(char *s)
 
 static void	ft_exit_extend(int exit_code)
 {
-//	free_minishell(minishell);
-//	free_command(cmd);
-    safe_malloc(0, NUKE);
-    exit(exit_code);
+	safe_malloc(0, NUKE);
+	exit(exit_code);
 }
 
 void	ft_exit(t_minishell *minishell, t_command *command, bool fail)
 {
-    (void)minishell;
-    (void)command;
+	(void)minishell;
+	(void)command;
 	if (nbr_of_line(command->clean_arg) >= 3)
 	{
 		printerr("bash: exit: too many arguments\n");

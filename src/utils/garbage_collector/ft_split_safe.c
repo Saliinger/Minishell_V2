@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 13:41:49 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/14 13:41:49 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/14 19:08:16 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static void	ft_split_write_word_safe(char *dest, const char *src, char c)
 	dest[i] = '\0';
 }
 
-static int	ft_split_write(char **dest, char const *s, char c, enum e_action action)
+static int	ft_split_write(char **dest, char const *s, char c,
+		enum e_action action)
 {
 	size_t	i;
 	size_t	j;
