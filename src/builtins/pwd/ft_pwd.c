@@ -12,24 +12,27 @@
 
 #include "../../../include/minishell.h"
 
+// use of getcwd si pas de pwd
+
 int	ft_pwd(t_minishell *minishell)
 {
 	int		line;
 	char	*pwd;
-	char	*temp;
+	char    buffer[PATH_MAX + 1];
 
 	line = get_env_var(minishell, "PWD", 3);
 	if (line == -1)
 	{
-		printerr("The PWD is not set\n");
-		return (1);
+		getcwd(buffer, PATH_MAX);
+		pwd = safe_strdup(buffer, ALLOC_COMMAND);
 	}
-	pwd = ft_strdup(minishell->env[line]);
-	temp = pwd;
-	while (*pwd != '=')
+	else
+	{
+		pwd = safe_strdup(minishell->env[line], ALLOC_COMMAND);
+		while (*pwd != '=')
+			pwd++;
 		pwd++;
-	pwd++;
+	}
 	printf("%s\n", pwd);
-	free(temp);
 	exit(0);
 }
