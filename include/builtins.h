@@ -19,6 +19,7 @@
 # include <readline/readline.h>
 # include <stdio.h>
 # include <sys/stat.h>
+# include <stdbool.h>
 
 // CD
 int		ft_cd(t_command *command, t_minishell *minishell);

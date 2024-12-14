@@ -20,7 +20,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-
+# include <stdbool.h>
 # define NO_SIG 0
 
 extern volatile sig_atomic_t	g_sig;

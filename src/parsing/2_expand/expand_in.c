@@ -73,7 +73,7 @@ char	*expand(t_minishell *minishell, char *name)
 		res = safe_strdup("$", ALLOC_COMMAND);
 	else
 	{
-		data = find_export_node(name + 1, minishell->exportList);
+		data = find_export_node(name + 1, minishell->export_list);
 		if (data)
 			res = safe_strdup(data->value, ALLOC_COMMAND);
 		else

@@ -21,7 +21,7 @@ char	*display_prompt(char *prompt, t_minishell *minishell)
 
 	if (prompt)
 		free(prompt);
-	node = find_export_node("USER", minishell->exportList);
+	node = find_export_node("USER", minishell->export_list);
 	name = node->value;
 	pwd = minishell->pwd;
 	res = ft_strjoin(name, "@");

@@ -23,20 +23,20 @@ static int	undpate_pwd(t_minishell *minishell, char *path, int oldpwd_line,
 	char			*temp2;
 
 	error = 0;
-	temp = find_export_node("PWD", minishell->exportList);
+	temp = find_export_node("PWD", minishell->export_list);
 	if (!temp)
 	{
 		temp2 = ft_strjoin_safe("PWD=", path, ALLOC_MINISHELL);
 		create_var(minishell, temp2);
-		add_node_export(minishell->exportList, "PWD", path);
-		temp = find_export_node("PWD", minishell->exportList);
+		add_node_export(minishell->export_list, "PWD", path);
+		temp = find_export_node("PWD", minishell->export_list);
 	}
-	error += modify_value(minishell->exportList, "OLDPWD", temp->value);
+	error += modify_value(minishell->export_list, "OLDPWD", temp->value);
 	minishell->old_pwd = ft_strjoin_safe("OLDPWD=", temp->value,
 			ALLOC_MINISHELL);
 	minishell->env[oldpwd_line] = safe_strdup(minishell->old_pwd,
 			ALLOC_MINISHELL);
-	error += modify_value(minishell->exportList, "PWD", path);
+	error += modify_value(minishell->export_list, "PWD", path);
 	minishell->pwd = safe_strdup(path, ALLOC_MINISHELL);
 	minishell->env[pwd_line] = ft_strjoin_safe("PWD=", minishell->pwd,
 			ALLOC_MINISHELL);

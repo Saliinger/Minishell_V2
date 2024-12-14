@@ -28,7 +28,7 @@ int	ft_unset(t_command *command, t_minishell *minishell)
 			if (line != -1)
 			{
 				delete_var(minishell, line);
-				delete_export_node(minishell->exportList,
+				delete_export_node(minishell->export_list,
 					command->clean_arg[i]);
 			}
 			i++;

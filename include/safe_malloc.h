@@ -14,7 +14,7 @@
 # define SAFE_MALLOC_H
 
 # include "imports.h"
-
+# include <stdbool.h>
 enum						e_action
 {
 	ALLOC_COMMAND,

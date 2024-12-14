@@ -24,7 +24,7 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
-
+# include <stdbool.h>
 // FREE
 void			free_minishell(t_minishell *minishell);
 void			free_command(t_command *command);

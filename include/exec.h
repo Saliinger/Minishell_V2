@@ -14,7 +14,7 @@
 # define EXEC_H
 
 # include "minishell.h"
-
+# include <stdbool.h>
 typedef struct s_minishell	t_minishell;
 typedef struct s_command	t_command;
 typedef struct s_redir		t_redir;

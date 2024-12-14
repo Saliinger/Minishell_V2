@@ -17,7 +17,7 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
-
+# include <stdbool.h>
 typedef struct s_minishell		t_minishell;
 typedef struct s_command_exec	t_command_exec;
 typedef struct s_infos			t_infos;

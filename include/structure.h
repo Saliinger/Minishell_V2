@@ -49,7 +49,7 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
-
+# include <stdbool.h>
 // Structure
 typedef struct s_redir
 {
@@ -86,7 +86,6 @@ typedef struct s_export_list
 typedef struct s_minishell
 {
 	char					**env;
-	struct t_export_list	**env_node;
 	char					**hidden_env;
 	int						std_fds[2];
 	int						*exit_status;
@@ -96,7 +95,7 @@ typedef struct s_minishell
 	char					*old_pwd;
 	int						res_last_command;
 	char					**hd;
-	struct t_export_list	**exportList;
+	t_export_list           **export_list;
 }							t_minishell;
 
 #endif

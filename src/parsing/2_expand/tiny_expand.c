@@ -50,7 +50,7 @@ char	*tiny_expand(char *s, t_minishell *minishell)
 		else
 		{
 			name = get_name(s);
-			var = find_export_node(name + 1, minishell->exportList);
+			var = find_export_node(name + 1, minishell->export_list);
 			if (!var || !var->value)
 			{
 				res = safe_strdup(s + ft_strlen(name), ALLOC_COMMAND);

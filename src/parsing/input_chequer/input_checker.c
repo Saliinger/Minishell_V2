@@ -30,7 +30,7 @@ bool	quote_checker(char *in, char c)
 	}
 	if (flag != 0)
 	{
-		printerr("Error syntax: the %c is not closed. Go fuck yourself\n", );
+		printerr("Error syntax: the %c is not closed. Go fuck yourself\n", c);
 		return (false);
 	}
 	return (true);

@@ -22,7 +22,7 @@ static int	get_line(char **line, char *prompt, t_minishell *m)
 	}
 	if (line[0] == NULL)
 		return (free(*line), EXIT_EOF);
-	else if (line[0][0] == '\0')
+	else if (ft_strlen(*line) == 0)
 		*m->exit_status = 0;
 	else
 		add_history(line[0]);
@@ -42,12 +42,10 @@ int	ft_minishell(t_minishell *m)
 		prompt = display_prompt(prompt, m);
 		if (get_line(&line, prompt, m) == EXIT_EOF)
 			return (free(prompt), EXIT_EOF);
-		if (line && line[0] != '\0' && input_checker(m, line) == true)
-		{
+		if (line && ft_strlen(line) > 0 && input_checker(m, line) == true)
 			process_input_line(line, m);
+		if (line)
 			free(line);
-		}
-		// break ; // pour le debug des leaks
 	}
 	if (prompt)
 		free(prompt);

@@ -17,7 +17,7 @@ char	*get_home(t_minishell **minishell)
 	t_export_list	*home;
 	char			*line;
 
-	home = find_export_node("HOME", (*minishell)->exportList);
+	home = find_export_node("HOME", (*minishell)->export_list);
 	if (home)
 	{
 		line = safe_strdup(home->value, ALLOC_COMMAND);

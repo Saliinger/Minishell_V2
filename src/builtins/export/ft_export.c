@@ -35,7 +35,7 @@ int	var_exist(char *name, t_minishell *minishell)
 	t_export_list	*tmp;
 
 	line = get_env_var(minishell, name, ft_strlen(name));
-	tmp = find_export_node(name, minishell->exportList);
+	tmp = find_export_node(name, minishell->export_list);
 	if (line == -1 && !tmp)
 		return (0);
 	else if (line == -1)
@@ -46,7 +46,7 @@ int	var_exist(char *name, t_minishell *minishell)
 static void	manage_export(t_minishell *minishell, char *name, char *value,
 		char *line)
 {
-	modify_value(minishell->exportList, name, value);
+	modify_value(minishell->export_list, name, value);
 	delete_var(minishell, get_env_var(minishell, name, ft_strlen(name)));
 	create_var(minishell, line);
 }
@@ -59,7 +59,7 @@ static void	export_handler(char *line, char *name, char *value,
 	status = var_exist(name, minishell);
 	if (status == 0)
 	{
-		add_node_export(minishell->exportList, name, value);
+		add_node_export(minishell->export_list, name, value);
 		if (value)
 			create_var(minishell, line);
 	}
@@ -67,7 +67,7 @@ static void	export_handler(char *line, char *name, char *value,
 	{
 		if (value)
 		{
-			modify_value(minishell->exportList, name, value);
+			modify_value(minishell->export_list, name, value);
 			create_var(minishell, line);
 		}
 	}
@@ -76,7 +76,7 @@ static void	export_handler(char *line, char *name, char *value,
 		if (value)
 			manage_export(minishell, name, value, line);
 	}
-	merge_sort(minishell->exportList);
+	merge_sort(minishell->export_list);
 }
 
 int	ft_export(t_command *command, t_minishell *minishell)
@@ -108,6 +108,6 @@ int	ft_export(t_command *command, t_minishell *minishell)
 		}
 	}
 	else
-		print_export_list(minishell->exportList);
+		print_export_list(minishell->export_list);
 	return (0);
 }

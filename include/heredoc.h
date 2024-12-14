@@ -13,6 +13,9 @@
 #ifndef HEREDOC_H
 # define HEREDOC_H
 # include "minishell.h"
+# include <stdbool.h>
+
+typedef struct s_minishell	t_minishell;
 
 char	*heredoc(char *key, t_minishell *m, bool expand, int *error);
 #endif

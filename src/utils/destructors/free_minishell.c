@@ -42,8 +42,8 @@ void	free_minishell(t_minishell *minishell)
 		ft_free_tab(minishell->hidden_env);
 	if (minishell->hidden_env)
 		ft_free_tab(minishell->hidden_env);
-	if (minishell->exportList)
-		free_export_list(minishell->exportList);
+	if (minishell->export_list)
+		free_export_list(minishell->export_list);
 	free(minishell);
 }
 
