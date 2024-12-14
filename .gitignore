@@ -7,3 +7,4 @@ tests/**
 minishell
 
 ./minishell_tester
+./libft
