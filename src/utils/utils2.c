@@ -48,8 +48,6 @@ char	**add_line(char **tab, char *to_add, enum e_action action)
 	else
 		tab_size = nbr_of_line(tab);
 	res = (char **)safe_malloc(sizeof(char *) * (tab_size + 2), action);
-	if (!res)
-		return (ft_free_tab(tab), NULL);
 	i = 0;
 	if (tab)
 		copy_tab(tab, res, to_add, action);

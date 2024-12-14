@@ -64,8 +64,6 @@ static void	init_command_arg(t_command *command, char *in)
 				' ');
 		command->subcommand = command_init(remove_first_cmd(in,
 					command->pipe_position));
-		if (!command->subcommand)
-			return (free_command(command));
 	}
 	else
 	{

@@ -44,8 +44,6 @@ char	**remove_quote(char **arg)
 			else
 			{
 				res[i] = add_char(res[i], arg[i][j]);
-				if (!res[i])
-					return (ft_free_tab(res), ft_free_tab(arg), NULL);
 				j++;
 			}
 		}
