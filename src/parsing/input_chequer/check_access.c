@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exec.c                                          :+:      :+:    :+:   */
+/*   check_access.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/11 01:59:00 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/13 21:45:14 by anoukan          ###   ########.fr       */
+/*   Created: 2024/12/14 11:31:57 by anoukan           #+#    #+#             */
+/*   Updated: 2024/12/14 11:31:57 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../../include/minishell.h"
 
-// launch exec for builtins and extern command
-
-int	ft_exec(t_minishell *minishell, t_command *command)
+bool check_access(char *path)
 {
-	int	exit;
-
-	exit = 0;
-	// printf("builtin: %d\nbin id: %d\n", command->builtin, command->id);
-	if (command->builtin)
-		exit = ft_exec_builtins(minishell, command);
-	else
-		exit = ft_exec_extern(minishell, command);
-	return (exit);
+	if (access(path, X_OK) < 0)
+		return (false);
+	return (true);
 }

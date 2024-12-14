@@ -44,15 +44,12 @@ static int	heredoc_handler(int fd, t_redir *redir)
 #define OFF false
 #define PARSING_LEAK_TRACKING OFF
 
-static int	handle_redirections(t_command *cmd)
+int get_fd(t_redir *redir)
 {
-	t_redir	*redir;
-	int		fd;
+	int fd;
 
-	redir = cmd->redirection;
-	while (redir)
-	{
-		if (redir->type == R_OUTPUT)
+	fd = 0;
+	if (redir->type == R_OUTPUT)
 			fd = open(redir->redir, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		else if (redir->type == R_APPEND)
 			fd = open(redir->redir, O_WRONLY | O_CREAT | O_APPEND, 0644);
@@ -64,6 +61,18 @@ static int	handle_redirections(t_command *cmd)
 			return (perror("Type de redirection inconnu"), -1);
 		if (fd < 0)
 			return (perror(redir->redir), -1);
+	return (fd);
+}
+
+static int	handle_redirections(t_command *cmd)
+{
+	t_redir	*redir;
+	int		fd;
+
+	redir = cmd->redirection;
+	while (redir)
+	{
+		fd = get_fd(redir) ;
 		if (redir->type == R_INPUT || redir->type == R_HEREDOC)
 		{
 			if (dup2(fd, STDIN_FILENO) < 0)
@@ -138,6 +147,7 @@ void	process_input_line(char *line, t_minishell *m)
 			|| cmd->id == EXPORT_ID || cmd->id == UNSET_ID))
 	{
 		ft_exec(m, cmd);
+		safe_malloc(0, DESTROY_COMMAND);
 		return ;
 	}
 	else

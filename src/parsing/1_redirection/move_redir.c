@@ -12,6 +12,38 @@
 
 #include "../../../include/minishell.h"
 
+char	*tiny_remove_quote(char *arg)
+{
+	int		i;
+	char	*res;
+	int		status;
+
+	i = 0;
+	status = 0;
+	res = safe_strdup("", ALLOC_COMMAND);
+	while (arg[i])
+	{
+		if ((arg[i] == '\'' || arg[i] == '\"') && status == 0)
+		{
+			status = in_quote(status, arg[i]);
+			i++;
+		}
+		else if ((arg[i] == '\'' && status == -1) || (arg[i] == '\"'
+				&& status == 1))
+		{
+			status = in_quote(status, arg[i]);
+			i++;
+		}
+		else
+		{
+			res = add_char(res, arg[i]);
+			i++;
+		}
+	}
+	fprintf(stderr, "%s\n", res);
+	return (res);
+}
+
 // create the linked list containing all the redir for one command
 
 static void	add_node(t_enum_redir type, char *str, t_redir **head)
@@ -19,10 +51,11 @@ static void	add_node(t_enum_redir type, char *str, t_redir **head)
 	t_redir	*new;
 	t_redir	*temp;
 
+	fprintf(stderr, "%s\n", str);
 	new = (t_redir *)safe_malloc(sizeof(t_redir), ALLOC_COMMAND);
 	if (!new)
 		return ;
-	new->redir = safe_strdup(str, ALLOC_COMMAND);
+	new->redir = tiny_remove_quote(str);
 	new->type = type;
 	new->next = NULL;
 	if (!*head)

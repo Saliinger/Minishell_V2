@@ -38,7 +38,7 @@ void	add_path(char *dest, char *to_add)
 		dest[len] = '/';
 	j = len + 1;
 	i = 0;
-	while (to_add[i])
+	while (to_add[i] && to_add[i + 1] != '/')
 	{
 		dest[j] = to_add[i];
 		j++;

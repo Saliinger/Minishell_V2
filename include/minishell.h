@@ -70,6 +70,9 @@ int modify_value(t_export_list **lst, char *name, char *value);
 t_export_list *find_export_node(char *name, t_export_list **lst);
 int delete_export_node(t_export_list **lst, char *name);
 
+
+bool check_access(char *path);
+
 #endif
 
 // get current dir si il n'y a pas d'env au debut

@@ -80,12 +80,17 @@ void	extend_get_redir(char *line, int *start, int *end)
 	}
 	else if (line[*start + *end] == '\'' || line[*start + *end] == '\"')
 	{
-		status = in_quote(status, line[*start + *end]);
-		(*end)++;
-		while (line[*start + *end] && status != 0)
+		while (line[*start + *end] && line[*start + *end] != '<' && line[*start + *end] != '>' && line[*start + *end] != ' ' && line[*start + *end] != '\t' && line[*start + *end] != '\n')
 		{
-			status = in_quote(status, line[*start + *end]);
-			(*end)++;
+			if (line[*start + *end] == '\'' || line[*start + *end] == '\"')
+			{
+				status = in_quote(status, line[*start + *end]);
+				(*end)++;
+			}
+			while (line[*start + *end] && status != 0) {
+				status = in_quote(status, line[*start + *end]);
+				(*end)++;
+			}
 		}
 		return ;
 	}

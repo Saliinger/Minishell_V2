@@ -39,19 +39,10 @@ static char	*get_value(char **splited_path, char *full_path, t_command *command)
 	while (splited_path[i])
 	{
 		full_path = build_full_path(splited_path[i], command->clean_arg[0]);
-		if (!full_path)
-		{
-			ft_free_tab(splited_path);
-			return (NULL);
-		}
 		if (access(full_path, X_OK) == 0)
-		{
-			ft_free_tab(splited_path);
 			return (full_path);
-		}
 		i++;
 	}
-	ft_free_tab(splited_path);
 	return (NULL);
 }
 
@@ -63,9 +54,7 @@ char	*get_path_abs(t_minishell *data, t_command *command)
 
 	full_path = NULL;
 	tmp = data->env[get_env_var(data, "PATH", 4)];
-	splited_path = ft_split(tmp, ':');
-	if (!splited_path)
-		return (NULL);
+	splited_path = ft_split_safe(tmp, ':', ALLOC_COMMAND);
 	return (get_value(splited_path, full_path, command));
 }
 

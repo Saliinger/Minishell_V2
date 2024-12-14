@@ -18,28 +18,10 @@ static int	init_path(char *in, t_minishell *minishell, char **new_in)
 {
 	char	*temp;
 
-	if (*in == '~' || *in == '/' || !in)
-	{
-		temp = get_home(&minishell);
-		if (*in != '~' && ft_strncmp(temp, in, ft_strlen(temp)) != 0)
-			*new_in = ft_strjoin_safe(temp, in, ALLOC_COMMAND);
-		else if (ft_strncmp(temp, in, ft_strlen(temp)) != 0)
-			*new_in = ft_strjoin_safe(temp, in + 1, ALLOC_COMMAND);
-		else
-			*new_in = safe_strdup(in, ALLOC_COMMAND);
-	}
-	else
-	{
-		temp = get_current_path(minishell);
-		if (ft_strncmp(temp, in, ft_strlen(temp)) != 0)
-		{
-			if (*in != '/')
-				temp = ft_strjoin_safe(temp, "/", ALLOC_COMMAND);
-			*new_in = ft_strjoin_safe(temp, in, ALLOC_COMMAND);
-		}
-		else
-			*new_in = ft_strdup(in);
-	}
+	fprintf(stderr, "%s\n", in);
+	temp = get_current_path(minishell);
+	temp = ft_strjoin_safe(temp, "/", ALLOC_COMMAND);
+	*new_in = ft_strjoin_safe(temp, in, ALLOC_COMMAND);
 	return (0);
 }
 
@@ -82,6 +64,7 @@ char	*get_res(char *current_path)
 		res = (char *)safe_strdup(current_path, ALLOC_COMMAND);
 	else
 		res = (char *)safe_strdup("/", ALLOC_COMMAND);
+	current_path = NULL;
 	return (res);
 }
 
@@ -96,22 +79,19 @@ char	*path_constructor(t_minishell *minishell, char *in)
 	i = init_path(in, minishell, &new_in);
 	if (!check_dot(new_in))
 		return (new_in);
-	in_cut = ft_split(new_in, '/');
+	in_cut = ft_split_safe(new_in, '/', ALLOC_COMMAND);
 	current_path = (char *)safe_malloc(sizeof(char) * PATH_MAX + 1, ALLOC_COMMAND);
 	while (in_cut[i])
 	{
-		if (ft_strlen(in_cut[i]) <= 2 && *in_cut[i] == '.')
+		if (check_dot(in_cut[i]))
 		{
 			if (nbr_of_dot(in_cut[i]) == 2)
 				remove_path(current_path);
-			else if (nbr_of_dot(in_cut[i]) > 2)
-				add_path(current_path, in_cut[i]);
 		}
 		else
 			add_path(current_path, in_cut[i]);
 		i++;
 	}
-
 	res = get_res(current_path);
 	return (res);
 }

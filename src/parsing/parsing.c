@@ -19,6 +19,8 @@
 // - expand all the env var in "" or out
 // - remove all the exteranal quote '' || ""
 
+// to add check access to each redir->redir
+
 t_command	*parsing(char *str, t_minishell *minishell)
 {
 	t_command	*current;
