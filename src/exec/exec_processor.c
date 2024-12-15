@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_processor.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 00:07:20 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/14 19:13:02 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/15 20:25:30 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ int	get_fd(t_redir *redir)
 	else
 		return (perror("Type de redirection inconnu"), -1);
 	if (fd < 0)
+	{
+		printerr("minishell: ");
 		return (perror(redir->redir), -1);
+	}
 	return (fd);
 }
 
@@ -75,6 +78,8 @@ static int	handle_redirections(t_command *cmd)
 	while (redir)
 	{
 		fd = get_fd(redir);
+		if (fd == -1)
+			return (-1);
 		if (redir->type == R_INPUT || redir->type == R_HEREDOC)
 		{
 			if (dup2(fd, STDIN_FILENO) < 0)

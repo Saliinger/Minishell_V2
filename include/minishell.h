@@ -6,25 +6,25 @@
 /*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:22:12 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/15 18:59:18 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/15 20:14:03 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <unistd.h>
 # include <stdio.h>
+# include <unistd.h>
+# include <stdbool.h>
+# include <signal.h>
+# include <stdlib.h>
 # include <readline/history.h>
 # include <readline/readline.h>
-# include <signal.h>
-# include <stdbool.h>
-# include "../libft/libft/libft.h"
-# include "errors.h"
-# include <stdlib.h>
 # include <sys/types.h>
 # include <sys/stat.h>
-# include <unistd.h>
+# include <sys/wait.h>
+# include "../libft/libft/libft.h"
+# include "errors.h"
 
 
 // Structure
