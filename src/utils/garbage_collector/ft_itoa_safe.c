@@ -43,14 +43,14 @@ static void	ft_itoa_2(long nbr, char *dest, size_t *i)
 		dest[(*i)++] = nbr + '0';
 }
 
-char	*ft_itoa_safe(int n)
+char	*ft_itoa_safe(int n, enum e_action action)
 {
 	char	*dest;
 	size_t	i;
 	long	nbr;
 
 	nbr = n;
-	dest = (char *)safe_malloc(ft_digits(nbr) + 1, ALLOC_COMMAND);
+	dest = (char *)safe_malloc(ft_digits(nbr) + 1, action);
 	i = 0;
 	if (nbr < 0)
 	{

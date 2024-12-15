@@ -46,7 +46,7 @@ char	*tiny_expand(char *s, t_minishell *minishell)
 		if (ft_strcmp(s, "$") == 0)
 			return (s);
 		if (ft_strcmp(s, "$?") == 0)
-			res = ft_itoa_safe(*minishell->exit_status);
+			res = ft_itoa_safe(*minishell->exit_status, ALLOC_COMMAND);
 		else
 		{
 			name = get_name(s);
