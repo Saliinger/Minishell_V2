@@ -91,7 +91,7 @@ static char	*get_file_or_dir(char *name, int *err)
 		return (printerr("minishell: "), perror(name), NULL);
 	}
 	if (S_ISDIR(f.st_mode))
-		return (printerr("minishell: %s: Is a directory\n", name), \
+		return (printerr("minishell: %s: is a directory\n", name), \
 														*err = 126, NULL);
 	return (name);
 }
