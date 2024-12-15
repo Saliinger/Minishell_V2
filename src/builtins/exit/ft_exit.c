@@ -52,7 +52,7 @@ void	ft_exit(t_minishell *minishell, t_command *command, bool fail)
 	else if (fail == true)
 		ft_exit_extend(EXIT_FAILURE);
 	else
-		ft_exit_extend(EXIT_SUCCESS);
+		ft_exit_extend(minishell->exit_status[0]);
 }
 
 // add error 255 if word as arg if 3 arg return 1

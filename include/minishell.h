@@ -82,6 +82,12 @@ typedef enum e_cmd_type
 # define WE 1
 
 // Structure
+//
+typedef struct s_safe_fd
+{
+	int fd;
+	struct s_safe_fd *next;
+} t_safe_fd;
 typedef struct s_redir
 {
 	t_enum_redir				type;
@@ -138,6 +144,11 @@ enum							e_action
 	NUKE,
 };
 
+enum e_fd {
+	CLOSE_FD,
+	OPEN_FD,
+};
+
 typedef struct s_safe_malloc
 {
 	void						*ptr;
@@ -161,7 +172,7 @@ char							*clean_name(char *var);
 char							**remove_quote(char **arg);
 
 // Divider for parsing
-int								check_pipe(char *in);
+size_t								check_pipe(char *in);
 
 // Input chekcer
 bool							input_checker(t_minishell *minishell,
@@ -306,4 +317,7 @@ void							heredoc_signal_handler(int signal);
 int								in_quote(int status, char type);
 char							**add_line(char **tab, char *to_add,
 									enum e_action action);
+
+// need to add all the fd there for the closing;
+void add_safe_fd(int fd, enum e_fd type);
 #endif

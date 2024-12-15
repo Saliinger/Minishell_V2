@@ -63,12 +63,14 @@ void	*safe_malloc(size_t size, enum e_action action)
 
 	if (action == NUKE)
 	{
+		add_safe_fd(0, CLOSE_FD);
 		safe_destroy(&cmd);
 		safe_destroy(&minishell);
 		return (NULL);
 	}
 	else if (action == DESTROY_COMMAND)
 	{
+		add_safe_fd(0, CLOSE_FD);
 		safe_destroy(&cmd);
 		return (NULL);
 	}
@@ -78,6 +80,7 @@ void	*safe_malloc(size_t size, enum e_action action)
 		if (!ptr)
 		{
 			printerr("bash: xmalloc: cannot allocate memory\n");
+			add_safe_fd(0, CLOSE_FD);
 			safe_destroy(&cmd);
 			safe_destroy(&minishell);
 			exit(EXIT_FAILURE);
