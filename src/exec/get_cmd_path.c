@@ -68,8 +68,12 @@ static char	**get_env_paths(t_minishell *m)
 {
 	char	*tmp;
 	char	**result;
+	int	path_line;
 
-	tmp = m->env[get_env_var(m, "PATH", 4)];
+	path_line = get_env_var(m, "PATH", 4);
+	if (path_line == -1)
+		return (NULL);
+	tmp = m->env[path_line];
 	result = ft_split_safe(tmp, ':', ALLOC_COMMAND);
 	return (result);
 }
@@ -109,6 +113,8 @@ char	*get_cmd_path(char *cmd_name, t_minishell *m, int *err)
 	char	*cmd_path;
 
 	env_paths = get_env_paths(m);
+	if (!env_paths)
+		return (NULL);
 	if (ft_strchr(cmd_name, '/'))
 	{
 		cmd_path = get_file_or_dir(cmd_name, err); //
