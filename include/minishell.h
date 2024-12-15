@@ -6,7 +6,7 @@
 /*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:22:12 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/15 20:14:03 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/15 20:40:20 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 # include "../libft/libft/libft.h"
 # include "errors.h"
 
+//prompt colors
+#define BLUE	"\033[0;34m"
+#define RESET	"\033[0m"
 
 // Structure
 

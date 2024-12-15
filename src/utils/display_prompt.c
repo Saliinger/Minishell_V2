@@ -6,14 +6,11 @@
 /*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:34:56 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/15 20:04:28 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/15 20:39:58 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-#define BLUE	"\033[0;34m"
-#define RESET	"\033[0m"
 
 char	*display_prompt(char *prompt, t_minishell *minishell)
 {
