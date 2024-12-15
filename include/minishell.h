@@ -92,54 +92,54 @@ typedef enum e_cmd_type
 //
 typedef struct s_safe_fd
 {
-	int fd;
-	struct s_safe_fd *next;
-} t_safe_fd;
+	int							fd;
+	struct s_safe_fd					*next;
+}								t_safe_fd;
 typedef struct s_redir
 {
-	t_enum_redir				type;
-	char						*redir;
-	struct s_redir				*next;
+	t_enum_redir						type;
+	char							*redir;
+	struct s_redir						*next;
 }								t_redir;
 
 typedef struct s_command
 {
-	char						*in;
-	char						*command;
-	char						**arg;
-	char						**clean_arg;
+	char							*in;
+	char							*command;
+	char							**arg;
+	char							**clean_arg;
 	int							id;
-	struct s_command			*subcommand;
-	bool						builtin;
-	bool						pipe;
+	struct s_command					*subcommand;
+	bool							builtin;
+	bool							pipe;
 	int							pipe_position;
 	int							pipe_fds[2];
 	int							pid;
-	t_redir						*redirection;
+	t_redir							*redirection;
 	int							infile_fd;
 	int							outfile_fd;
 }								t_command;
 
 typedef struct s_export_list
 {
-	char						*name;
-	char						*value;
-	struct s_export_list		*next;
+	char							*name;
+	char							*value;
+	struct s_export_list					*next;
 }								t_export_list;
 
 typedef struct s_minishell
 {
-	char						**env;
-	char						**hidden_env;
+	char							**env;
+	char							**hidden_env;
 	int							std_fds[2];
 	int							*exit_status;
-	char						**hidden_path;
-	char						**paths;
-	char						*pwd;
-	char						*old_pwd;
+	char							**hidden_path;
+	char							**paths;
+	char							*pwd;
+	char							*old_pwd;
 	int							res_last_command;
-	char						**hd;
-	t_export_list				**export_list;
+	char							**hd;
+	t_export_list						**export_list;
 }								t_minishell;
 
 // safe malloc
@@ -164,101 +164,101 @@ typedef struct s_safe_malloc
 }								t_safe_malloc;
 
 // Parsing
-char							**relexer(char **in);
-char							**expand_in(char **arg, t_minishell *minishell);
-t_command						*command_init(char *in);
-t_command						*parsing(char *str, t_minishell *minishell);
-t_command						*trim(char *in, char *in_command, bool builtin,
+char								**relexer(char **in);
+char								**expand_in(char **arg, t_minishell *minishell);
+t_command							*command_init(char *in);
+t_command							*parsing(char *str, t_minishell *minishell);
+t_command							*trim(char *in, char *in_command, bool builtin,
 									int id);
-t_redir							*extract_redir(char **in);
-char							**clean_arg(char **arg);
+t_redir								*extract_redir(char **in);
+char								**clean_arg(char **arg);
 
-char							*add_char(char *s, char c);
-char							*clean_name(char *var);
+char								*add_char(char *s, char c);
+char								*clean_name(char *var);
 
-char							**remove_quote(char **arg);
+char								**remove_quote(char **arg);
 
 // Divider for parsing
 size_t								check_pipe(char *in);
 
 // Input chekcer
-bool							input_checker(t_minishell *minishell,
+bool								input_checker(t_minishell *minishell,
 									char *command);
 
-char							*tiny_expand(char *s, t_minishell *minishell);
+char								*tiny_expand(char *s, t_minishell *minishell);
 // FREE
-void							free_minishell(t_minishell *minishell);
-void							free_command(t_command *command);
+void								free_minishell(t_minishell *minishell);
+void								free_command(t_command *command);
 int								ft_minishell(t_minishell *minishell);
 
 // UTILS
-char							*display_prompt(char *prompt,
+char								*display_prompt(char *prompt,
 									t_minishell *minishell);
-void							sighandler(int sig);
-char							**get_env(char **env);
-bool							checker_command(char *in, char *command);
+void								sighandler(int sig);
+char								**get_env(char **env);
+bool								checker_command(char *in, char *command);
 int								nbr_of_line(char **env);
 
 // Split Element
-size_t							ft_countword(const char *s, char c);
+size_t								ft_countword(const char *s, char c);
 int								ft_split_free(char **dest);
-void							ft_split_write_word(char *dest, const char *src,
+void								ft_split_write_word(char *dest, const char *src,
 									int start, int end);
-char							**split_element(char *s, char c);
+char								**split_element(char *s, char c);
 
 // ENV_UTILITY
 int								get_env_var(t_minishell *minishell, char *var,
 									int len);
 
 // Debug
-void							ft_print(char **s, int i);
-void							ft_print_redir(t_redir *list);
-void							print_command(t_command *command, char *name);
+void								ft_print(char **s, int i);
+void								ft_print_redir(t_redir *list);
+void								print_command(t_command *command, char *name);
 
 // export list
 int								add_node_export(t_export_list **list,
 									char *name, char *value);
-t_export_list					**init_export_list(char **env);
-void							print_export_list(t_export_list **list);
-void							merge_sort(t_export_list **head_ref);
-char							*get_name_env(char *var);
-char							*get_value_env(char *var);
+t_export_list							**init_export_list(char **env);
+void								print_export_list(t_export_list **list);
+void								merge_sort(t_export_list **head_ref);
+char								*get_name_env(char *var);
+char								*get_value_env(char *var);
 int								modify_value(t_export_list **lst, char *name,
 									char *value);
-t_export_list					*find_export_node(char *name,
+t_export_list							*find_export_node(char *name,
 									t_export_list **lst);
 int								delete_export_node(t_export_list **lst,
 									char *name);
 
 // Securtity
-bool							check_access(char *path);
+bool								check_access(char *path);
 
 // sert a creer des mallocs dans une liste chaine
-void							*safe_malloc(size_t size, enum e_action action);
+void								*safe_malloc(size_t size, enum e_action action);
 
 // strdup but safe
-char							*safe_strdup(char *s, enum e_action action);
+char								*safe_strdup(char *s, enum e_action action);
 
-char							*ft_itoa_safe(int n, enum e_action action);
+char								*ft_itoa_safe(int n, enum e_action action);
 
-char							*ft_strjoin_safe(char const *s1, char const *s2,
+char								*ft_strjoin_safe(char const *s1, char const *s2,
 									enum e_action action);
 
-char							**ft_split_safe(char const *s, char c,
+char								**ft_split_safe(char const *s, char c,
 									enum e_action action);
 
 // BIN
 // CD
 int								ft_cd(t_command *command,
 									t_minishell *minishell);
-char							*get_path(char *in, t_minishell *minishell);
-char							*get_home(t_minishell **minishell);
-char							*path_constructor(t_minishell *minishell,
+char								*get_path(char *in, t_minishell *minishell);
+char								*get_home(t_minishell **minishell);
+char								*path_constructor(t_minishell *minishell,
 									char *in);
-char							*get_current_path(t_minishell *minishell);
+char								*get_current_path(t_minishell *minishell);
 int								change_pwd(t_minishell *minishell, char *in);
-void							remove_path(char *dest);
-void							add_path(char *dest, char *to_add);
+void								remove_path(char *dest);
+void								add_path(char *dest, char *to_add);
 
 // ECHO
 int								ft_echo(t_command *command);
@@ -269,7 +269,7 @@ int								check_flag(char **arg);
 int								ft_env(t_minishell *minishell);
 
 // EXIT
-void							ft_exit(t_minishell *minishell,
+void								ft_exit(t_minishell *minishell,
 									t_command *command, bool fail);
 
 // EXPAND
@@ -299,11 +299,11 @@ int								ft_exec_builtins(t_minishell *minishell,
 									t_command *command);
 int								ft_exec_extern(t_minishell *minishell,
 									t_command *command);
-void							process_input_line(char *line, t_minishell *m);
+void								process_input_line(char *line, t_minishell *m);
 
-char							*get_cmd_path(char *cmd_name, t_minishell *m, int *err);
+char								*get_cmd_path(char *cmd_name, t_minishell *m, int *err);
 // Utils
-void							exec_error(char *error, t_minishell *minishell,
+void								exec_error(char *error, t_minishell *minishell,
 									t_command *command);
 int								count_cmd(t_command *command);
 
@@ -317,15 +317,20 @@ int								set_signals_to_default(void);
 int								set_signals_to_ignore(void);
 int								set_signals_to_heredoc(void);
 
-void							minishell_signal_handler(int signal);
-void							heredoc_signal_handler(int signal);
+void								minishell_signal_handler(int signal);
+void								heredoc_signal_handler(int signal);
 
 // Utils
 
 int								in_quote(int status, char type);
-char							**add_line(char **tab, char *to_add,
+char								**add_line(char **tab, char *to_add,
 									enum e_action action);
 
 // need to add all the fd there for the closing;
 void add_safe_fd(int fd, enum e_fd type);
+
+// init no env
+char								**init_no_env(void);
+
+
 #endif
