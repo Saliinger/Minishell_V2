@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:22:12 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/15 00:24:28 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/15 18:59:18 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # include "../libft/libft/libft.h"
 # include "errors.h"
 # include <stdlib.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <unistd.h>
 
 
 // Structure
@@ -295,6 +298,7 @@ int								ft_exec_extern(t_minishell *minishell,
 									t_command *command);
 void							process_input_line(char *line, t_minishell *m);
 
+char							*get_cmd_path(char *cmd_name, t_minishell *m, int *err);
 // Utils
 void							exec_error(char *error, t_minishell *minishell,
 									t_command *command);

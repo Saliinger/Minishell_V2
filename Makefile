@@ -95,6 +95,12 @@ valgrind: all
 	clear
 	$(VALGRIND) ./$(NAME)
 
+project_re:
+	rm -f $(OBJ)
+	rm -f $(NAME)
+	clear
+	make $(NAME) -j
+
 tester: clone_tester all
 	cd tester
 	./tester
