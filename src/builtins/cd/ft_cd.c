@@ -53,7 +53,7 @@ int	ft_cd(t_command *command, t_minishell *minishell)
 	{
 		// check permission or type
 		// use of access for perm
-		printerr(" No such file or directory\n");
+		printerr(" No such file or directory yoiajdfokajs;ldkfj\n");
 		return (minishell->exit_status[0] = 1, 1);
 	}
 	return (0);

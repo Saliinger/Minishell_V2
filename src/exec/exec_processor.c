@@ -70,6 +70,8 @@ static int	handle_redirections(t_command *cmd)
 	int		fd;
 
 	redir = cmd->redirection;
+	if (!redir)
+		return (0);
 	while (redir)
 	{
 		fd = get_fd(redir);
@@ -145,11 +147,7 @@ void	process_input_line(char *line, t_minishell *m)
 		return ;
 	if (count_cmd(cmd) == 1 && (cmd->id == EXIT_ID || cmd->id == CD_ID
 			|| cmd->id == EXPORT_ID || cmd->id == UNSET_ID))
-	{
 		ft_exec(m, cmd);
-		safe_malloc(0, DESTROY_COMMAND);
-		return ;
-	}
 	else
 	{
 		process_fork(cmd, m);
@@ -161,3 +159,6 @@ void	process_input_line(char *line, t_minishell *m)
 	}
 	safe_malloc(0, DESTROY_COMMAND);
 }
+
+// lors de la creation de work la subcommand est null donc affiche des messages d'erreur
+// lors de l'execution simple les redirections ne sont pas gerer
