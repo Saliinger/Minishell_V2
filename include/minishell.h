@@ -21,6 +21,7 @@
 # include <stdbool.h>
 # include "../libft/libft/libft.h"
 # include "errors.h"
+# include <stdlib.h>
 
 
 // Structure
