@@ -44,6 +44,23 @@ int	nbr_of_line(char **env)
 	return (i);
 }
 
+static char *up_shlvl(char *str)
+{
+	char *res;
+	char *value;
+	int shlvl;
+
+	while (*str != '=')
+		str++;
+	str++;
+	shlvl = ft_atoi(str);
+	shlvl++;
+	value = ft_itoa(shlvl);
+	res = ft_strjoin("SHLVL=", value);
+	fprintf(stderr, "SHLVL = %d\nres: %s\n", shlvl, res);
+	return (res);
+}
+
 char	**get_env(char **env)
 {
 	int		i;
@@ -60,7 +77,10 @@ char	**get_env(char **env)
 		return (NULL);
 	while (i < nbr_lines)
 	{
-		res[i] = safe_strdup(env[i], ALLOC_MINISHELL);
+		if (ft_strncmp(env[i], "SHLVL=", 6) == 0)
+			res[i] = up_shlvl(env[i]);
+		else
+			res[i] = safe_strdup(env[i], ALLOC_MINISHELL);
 		i++;
 	}
 	res[i] = NULL;
