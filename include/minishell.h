@@ -6,7 +6,7 @@
 /*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:22:12 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/15 20:40:20 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 00:50:42 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,6 +306,7 @@ char								*get_cmd_path(char *cmd_name, t_minishell *m, int *err);
 void								exec_error(char *error, t_minishell *minishell,
 									t_command *command);
 int								count_cmd(t_command *command);
+int								heredoc_handler(int fd, t_redir *redir);
 
 // signal
 # define NO_SIG 0

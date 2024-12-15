@@ -6,43 +6,11 @@
 /*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 00:07:20 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/15 20:25:30 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 00:51:03 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-static int	heredoc_handler(int fd, t_redir *redir)
-{
-	char	*delimiter;
-	char	*temp_file;
-	char	*line;
-
-	delimiter = redir->redir;
-	temp_file = "temp_heredoc_file";
-	fd = open(temp_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd < 0)
-		return (perror("Erreur ouverture heredoc"), -1);
-	line = NULL;
-	while (1)
-	{
-		line = readline("> ");
-		if (!line || ft_strcmp(line, delimiter) == 0)
-			break ;
-		write(fd, line, ft_strlen(line));
-		write(fd, "\n", 1);
-		free(line);
-	}
-	close(fd);
-	fd = open(temp_file, O_RDONLY);
-	if (fd < 0)
-		return (perror("Erreur ouverture fichier heredoc"), -1);
-	return (fd);
-}
-
-#define ON true
-#define OFF false
-#define PARSING_LEAK_TRACKING OFF
 
 int	get_fd(t_redir *redir)
 {

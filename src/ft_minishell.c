@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 03:21:06 by ekrebs            #+#    #+#             */
-/*   Updated: 2024/12/13 21:46:48 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 00:55:38 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 static int	get_line(char **line, char *prompt, t_minishell *m)
 {
+	set_signals_to_minishell();
 	line[0] = readline(prompt);
+	set_signals_to_ignore();
 	if (g_sig == SIGINT)
 	{
 		g_sig = 0;
