@@ -82,8 +82,11 @@ static int	handle_redirections(t_command *cmd)
 			return (-1);
 		if (redir->type == R_INPUT || redir->type == R_HEREDOC)
 		{
-			if (dup2(fd, STDIN_FILENO) < 0)
-				return (perror("dup2 (entrée)"), close(fd), -1);
+			if (redir->next && redir->next->type == R_HEREDOC)
+				;
+			else
+				if (dup2(fd, STDIN_FILENO) < 0)
+					return (perror("dup2 (entrée)"), close(fd), -1);
 		}
 		else
 		{
