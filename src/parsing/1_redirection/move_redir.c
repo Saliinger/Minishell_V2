@@ -40,7 +40,6 @@ char	*tiny_remove_quote(char *arg)
 			i++;
 		}
 	}
-	fprintf(stderr, "%s\n", res);
 	return (res);
 }
 
@@ -51,7 +50,6 @@ static void	add_node(t_enum_redir type, char *str, t_redir **head)
 	t_redir	*new;
 	t_redir	*temp;
 
-	fprintf(stderr, "%s\n", str);
 	new = (t_redir *)safe_malloc(sizeof(t_redir), ALLOC_COMMAND);
 	if (!new)
 		return ;

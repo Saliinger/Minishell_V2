@@ -18,7 +18,6 @@ static int	init_path(char *in, t_minishell *minishell, char **new_in)
 {
 	char	*temp;
 
-	fprintf(stderr, "%s\n", in);
 	temp = get_current_path(minishell);
 	temp = ft_strjoin_safe(temp, "/", ALLOC_COMMAND);
 	*new_in = ft_strjoin_safe(temp, in, ALLOC_COMMAND);
