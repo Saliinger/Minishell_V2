@@ -32,22 +32,17 @@ static int	get_line(char **line, char *prompt, t_minishell *m)
 int	ft_minishell(t_minishell *m)
 {
 	char	*line;
-	char	*prompt;
 
 	line = NULL;
-	prompt = NULL;
 	using_history();
 	while (1)
 	{
-		prompt = display_prompt(prompt, m);
-		if (get_line(&line, prompt, m) == EXIT_EOF)
-			return (free(prompt), EXIT_EOF);
+		if (get_line(&line, "\033[0;34mMinishell >$ \033[0m", m) == EXIT_EOF)
+			return ( EXIT_EOF);
 		if (line && ft_strlen(line) > 0 && input_checker(m, line) == true)
 			process_input_line(line, m);
 		if (line)
 			free(line);
 	}
-	if (prompt)
-		free(prompt);
 	return (EXIT_SUCCESS);
 }
