@@ -29,14 +29,14 @@ int	echo_print(char **arg, bool eof, int i)
 	error = 0;
 	while (arg[i])
 	{
-		error = print_line(arg[i]);
+		error += print_line(arg[i]);
 		if (arg[i + 1])
 			printf(" ");
 		i++;
 	}
 	if (eof == true)
 		printf("\n");
-	if (error)
+	if (error > 0)
 		return (1);
 	return (0);
 }

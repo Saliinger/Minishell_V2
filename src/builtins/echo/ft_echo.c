@@ -20,9 +20,12 @@ int	ft_echo(t_command *command)
 
 	cmd = command->clean_arg + 1;
 	i = check_flag(cmd);
+	error = 0;
 	if (i > 0)
-		error = echo_print(cmd, false, i);
+		error += echo_print(cmd, false, i);
 	else
-		error = echo_print(cmd, true, i);
-	exit(error);
+		error += echo_print(cmd, true, i);
+	if (error > 0)
+		exit(EXIT_FAILURE);
+	exit(EXIT_SUCCESS);
 }
