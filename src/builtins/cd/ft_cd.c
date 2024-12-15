@@ -39,8 +39,7 @@ int	ft_cd(t_command *command, t_minishell *minishell)
 	char	*path;
 
 	if (nbr_of_line(command->clean_arg) > 2)
-		return (printerr("cd: too many arguments\n"),
-			minishell->exit_status[0] = 1, 1);
+		return (minishell->exit_status[0] = 0, 0);
 	path = start_path(command, minishell);
 	error = chdir(path);
 	if (error == 0)
@@ -53,7 +52,7 @@ int	ft_cd(t_command *command, t_minishell *minishell)
 	{
 		// check permission or type
 		// use of access for perm
-		printerr(" No such file or directory yoiajdfokajs;ldkfj\n");
+		printerr(" No such file or directory\n");
 		return (minishell->exit_status[0] = 1, 1);
 	}
 	return (0);

@@ -20,7 +20,11 @@ void close_fd(t_safe_fd **head)
 	current = *head;
 	while (current)
 	{
-		close(current->fd);
+		if (current->fd != -1)
+		{
+			close(current->fd);
+			current->fd = -1;
+		}
 		current = current->next;
 	}
 }
