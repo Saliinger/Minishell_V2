@@ -331,6 +331,7 @@ void add_safe_fd(int fd, enum e_fd type);
 
 // init no env
 char								**init_no_env(void);
+t_export_list **init_no_env_export(void);
 
 
 #endif

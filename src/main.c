@@ -32,7 +32,10 @@ static t_minishell	*init(char **env, char *pwd, int *adr_int)
 	minishell->paths = NULL;
 	minishell->exit_status = adr_int;
 	minishell->hidden_env = NULL;
-	minishell->export_list = init_export_list(minishell->env);
+	if (!env)
+		minishell->export_list = init_no_env_export();
+	else
+		minishell->export_list = init_export_list(minishell->env);
 	merge_sort(minishell->export_list);
 	return (minishell);
 }
