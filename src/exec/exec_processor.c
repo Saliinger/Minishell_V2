@@ -100,10 +100,13 @@ void	process_fork(t_command *cmd, t_minishell *m)
 	prev_pipe_fd = -1;
 	while (cmd)
 	{
-		if (cmd->subcommand && pipe(cmd->pipe_fds) < 0)
+		if (cmd->subcommand)
 		{
-			perror("Erreur de pipe");
-			break ;
+			if (pipe(cmd->pipe_fds) < 0)
+			{
+				perror("Erreur de pipe");
+				break ;
+			}
 		}
 		pid = fork();
 		if (pid < 0)
