@@ -57,7 +57,6 @@ static char *up_shlvl(char *str)
 	shlvl++;
 	value = ft_itoa_safe(shlvl, ALLOC_MINISHELL);
 	res = ft_strjoin_safe("SHLVL=", value, ALLOC_MINISHELL);
-	fprintf(stderr, "SHLVL = %d\nres: %s\n", shlvl, res);
 	return (res);
 }
 
