@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   preprocess_heredocs.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:42:48 by ekrebs            #+#    #+#             */
-/*   Updated: 2024/12/16 23:07:22 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/17 00:59:31 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,33 @@ int	do_the_heredoc(int fd, t_redir *redir, t_minishell *m)
 	return (0);
 }
 
+static void	generate_temp_filename(char *buffer, int hd_id)
+{
+	char	*base_name;
+	char	*id_str;
+	size_t	len;
+
+	base_name = "temp_hd_";
+	id_str = ft_itoa_safe(hd_id, ALLOC_COMMAND);
+	len = ft_strlen(base_name) + ft_strlen(id_str);
+	if (len >= 128)
+	{
+		printerr("Error: Temporary filename too long\n");
+		free(id_str);
+		return ;
+	}
+	ft_strlcpy(buffer, base_name, 128);
+	ft_strlcat(buffer, id_str, 128);
+	free(id_str);
+}
+
 int	handle_heredoc(t_redir *redir, t_minishell *m)
 {
-	int		fd;
-	char	temp_file[128];
-	int		hd_id;
+	int			fd;
+	char		temp_file[128];
+	static int	hd_id = 0;
 
-	hd_id = 0;
-	snprintf(temp_file, sizeof(temp_file), "temp_hd_%d", hd_id++);
+	generate_temp_filename(temp_file, hd_id++);
 	fd = open(temp_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 		return (perror("Erreur ouverture heredoc"), -1);
@@ -69,6 +88,25 @@ int	handle_heredoc(t_redir *redir, t_minishell *m)
 	redir->type = R_INPUT;
 	return (0);
 }
+
+// can't use cause of snprintf is use to determine 
+// the name of the hd in case if there's multiple
+// int	handle_heredoc(t_redir *redir, t_minishell *m)
+// {
+// 	int		fd;
+// 	char	temp_file[128];
+// 	int		hd_id;
+
+// 	hd_id = 0;
+// 	snprintf(temp_file, sizeof(temp_file), "temp_hd_%d", hd_id++);
+// 	fd = open(temp_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+// 	if (fd < 0)
+// 		return (perror("Erreur ouverture heredoc"), -1);
+// 	do_the_heredoc(fd, redir, m);
+// 	redir->redir = safe_strdup(temp_file, ALLOC_COMMAND);
+// 	redir->type = R_INPUT;
+// 	return (0);
+// }
 
 int	preprocess_heredocs(t_command *cmd, t_minishell *m)
 {
