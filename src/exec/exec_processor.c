@@ -6,100 +6,11 @@
 /*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 00:07:20 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 00:51:03 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 01:04:39 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int	get_fd(t_redir *redir)
-{
-	int	fd;
-
-	fd = 0;
-	if (redir->type == R_OUTPUT)
-		fd = open(redir->redir, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else if (redir->type == R_APPEND)
-		fd = open(redir->redir, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	else if (redir->type == R_INPUT)
-		fd = open(redir->redir, O_RDONLY);
-	else if (redir->type == R_HEREDOC)
-		fd = heredoc_handler(fd, redir);
-	else
-		return (perror("Type de redirection inconnu"), -1);
-	if (fd < 0)
-	{
-		printerr("minishell: ");
-		return (perror(redir->redir), -1);
-	}
-	return (fd);
-}
-
-static int	handle_redirections(t_command *cmd)
-{
-	t_redir	*redir;
-	int		fd;
-
-	redir = cmd->redirection;
-	if (!redir)
-		return (0);
-	while (redir)
-	{
-		fd = get_fd(redir);
-		if (fd == -1)
-			return (-1);
-		if (redir->type == R_INPUT || redir->type == R_HEREDOC)
-		{
-			if (redir->next && redir->next->type == R_HEREDOC)
-				;
-			else
-				if (dup2(fd, STDIN_FILENO) < 0)
-					return (perror("dup2 (entrée)"), close(fd), -1);
-		}
-		else
-		{
-			if (dup2(fd, STDOUT_FILENO) < 0)
-				return (perror("dup2 (sortie)"), close(fd), -1);
-		}
-		close(fd);
-		redir = redir->next;
-	}
-	unlink("temp_heredoc_file");
-	return (0);
-}
-
-// potentiel solution
-// static int	handle_redirections(t_command *cmd)
-// {
-// 	t_redir	*redir;
-// 	int		fd;
-// 	int		last_in;
-// 	int		last_out;
-//
-// 	redir = cmd->redirection;
-// 	if (!redir)
-// 		return (0);
-// 	last_in = -1;
-// 	last_out = -1;
-// 	while (redir)
-// 	{
-// 		fd = get_fd(redir);
-// 		if (fd == -1)
-// 			return (-1);
-// 		if (redir->type == R_INPUT || redir->type == R_HEREDOC)
-// 			last_in = fd;
-// 		else
-// 			last_out = fd;
-// 		add_safe_fd(fd, OPEN_FD);
-// 		redir = redir->next;
-// 	}
-// 	if (dup2(last_in, STDIN_FILENO) < 0)
-// 		return (perror("dup2 (entrée)"), -1);
-// 	if (dup2(last_out, STDOUT_FILENO) < 0)
-// 		return (perror("dup2 (sortie)"), -1);
-// 	unlink("temp_heredoc_file");
-// 	return (0);
-// }
 
 void	process_fork(t_command *cmd, t_minishell *m)
 {

@@ -6,7 +6,7 @@
 /*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:22:12 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 00:50:42 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 01:13:56 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,6 +307,7 @@ void								exec_error(char *error, t_minishell *minishell,
 									t_command *command);
 int								count_cmd(t_command *command);
 int								heredoc_handler(int fd, t_redir *redir);
+int								handle_redirections(t_command *cmd);
 
 // signal
 # define NO_SIG 0
