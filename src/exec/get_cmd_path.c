@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 18:58:26 by ekrebs            #+#    #+#             */
-/*   Updated: 2024/12/16 03:14:09 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 20:51:52 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static char	*get_file_or_dir(char *name, int *err)
 		return (printerr("minishell: "), perror(name), NULL);
 	}
 	if (S_ISDIR(f.st_mode))
-		return (printerr("minishell: %s: is a directory\n", name), *err = 126,
+		return (printerr("minishell: %s: Is a directory\n", name), *err = 126,
 			NULL);
 	return (name);
 }
