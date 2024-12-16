@@ -6,43 +6,11 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:23:53 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 03:19:08 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 20:20:00 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-bool	checker_command(char *in, char *command)
-{
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
-	while (in[i])
-	{
-		if (in[i] != command[j])
-			break ;
-		i++;
-		j++;
-	}
-	if (i == ft_strlen(command))
-		return (true);
-	else
-		return (false);
-}
-
-int	nbr_of_line(char **env)
-{
-	int	i;
-
-	if (!env)
-		return (0);
-	i = 0;
-	while (env[i])
-		i++;
-	return (i);
-}
 
 static char	*up_shlvl(char *str)
 {

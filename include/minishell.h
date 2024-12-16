@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:22:12 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 18:56:45 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 20:15:20 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 # include "../libft/libft/libft.h"
 # include "errors.h"
-# include <stdio.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
 # include <stdbool.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <sys/stat.h>
 # include <sys/types.h>
@@ -204,7 +204,7 @@ void							sighandler(int sig);
 char							**get_env(char **env);
 bool							checker_command(char *in, char *command);
 int								nbr_of_line(char **env);
-int 							nuclear_exit(int status);
+int								nuclear_exit(int status);
 
 // Split Element
 size_t							ft_countword(const char *s, char c);
