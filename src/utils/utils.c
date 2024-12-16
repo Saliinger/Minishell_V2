@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:23:53 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/13 21:46:40 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 03:19:08 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ int	nbr_of_line(char **env)
 	return (i);
 }
 
-static char *up_shlvl(char *str)
+static char	*up_shlvl(char *str)
 {
-	char *res;
-	char *value;
-	int shlvl;
+	char	*res;
+	char	*value;
+	int		shlvl;
 
 	while (*str != '=')
 		str++;

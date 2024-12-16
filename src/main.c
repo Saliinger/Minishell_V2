@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:32:10 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/14 19:12:16 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 03:18:50 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static t_minishell	*init(char **env, char *pwd, int *adr_int)
 			ALLOC_MINISHELL);
 	if (!minishell)
 		return (NULL);
-        if (!env)
-          minishell->env = init_no_env();
-        else
-          minishell->env = get_env(env);
+	if (!env)
+		minishell->env = init_no_env();
+	else
+		minishell->env = get_env(env);
 	minishell->pwd = safe_strdup(pwd, ALLOC_MINISHELL);
 	minishell->old_pwd = safe_strdup(pwd, ALLOC_MINISHELL);
 	minishell->res_last_command = 0;

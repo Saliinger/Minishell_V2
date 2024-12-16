@@ -6,14 +6,13 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 04:53:58 by ekrebs            #+#    #+#             */
-/*   Updated: 2024/12/14 19:09:33 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 03:17:48 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DISPLAY_H
 # define DISPLAY_H
 
-# include "imports.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>

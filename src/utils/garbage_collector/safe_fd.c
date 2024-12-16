@@ -6,16 +6,16 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 17:36:32 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/15 17:37:09 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 03:20:28 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 #include <time.h>
 
-void close_fd(t_safe_fd **head)
+void	close_fd(t_safe_fd **head)
 {
-	t_safe_fd *current;
+	t_safe_fd	*current;
 
 	current = *head;
 	while (current)
@@ -29,16 +29,16 @@ void close_fd(t_safe_fd **head)
 	}
 }
 
-void add_safe_fd(int fd, enum e_fd type)
+void	add_safe_fd(int fd, enum e_fd type)
 {
-	static t_safe_fd *head = NULL;
-	t_safe_fd *block;
-	t_safe_fd *temp;
+	static t_safe_fd	*head = NULL;
+	t_safe_fd			*block;
+	t_safe_fd			*temp;
 
 	if (head && type == CLOSE_FD)
 	{
 		close_fd(&head);
-		return;
+		return ;
 	}
 	if (type == OPEN_FD)
 	{
@@ -55,5 +55,4 @@ void add_safe_fd(int fd, enum e_fd type)
 			temp->next = block;
 		}
 	}
-
 }

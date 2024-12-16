@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:29:59 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/14 19:07:30 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 03:18:06 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ int	ft_cd(t_command *command, t_minishell *minishell)
 	}
 	else
 	{
-		// check permission or type
-		// use of access for perm
 		printerr(" No such file or directory\n");
 		return (minishell->exit_status[0] = 1, 1);
 	}
 	return (0);
 }
+// check permission or type
+// use of access for perm

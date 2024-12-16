@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 09:51:50 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/14 19:15:50 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 03:19:59 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,15 @@ void	extend_get_redir(char *line, int *start, int *end)
 	{
 		(*end)++;
 		while (line[*start + *end] && (line[*start + *end] == '<' || line[*start
-				+ *end] == '>'))
+					+ *end] == '>'))
 			(*end)++;
 		return ;
 	}
 	else if (line[*start + *end] == '\'' || line[*start + *end] == '\"')
 	{
 		while (line[*start + *end] && line[*start + *end] != '<' && line[*start
-			+ *end] != '>' && line[*start + *end] != ' ' && line[*start
-			+ *end] != '\t' && line[*start + *end] != '\n')
+				+ *end] != '>' && line[*start + *end] != ' ' && line[*start
+				+ *end] != '\t' && line[*start + *end] != '\n')
 		{
 			if (line[*start + *end] == '\'' || line[*start + *end] == '\"')
 			{
@@ -104,7 +104,7 @@ void	extend_get_redir(char *line, int *start, int *end)
 	else
 	{
 		while (line[*start + *end] && line[*start + *end] != '<' && line[*start
-			+ *end] != '>' && status == 0)
+				+ *end] != '>' && status == 0)
 		{
 			status = in_quote(status, line[*start + *end]);
 			(*end)++;
