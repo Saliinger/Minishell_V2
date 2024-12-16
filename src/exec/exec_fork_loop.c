@@ -6,13 +6,14 @@
 /*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 23:31:33 by ekrebs            #+#    #+#             */
-/*   Updated: 2024/12/16 23:37:26 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 23:55:10 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	handle_child_process(int prev_pipe_fd, t_command *cmd, t_minishell *m)
+static void	handle_child_process(int prev_pipe_fd, t_command *cmd, \
+																t_minishell *m)
 {
 	if (prev_pipe_fd != -1)
 		dup2(prev_pipe_fd, STDIN_FILENO);
@@ -37,7 +38,8 @@ static void	handle_child_process(int prev_pipe_fd, t_command *cmd, t_minishell *
 	nuclear_exit(ft_exec(m, cmd));
 }
 
-static void	handle_parent_process(t_pids_list **pids_list, pid_t pid, int prev_pipe_fd, t_command *cmd)
+static void	handle_parent_process(t_pids_list **pids_list, pid_t pid, \
+											int prev_pipe_fd, t_command *cmd)
 {
 	*pids_list = pids_list_safe_addback(pid, *pids_list);
 	if (prev_pipe_fd != -1)
@@ -57,7 +59,8 @@ static void	handle_fork_failure(t_command *cmd)
 	nuclear_exit(EXIT_FAILURE);
 }
 
-static void	process_fork_loop(t_command *cmd, t_minishell *m, t_pids_list **pids_list, int prev_pipe_fd)
+static void	process_fork_loop(t_command *cmd, t_minishell *m, \
+									t_pids_list **pids_list, int prev_pipe_fd)
 {
 	pid_t	pid;
 

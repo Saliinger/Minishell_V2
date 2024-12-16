@@ -6,7 +6,7 @@
 /*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:22:12 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 23:42:52 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 23:54:03 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,7 +321,8 @@ t_pids_list						*pids_list_safe_addback(int pid,
 									t_pids_list *first);
 void							get_exit_status(t_minishell *m,
 									t_pids_list *pids);
-void							process_fork(t_command *cmd, t_minishell *m, t_pids_list **pids_list);
+void							process_fork(t_command *cmd, t_minishell *m,
+									t_pids_list **pids_list);
 
 // signal
 # define NO_SIG 0
