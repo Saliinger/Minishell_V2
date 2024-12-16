@@ -6,7 +6,7 @@
 /*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:42:48 by ekrebs            #+#    #+#             */
-/*   Updated: 2024/12/16 21:47:25 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 23:07:22 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	do_the_heredoc(int fd, t_redir *redir, t_minishell *m)
 		free(line);
 	}
 	handle_heredoc_exit(saved_stdin, fd, line, m);
+	return (0);
 }
 
 int	handle_heredoc(t_redir *redir, t_minishell *m)
