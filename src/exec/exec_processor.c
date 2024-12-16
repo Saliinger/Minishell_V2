@@ -3,102 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_processor.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 00:07:20 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 20:22:30 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 20:48:50 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int	preprocess_heredocs(t_command *cmd, t_minishell *m)
-{
-	t_redir	*redir;
-	char	temp_file[128];
-	int		fd;
-	char	*line;
-	int		hd_id;
-	int		saved_stdin;
-
-	hd_id = 0;
-	while (cmd)
-	{
-		redir = cmd->redirection;
-		while (redir)
-		{
-			if (redir->type == R_HEREDOC)
-			{
-				snprintf(temp_file, sizeof(temp_file), "temp_hd_%d", hd_id++);
-				fd = open(temp_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-				if (fd < 0)
-					return (perror("Erreur ouverture heredoc"), -1);
-				saved_stdin = dup(STDIN_FILENO);
-				add_safe_fd(saved_stdin, OPEN_FD);
-				while (1)
-				{
-					set_signals_to_heredoc();
-					line = readline(" >");
-					set_signals_to_ignore();
-					if (g_sig == SIGINT)
-					{
-						g_sig = NO_SIG;
-						m->exit_status[0] = 130;
-						dup2(saved_stdin, STDIN_FILENO);
-						break ;
-					}
-					if (!line || ft_strcmp(line, redir->redir) == 0)
-						break ;
-					write(fd, line, ft_strlen(line));
-					write(fd, "\n", 1);
-					free(line);
-				}
-				close(saved_stdin);
-				close(fd);
-				free(line);
-				redir->redir = safe_strdup(temp_file, ALLOC_COMMAND);
-				redir->type = R_INPUT;
-			}
-			redir = redir->next;
-		}
-		cmd = cmd->subcommand;
-	}
-	return (0);
-}
-
-void	get_exit_status(t_minishell *m, t_pids_list *pids)
-{
-	int	status;
-
-	while (pids)
-	{
-		if (waitpid(pids->pid, &status, 0) > 0)
-		{
-			if (WIFEXITED(status))
-				m->exit_status[0] = WEXITSTATUS(status);
-			else if (WIFSIGNALED(status))
-				m->exit_status[0] = 128 + WTERMSIG(status);
-		}
-		pids = pids->next;
-	}
-}
-
-t_pids_list	*pids_list_safe_addback(int pid, t_pids_list *first)
-{
-	t_pids_list	*node;
-	t_pids_list	*new_node;
-
-	new_node = safe_malloc(sizeof(t_pids_list), ALLOC_COMMAND);
-	new_node->pid = pid;
-	new_node->next = NULL;
-	if (!first)
-		return (new_node);
-	node = first;
-	while (node->next)
-		node = node->next;
-	node->next = new_node;
-	return (first);
-}
 
 void	process_fork(t_command *cmd, t_minishell *m, t_pids_list **pids_list)
 {

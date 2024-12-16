@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:22:12 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 20:15:20 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 20:50:53 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,6 +298,8 @@ int								delete_var(t_minishell *minishell, int line);
 int								modify_value_env(t_minishell *minishell,
 									char *name, char *value);
 
+//EXEC
+
 int								ft_exec(t_minishell *minishell,
 									t_command *command);
 int								ft_exec_builtins(t_minishell *minishell,
@@ -308,12 +310,15 @@ void							process_input_line(char *line, t_minishell *m);
 
 char							*get_cmd_path(char *cmd_name, t_minishell *m,
 									int *err);
-// Utils
+int								preprocess_heredocs(t_command *cmd, t_minishell *m);
+int								handle_redirections(t_command *cmd);
+
 void							exec_error(char *error, t_minishell *minishell,
 									t_command *command);
 int								count_cmd(t_command *command);
-int								heredoc_handler(int fd, t_redir *redir);
-int								handle_redirections(t_command *cmd);
+t_pids_list						*pids_list_safe_addback(int pid, t_pids_list *first);
+void							get_exit_status(t_minishell *m, t_pids_list *pids);
+//int								heredoc_handler(int fd, t_redir *redir);
 
 // signal
 # define NO_SIG 0
