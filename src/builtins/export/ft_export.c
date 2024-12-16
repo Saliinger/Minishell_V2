@@ -6,24 +6,34 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:54:16 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 20:25:47 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 20:47:13 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-bool	check_name(char *name)
+bool	check_name(t_command *command)
 {
-	int	i;
+	int		i;
+	char	*name;
+	int		j;
 
-	i = 0;
-	if (!ft_isalpha(name[i]) && name[i] != '_')
-		return (false);
-	i++;
-	while (name[i])
+	i = 1;
+	while (command->clean_arg[i])
 	{
-		if (!ft_isdigit(name[i]) && !ft_isalpha(name[i]) && name[i] != '_')
-			return (false);
+		j = 0;
+		name = get_name_env(command->clean_arg[i]);
+		if (!ft_isalpha(name[j]) && name[j] != '_')
+			return (printerr("bash: export: `%s': not a valid identifier\n",
+					name), false);
+		j++;
+		while (name[j])
+		{
+			if (!ft_isdigit(name[j]) && !ft_isalpha(name[j]) && name[j] != '_')
+				return (printerr("bash: export: `%s': not a valid identifier\n",
+						name), false);
+			j++;
+		}
 		i++;
 	}
 	return (true);
@@ -81,20 +91,13 @@ static void	export_handler(char *line, char *name, char *value,
 
 int	ft_export(t_command *command, t_minishell *minishell)
 {
-	int		i;
-	char	*name;
+	int	i;
 
 	i = 1;
 	if (nbr_of_line(command->clean_arg) > 1)
 	{
-		while (command->clean_arg[i])
-		{
-			name = get_name_env(command->clean_arg[i]);
-			if (!check_name(name))
-				return (printerr("bash: export: `%s': not a valid identifier\n",
-						name), minishell->exit_status[0] = 1, 1);
-			i++;
-		}
+		if (!check_name(command))
+			return (minishell->exit_status[0] = 1, 1);
 		i = 1;
 		while (command->clean_arg[i])
 		{
