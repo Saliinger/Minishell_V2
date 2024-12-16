@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 18:54:35 by ekrebs            #+#    #+#             */
-/*   Updated: 2024/12/16 20:57:33 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 21:47:12 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-int	get_fd(t_redir *redir)
+static int	get_fd(t_redir *redir)
 {
 	int		fd;
 	char	*msg;
@@ -35,6 +35,21 @@ int	get_fd(t_redir *redir)
 	return (fd);
 }
 
+static int	handle_the_redirection(int fd, t_redir *redir)
+{
+	if (redir->type == R_INPUT || redir->type == R_HEREDOC)
+	{
+		if (dup2(fd, STDIN_FILENO) < 0)
+			return (perror("dup2 (input)"), close(fd), -1);
+	}
+	else
+	{
+		if (dup2(fd, STDOUT_FILENO) < 0)
+			return (perror("dup2 (output)"), close(fd), -1);
+	}
+	return (0);
+}
+
 int	handle_redirections(t_command *cmd)
 {
 	t_redir	*redir;
@@ -48,16 +63,8 @@ int	handle_redirections(t_command *cmd)
 		fd = get_fd(redir);
 		if (fd == -1)
 			return (-1);
-		if (redir->type == R_INPUT || redir->type == R_HEREDOC)
-		{
-			if (dup2(fd, STDIN_FILENO) < 0)
-				return (perror("dup2 (input)"), close(fd), -1);
-		}
-		else
-		{
-			if (dup2(fd, STDOUT_FILENO) < 0)
-				return (perror("dup2 (output)"), close(fd), -1);
-		}
+		if (handle_the_redirection(fd, redir) < 0)
+			return (-1);
 		close(fd);
 		redir = redir->next;
 	}
