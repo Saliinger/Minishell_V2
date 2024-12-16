@@ -39,7 +39,7 @@ int	ft_cd(t_command *command, t_minishell *minishell)
 	char	*path;
 
 	if (nbr_of_line(command->clean_arg) > 2)
-		return (minishell->exit_status[0] = 0, 0);
+		return (minishell->exit_status[0] = 1, 0);
 	path = start_path(command, minishell);
 	error = chdir(path);
 	if (error == 0)
