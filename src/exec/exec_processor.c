@@ -6,7 +6,7 @@
 /*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 00:07:20 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 06:17:25 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 07:04:11 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	get_fd(t_redir *redir)
 		fd = open(redir->redir, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else if (redir->type == R_INPUT)
 		fd = open(redir->redir, O_RDONLY);
-	else if (redir->type == R_HEREDOC)
-		fd = heredoc_handler(fd, redir);
+	// else if (redir->type == R_HEREDOC)
+	// 	fd = heredoc_handler(fd, redir);
 	else
 		return (perror("Type de redirection inconnu"), -1);
 	if (fd < 0)
@@ -65,7 +65,7 @@ static int	handle_redirections(t_command *cmd)
 	return (0);
 }
 
-int	preprocess_heredocs(t_command *cmd)
+int	preprocess_heredocs(t_command *cmd, t_minishell *m)
 {
 	t_redir	*redir;
 	char	temp_file[128];
@@ -85,17 +85,32 @@ int	preprocess_heredocs(t_command *cmd)
 				fd = open(temp_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 				if (fd < 0)
 					return (perror("Erreur ouverture heredoc"), -1);
+				int saved_stdin;
+				saved_stdin = dup(STDIN_FILENO);
+				add_safe_fd(saved_stdin, OPEN_FD);
 				while (1)
 				{
+					set_signals_to_heredoc();
 					line = readline(" >");
+					set_signals_to_ignore();
+					if (g_sig == SIGINT)
+					{
+						g_sig = NO_SIG;
+						m->exit_status[0] = 130;
+						dup2(saved_stdin, STDIN_FILENO);
+
+						break ;
+					}
 					if (!line || ft_strcmp(line, redir->redir) == 0)
 						break ;
 					write(fd, line, ft_strlen(line));
 					write(fd, "\n", 1);
 					free(line);
 				}
+				close(saved_stdin);
 				close(fd);
 				free(line);
+				set_signals_to_ignore();
 //				free(redir->redir);
 				redir->redir = safe_strdup(temp_file, ALLOC_COMMAND);
 				redir->type = R_INPUT;
@@ -133,7 +148,7 @@ void	process_fork(t_command *cmd, t_minishell *m, t_pids_list **pids_list)
 	int		prev_pipe_fd;
 
 	prev_pipe_fd = -1;
-	if (preprocess_heredocs(cmd) < 0)
+	if (preprocess_heredocs(cmd ,m) < 0)
 	{
 		printerr("minishell: error processing heredocs\n");
 		return ;
