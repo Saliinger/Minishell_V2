@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredocs.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 00:10:57 by ekrebs            #+#    #+#             */
-/*   Updated: 2024/12/16 00:48:14 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 03:14:18 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	heredoc_handler(int fd, t_redir *redir)
 	char	*delimiter;
 	char	*temp_file;
 	int		duped_std_in;
-	
+
 	delimiter = redir->redir;
 	temp_file = "temp_heredoc_file";
 	fd = open(temp_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);

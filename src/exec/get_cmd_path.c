@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmd_path.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 18:58:26 by ekrebs            #+#    #+#             */
-/*   Updated: 2024/12/15 19:26:34 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 03:14:09 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 #include "errno.h"
 
-
 /**
- * 
+ *
  * brief : adds the cmd_name after the env_path;
- * 
+ *
  */
 char	*build_full_path(char *env_path, char *cmd_name)
 {
@@ -35,16 +34,16 @@ char	*build_full_path(char *env_path, char *cmd_name)
 }
 
 /**
- * 
+ *
  * brief :gets the executable cmd_path,
- * checks by adding 
- * 
- * 
+ * checks by adding
+ *
+ *
  */
-static char	*get_command(char **env_paths, char* cmd_name, int *err)
+static char	*get_command(char **env_paths, char *cmd_name, int *err)
 {
-	char *full_path;
-	int	i;
+	char	*full_path;
+	int		i;
 
 	full_path = NULL;
 	i = 0;
@@ -60,15 +59,15 @@ static char	*get_command(char **env_paths, char* cmd_name, int *err)
 }
 
 /**
- * brief : returns tab of paths found in the env, 
+ * brief : returns tab of paths found in the env,
  * if fails, returns NULL
- * 
+ *
  *  */
 static char	**get_env_paths(t_minishell *m)
 {
 	char	*tmp;
 	char	**result;
-	int	path_line;
+	int		path_line;
 
 	path_line = get_env_var(m, "PATH", 4);
 	if (path_line == -1)
@@ -80,7 +79,7 @@ static char	**get_env_paths(t_minishell *m)
 
 /**
  * brief : returns appropriate for or dir error if name is not executable.
- * 
+ *
  */
 static char	*get_file_or_dir(char *name, int *err)
 {
@@ -95,17 +94,17 @@ static char	*get_file_or_dir(char *name, int *err)
 		return (printerr("minishell: "), perror(name), NULL);
 	}
 	if (S_ISDIR(f.st_mode))
-		return (printerr("minishell: %s: is a directory\n", name), \
-														*err = 126, NULL);
+		return (printerr("minishell: %s: is a directory\n", name), *err = 126,
+			NULL);
 	return (name);
 }
 
 /**
- * brief : returns the path of the cmd to exec. checks for dir 
- * 							or file if starts with ./ or contains /, 
+ * brief : returns the path of the cmd to exec. checks for dir
+ * 							or file if starts with ./ or contains /,
  * will display error correctly for valid cmd path not found.
  * if fails, returns NULL
- * 
+ *
  *  */
 char	*get_cmd_path(char *cmd_name, t_minishell *m, int *err)
 {
@@ -117,14 +116,14 @@ char	*get_cmd_path(char *cmd_name, t_minishell *m, int *err)
 		return (NULL);
 	if (ft_strchr(cmd_name, '/'))
 	{
-		cmd_path = get_file_or_dir(cmd_name, err); //
+		cmd_path = get_file_or_dir(cmd_name, err);
 	}
 	else if (cmd_name[0] == '.')
 	{
-		return (printerr("%s: command not found\n", cmd_name), \
-														*err = 127, NULL); //
+		return (printerr("%s: command not found\n", cmd_name), *err = 127,
+			NULL);
 	}
 	else
-		cmd_path = get_command(env_paths, cmd_name, err); //
+		cmd_path = get_command(env_paths, cmd_name, err);
 	return (cmd_path);
 }

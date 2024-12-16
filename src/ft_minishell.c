@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 03:21:06 by ekrebs            #+#    #+#             */
-/*   Updated: 2024/12/16 00:55:38 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 03:13:34 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_minishell(t_minishell *m)
 	while (1)
 	{
 		if (get_line(&line, "\033[0;34mMinishell >$ \033[0m", m) == EXIT_EOF)
-			return ( EXIT_EOF);
+			return (EXIT_EOF);
 		if (line && ft_strlen(line) > 0 && input_checker(m, line) == true)
 			process_input_line(line, m);
 		if (line)
