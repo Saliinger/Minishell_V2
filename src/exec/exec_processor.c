@@ -100,6 +100,39 @@ static int	handle_redirections(t_command *cmd)
 	return (0);
 }
 
+// potentiel solution
+// static int	handle_redirections(t_command *cmd)
+// {
+// 	t_redir	*redir;
+// 	int		fd;
+// 	int		last_in;
+// 	int		last_out;
+//
+// 	redir = cmd->redirection;
+// 	if (!redir)
+// 		return (0);
+// 	last_in = -1;
+// 	last_out = -1;
+// 	while (redir)
+// 	{
+// 		fd = get_fd(redir);
+// 		if (fd == -1)
+// 			return (-1);
+// 		if (redir->type == R_INPUT || redir->type == R_HEREDOC)
+// 			last_in = fd;
+// 		else
+// 			last_out = fd;
+// 		add_safe_fd(fd, OPEN_FD);
+// 		redir = redir->next;
+// 	}
+// 	if (dup2(last_in, STDIN_FILENO) < 0)
+// 		return (perror("dup2 (entrée)"), -1);
+// 	if (dup2(last_out, STDOUT_FILENO) < 0)
+// 		return (perror("dup2 (sortie)"), -1);
+// 	unlink("temp_heredoc_file");
+// 	return (0);
+// }
+
 void	process_fork(t_command *cmd, t_minishell *m)
 {
 	int		prev_pipe_fd;
