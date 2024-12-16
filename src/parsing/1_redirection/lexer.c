@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 09:51:50 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/17 00:10:11 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/17 00:41:51 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,14 @@ void	extend_get_redir(char *line, int *start, int *end)
 	}
 }
 
-static char	**get_redir(char *line)
+static char	**get_redir(char *line, char **res)
 {
-	char	**res;
 	int		start;
 	int		end;
 	char	*to_add;
 
 	start = 0;
 	end = 0;
-	res = NULL;
 	while (line[start])
 	{
 		extend_get_redir(line, &start, &end);
@@ -100,7 +98,7 @@ char	**relexer(char **in)
 	{
 		if (check_redir(in[i]) > 0)
 		{
-			to_add = get_redir(in[i]);
+			to_add = get_redir(in[i], NULL);
 			res = add_redir(res, to_add);
 		}
 		else
