@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:58:21 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/14 19:15:29 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 20:50:59 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,27 +76,21 @@ bool	forbiden_checker(char *in, char c)
 	return (true);
 }
 
-bool	check_start(char *s, char c)
+bool	check_start_end(char *s, char c, bool ends)
 {
 	int	i;
 
-	i = 0;
+	if (ends == true)
+		i = 0;
+	else
+		i = ft_strlen(s) - 1;
 	while (s[i] && (s[i] == '\n' || s[i] == '\t' || s[i] == ' '))
-		i++;
-	if (s[i] == c)
-		return (printerr(" syntax error near unexpected token `%c'\n", c),
-			false);
-	return (true);
-}
-
-bool	check_end(char *s, char c)
-{
-	int	i;
-
-	i = 0;
-	i = ft_strlen(s) - 1;
-	while (s[i] && (s[i] == '\n' || s[i] == '\t' || s[i] == ' '))
-		i--;
+	{
+		if (ends == true)
+			i++;
+		else
+			i--;
+	}
 	if (s[i] == c)
 		return (printerr(" syntax error near unexpected token `%c'\n", c),
 			false);
@@ -105,9 +99,10 @@ bool	check_end(char *s, char c)
 
 bool	input_checker(t_minishell *minishell, char *command)
 {
-	if (!check_start(command, '|') || !check_start(command, '>')
-		|| !check_end(command, '|') || !check_end(command, '<')
-		|| !quote_checker(command, '\"') || !quote_checker(command, '\''))
+	if (!check_start_end(command, '|', true) || !check_start_end(command, '>',
+			true) || !check_start_end(command, '|', false)
+		|| !check_start_end(command, '<', false) || !quote_checker(command,
+			'\"') || !quote_checker(command, '\''))
 		return (minishell->exit_status[0] = 2, false);
 	return (true);
 }
