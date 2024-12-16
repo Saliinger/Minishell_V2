@@ -6,7 +6,7 @@
 /*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:22:12 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 00:50:42 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 03:04:40 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,7 +306,11 @@ char								*get_cmd_path(char *cmd_name, t_minishell *m, int *err);
 void								exec_error(char *error, t_minishell *minishell,
 									t_command *command);
 int								count_cmd(t_command *command);
-int								heredoc_handler(int fd, t_redir *redir);
+//int								heredoc_handler(int fd, t_redir *redir);
+int								preprocess_heredocs(t_command *cmd, t_minishell *m);
+void							process_fork(t_command *cmd, t_minishell *m, int *status);
+int								handle_redirections(t_command *cmd);
+
 
 // signal
 # define NO_SIG 0
