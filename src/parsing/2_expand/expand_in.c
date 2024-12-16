@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 23:02:11 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/10 12:52:19 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 22:45:45 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,27 +82,31 @@ char	*expand(t_minishell *minishell, char *name)
 	return (res);
 }
 
+static void	process_char(t_minishell *minishell, char **res, char *line, int *i)
+{
+	char	*name;
+	char	*extend;
+
+	name = clean_name(line + *i);
+	*i += ft_strlen(name);
+	extend = expand(minishell, name);
+	*res = add_expand(*res, extend);
+}
+
 char	*new_line(t_minishell *minishell, char *line)
 {
 	int		i;
 	int		status;
 	char	*res;
-	char	*name;
-	char	*extend;
 
 	i = 0;
-	res = safe_strdup("", ALLOC_COMMAND);
 	status = 0;
+	res = safe_strdup("", ALLOC_COMMAND);
 	while (line[i])
 	{
 		status = in_quote(status, line[i]);
 		if (line[i] == '$' && status >= 0)
-		{
-			name = clean_name(line + i);
-			i += ft_strlen(name);
-			extend = expand(minishell, name);
-			res = add_expand(res, extend);
-		}
+			process_char(minishell, &res, line, &i);
 		else
 		{
 			res = add_char(res, line[i]);
