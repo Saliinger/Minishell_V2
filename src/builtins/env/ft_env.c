@@ -6,7 +6,7 @@
 /*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:29:52 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 18:30:51 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 19:07:15 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ int	ft_env(t_minishell *minishell)
 		printf("%s\n", minishell->env[i]);
 		i++;
 	}
-	nuclear_exit(0);
+	return (nuclear_exit(0));
 }

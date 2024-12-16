@@ -6,7 +6,7 @@
 /*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:54:22 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 18:31:24 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 19:07:24 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ int	ft_pwd(t_minishell *minishell)
 		pwd++;
 	}
 	printf("%s\n", pwd);
-	nuclear_exit(0);
+	return (nuclear_exit(0));
 }
