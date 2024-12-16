@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:54:09 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/14 19:11:29 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 18:31:00 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static bool	check_arg(char *s)
 static void	ft_exit_extend(int exit_code)
 {
 	safe_malloc(0, NUKE);
-	exit(exit_code);
+	nuclear_exit(exit_code);
 }
 
 void	ft_exit(t_minishell *minishell, t_command *command, bool fail)

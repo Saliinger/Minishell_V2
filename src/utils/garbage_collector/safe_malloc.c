@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   safe_malloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:57:22 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/14 19:08:23 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 18:31:43 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	add_node_safe_malloc(t_safe_malloc **head, void *value)
 	{
 		printerr("bash: xmalloc: cannot allocate memory\n");
 		safe_malloc(0, NUKE);
-		exit(EXIT_FAILURE);
+		nuclear_exit(EXIT_FAILURE);
 	}
 	block->ptr = value;
 	block->mark = false;
@@ -83,7 +83,7 @@ void	*safe_malloc(size_t size, enum e_action action)
 			add_safe_fd(0, CLOSE_FD);
 			safe_destroy(&cmd);
 			safe_destroy(&minishell);
-			exit(EXIT_FAILURE);
+			nuclear_exit(EXIT_FAILURE);
 		}
 		if (action == ALLOC_COMMAND)
 			add_node_safe_malloc(&cmd, ptr);

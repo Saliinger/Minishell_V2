@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_processor.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 00:07:20 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 03:16:21 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 18:31:15 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void	process_fork(t_command *cmd, t_minishell *m, int *status)
 			if (cmd->subcommand)
 				dup2(cmd->pipe_fds[1], STDOUT_FILENO);
 			if (handle_redirections(cmd) < 0)
-				exit(EXIT_FAILURE);
+				nuclear_exit(EXIT_FAILURE);
 			if (prev_pipe_fd != -1)
 				close(prev_pipe_fd);
 			if (cmd->subcommand)
@@ -148,7 +148,7 @@ void	process_fork(t_command *cmd, t_minishell *m, int *status)
 				close(cmd->pipe_fds[0]);
 				close(cmd->pipe_fds[1]);
 			}
-			exit(ft_exec(m, cmd));
+			nuclear_exit(ft_exec(m, cmd));
 		}
 		if (prev_pipe_fd != -1)
 			close(prev_pipe_fd);

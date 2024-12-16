@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:22:12 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 03:22:40 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 18:30:19 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,7 @@ void							sighandler(int sig);
 char							**get_env(char **env);
 bool							checker_command(char *in, char *command);
 int								nbr_of_line(char **env);
+int 							nuclear_exit(int status);
 
 // Split Element
 size_t							ft_countword(const char *s, char c);

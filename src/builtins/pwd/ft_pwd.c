@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:54:22 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 16:07:01 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 18:31:24 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,5 @@ int	ft_pwd(t_minishell *minishell)
 		pwd++;
 	}
 	printf("%s\n", pwd);
-	exit(0);
+	nuclear_exit(0);
 }
