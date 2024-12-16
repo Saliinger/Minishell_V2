@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 18:50:21 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/10 12:52:44 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 22:52:18 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,13 @@ char	*tiny_remove_quote(char *arg)
 	while (arg[i])
 	{
 		if ((arg[i] == '\'' || arg[i] == '\"') && status == 0)
-		{
 			status = in_quote(status, arg[i]);
-			i++;
-		}
 		else if ((arg[i] == '\'' && status == -1) || (arg[i] == '\"'
 				&& status == 1))
-		{
 			status = in_quote(status, arg[i]);
-			i++;
-		}
 		else
-		{
 			res = add_char(res, arg[i]);
-			i++;
-		}
+		i++;
 	}
 	return (res);
 }
