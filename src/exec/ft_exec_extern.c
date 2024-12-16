@@ -6,7 +6,7 @@
 /*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 21:45:11 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/15 19:27:00 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 20:05:23 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ int	ft_exec_extern(t_minishell *minishell, t_command *command)
 	int		err;
 
 	err = 0;
-	cmd_path = get_cmd_path(command->clean_arg[0], minishell, &err);
+	cmd_path = NULL;
+	if (command->clean_arg)
+		cmd_path = get_cmd_path(command->clean_arg[0], minishell, &err);
 	if (cmd_path && !err)
 	{
 		if (access(cmd_path, X_OK) == 0)
