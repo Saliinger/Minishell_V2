@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   nuclear_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 18:28:51 by ekrebs            #+#    #+#             */
-/*   Updated: 2024/12/16 18:29:49 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 18:58:55 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int nuclear_exit(int status)
+int	nuclear_exit(int status)
 {
 	safe_malloc(0, NUKE);
 	exit(status);

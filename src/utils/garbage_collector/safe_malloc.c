@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   safe_malloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:57:22 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 18:31:43 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 18:58:09 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,35 +61,24 @@ void	*safe_malloc(size_t size, enum e_action action)
 	static t_safe_malloc	*cmd = NULL;
 	static t_safe_malloc	*minishell = NULL;
 
-	if (action == NUKE)
+	if (action == DESTROY_COMMAND || action == NUKE)
 	{
 		add_safe_fd(0, CLOSE_FD);
 		safe_destroy(&cmd);
-		safe_destroy(&minishell);
-		return (NULL);
-	}
-	else if (action == DESTROY_COMMAND)
-	{
-		add_safe_fd(0, CLOSE_FD);
-		safe_destroy(&cmd);
-		return (NULL);
-	}
-	else
-	{
-		ptr = malloc(size);
-		if (!ptr)
-		{
-			printerr("bash: xmalloc: cannot allocate memory\n");
-			add_safe_fd(0, CLOSE_FD);
-			safe_destroy(&cmd);
+		if (action == NUKE)
 			safe_destroy(&minishell);
-			nuclear_exit(EXIT_FAILURE);
-		}
-		if (action == ALLOC_COMMAND)
-			add_node_safe_malloc(&cmd, ptr);
-		else if (action == ALLOC_MINISHELL)
-			add_node_safe_malloc(&minishell, ptr);
+		return (NULL);
 	}
+	ptr = malloc(size);
+	if (!ptr)
+	{
+		printerr("bash: xmalloc: cannot allocate memory\n");
+		nuclear_exit(EXIT_FAILURE);
+	}
+	if (action == ALLOC_COMMAND)
+		add_node_safe_malloc(&cmd, ptr);
+	else if (action == ALLOC_MINISHELL)
+		add_node_safe_malloc(&minishell, ptr);
 	return (ptr);
 }
 
