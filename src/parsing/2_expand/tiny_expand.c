@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 19:22:46 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/14 19:22:48 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 22:50:26 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,32 +35,34 @@ char	*get_name(char *s)
 	return (name);
 }
 
-char	*tiny_expand(char *s, t_minishell *minishell)
+static char	*expand_exit_status(t_minishell *minishell)
 {
-	char			*res;
+	return (ft_itoa_safe(*minishell->exit_status, ALLOC_COMMAND));
+}
+
+static char	*expand_variable(char *s, t_minishell *minishell)
+{
 	char			*name;
+	char			*res;
 	t_export_list	*var;
 
+	name = get_name(s);
+	var = find_export_node(name + 1, minishell->export_list);
+	if (!var || !var->value)
+		return (safe_strdup(s + ft_strlen(name), ALLOC_COMMAND));
+	res = safe_strdup(var->value, ALLOC_COMMAND);
+	return (ft_strjoin_safe(res, s + ft_strlen(name), ALLOC_COMMAND));
+}
+
+char	*tiny_expand(char *s, t_minishell *minishell)
+{
 	if (*s == '$')
 	{
 		if (ft_strcmp(s, "$") == 0)
 			return (s);
 		if (ft_strcmp(s, "$?") == 0)
-			res = ft_itoa_safe(*minishell->exit_status, ALLOC_COMMAND);
-		else
-		{
-			name = get_name(s);
-			var = find_export_node(name + 1, minishell->export_list);
-			if (!var || !var->value)
-			{
-				res = safe_strdup(s + ft_strlen(name), ALLOC_COMMAND);
-				return (res);
-			}
-			res = safe_strdup(var->value, ALLOC_COMMAND);
-			res = ft_strjoin_safe(res, s + ft_strlen(name), ALLOC_COMMAND);
-		}
+			return (expand_exit_status(minishell));
+		return (expand_variable(s, minishell));
 	}
-	else
-		return (s);
-	return (res);
+	return (s);
 }
