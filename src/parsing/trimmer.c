@@ -6,13 +6,14 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:58:12 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/14 19:14:01 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 16:08:34 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// this functions are used to initialise the command that we're gonna process and '|' aka subcommand
+// this functions are used to initialise the command
+// that we're gonna process and '|' aka subcommand
 
 static char	*cut_first_cmd(char *in, int pipe_position)
 {

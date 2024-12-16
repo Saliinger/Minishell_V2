@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:54:22 by anoukan           #+#    #+#             */
-/*   Updated: 2024/11/29 21:50:38 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 16:07:01 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_pwd(t_minishell *minishell)
 {
 	int		line;
 	char	*pwd;
-	char    buffer[PATH_MAX + 1];
+	char	buffer[PATH_MAX + 1];
 
 	line = get_env_var(minishell, "PWD", 3);
 	if (line == -1)

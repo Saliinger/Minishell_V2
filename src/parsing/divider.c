@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 13:21:21 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/10 12:47:57 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 16:08:02 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 // chekc if there's pipe and give their position in the char *in
 
-size_t 	check_pipe(char *in)
+size_t	check_pipe(char *in)
 {
 	size_t	i;
-	int	flag;
+	int		flag;
 
 	i = 0;
 	flag = 0;
