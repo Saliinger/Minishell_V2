@@ -6,7 +6,7 @@
 /*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 00:07:20 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 05:34:53 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 06:17:25 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ int	preprocess_heredocs(t_command *cmd)
 				}
 				close(fd);
 				free(line);
-				free(redir->redir);
-				redir->redir = ft_strdup(temp_file);
+//				free(redir->redir);
+				redir->redir = safe_strdup(temp_file, ALLOC_COMMAND);
 				redir->type = R_INPUT;
 			}
 			redir = redir->next;
