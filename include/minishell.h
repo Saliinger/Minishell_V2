@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:22:12 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 22:46:44 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 22:49:25 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,4 +349,5 @@ void							add_safe_fd(int fd, enum e_fd type);
 char							**init_no_env(void);
 t_export_list					**init_no_env_export(void);
 
+char							*add_expand(char *s, char *to_add);
 #endif

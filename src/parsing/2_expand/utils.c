@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 23:04:25 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/09 18:34:23 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 22:48:22 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,29 @@ char	*clean_name(char *var)
 	len = get_var_name(var);
 	res = (char *)safe_malloc(sizeof(char) * len + 1, ALLOC_COMMAND);
 	ft_strlcpy(res, var, len + 1);
+	return (res);
+}
+
+char	*add_expand(char *s, char *to_add)
+{
+	char	*res;
+	int		i;
+
+	i = 0;
+	res = safe_strdup("", ALLOC_COMMAND);
+	while (s[i])
+	{
+		res = add_char(res, s[i]);
+		i++;
+	}
+	i = 0;
+	if (to_add)
+	{
+		while (to_add[i])
+		{
+			res = add_char(res, to_add[i]);
+			i++;
+		}
+	}
 	return (res);
 }

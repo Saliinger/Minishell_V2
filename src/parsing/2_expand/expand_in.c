@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 23:02:11 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 22:45:45 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 22:48:19 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,30 +32,6 @@ static int	check_nbr_var(char *line)
 		i++;
 	}
 	return (nbr);
-}
-
-char	*add_expand(char *s, char *to_add)
-{
-	char	*res;
-	int		i;
-
-	i = 0;
-	res = safe_strdup("", ALLOC_COMMAND);
-	while (s[i])
-	{
-		res = add_char(res, s[i]);
-		i++;
-	}
-	i = 0;
-	if (to_add)
-	{
-		while (to_add[i])
-		{
-			res = add_char(res, to_add[i]);
-			i++;
-		}
-	}
-	return (res);
 }
 
 char	*expand(t_minishell *minishell, char *name)

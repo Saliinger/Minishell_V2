@@ -4,6 +4,7 @@
     "*.embeddedhtml": "html",
     "stdbool.h": "c",
     "minishell.h": "c",
-    "stat.h": "c"
+    "stat.h": "c",
+    "history.h": "c"
   }
 }
