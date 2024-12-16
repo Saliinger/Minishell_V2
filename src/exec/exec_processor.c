@@ -87,7 +87,14 @@ int preprocess_heredocs(t_command *cmd)
 				char *line;
 				while (1)
 				{
-					line = readline("> ");
+					set_signals_to_minishell();
+					line = readline(" >");
+					set_signals_to_ignore();
+					if (g_sig == SIGINT)
+					{
+						g_sig = 0;
+						m->exit_status[0] = 130;
+					}
 					if (!line || ft_strcmp(line, redir->redir) == 0)
 						break;
 					write(fd, line, ft_strlen(line));
