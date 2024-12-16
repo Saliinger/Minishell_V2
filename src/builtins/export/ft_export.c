@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:54:16 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/13 21:45:41 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 20:25:47 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	ft_export(t_command *command, t_minishell *minishell)
 {
 	int		i;
 	char	*name;
-	char	*value;
 
 	i = 1;
 	if (nbr_of_line(command->clean_arg) > 1)
@@ -92,18 +91,16 @@ int	ft_export(t_command *command, t_minishell *minishell)
 		{
 			name = get_name_env(command->clean_arg[i]);
 			if (!check_name(name))
-			{
-				printerr("bash: export: `%s': not a valid identifier\n", name);
-				return (minishell->exit_status[0] = 1, 1);
-			}
+				return (printerr("bash: export: `%s': not a valid identifier\n",
+						name), minishell->exit_status[0] = 1, 1);
 			i++;
 		}
 		i = 1;
 		while (command->clean_arg[i])
 		{
-			name = get_name_env(command->clean_arg[i]);
-			value = get_value_env(command->clean_arg[i]);
-			export_handler(command->clean_arg[i], name, value, minishell);
+			export_handler(command->clean_arg[i],
+				get_name_env(command->clean_arg[i]),
+				get_value_env(command->clean_arg[i]), minishell);
 			i++;
 		}
 	}

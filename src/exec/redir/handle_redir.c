@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 18:54:35 by ekrebs            #+#    #+#             */
-/*   Updated: 2024/12/16 20:12:32 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 20:22:52 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	get_fd(t_redir *redir)
 {
-	int	fd;
-	char *msg;
+	int		fd;
+	char	*msg;
 
 	fd = 0;
 	if (redir->type == R_OUTPUT)
@@ -30,7 +30,8 @@ int	get_fd(t_redir *redir)
 		return (perror("Type de redirection inconnu"), -1);
 	if (fd < 0)
 	{
-		msg = ft_strjoin_safe(safe_strdup("minishell: ", ALLOC_COMMAND), redir->redir, ALLOC_COMMAND);
+		msg = ft_strjoin_safe(safe_strdup("minishell: ", ALLOC_COMMAND),
+				redir->redir, ALLOC_COMMAND);
 		return (perror(msg), -1);
 	}
 	return (fd);

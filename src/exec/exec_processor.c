@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_processor.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 00:07:20 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 19:50:55 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 20:22:30 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	preprocess_heredocs(t_command *cmd, t_minishell *m)
 	int		fd;
 	char	*line;
 	int		hd_id;
+	int		saved_stdin;
 
 	hd_id = 0;
 	while (cmd)
@@ -32,7 +33,6 @@ int	preprocess_heredocs(t_command *cmd, t_minishell *m)
 				fd = open(temp_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 				if (fd < 0)
 					return (perror("Erreur ouverture heredoc"), -1);
-				int saved_stdin;
 				saved_stdin = dup(STDIN_FILENO);
 				add_safe_fd(saved_stdin, OPEN_FD);
 				while (1)
@@ -45,7 +45,6 @@ int	preprocess_heredocs(t_command *cmd, t_minishell *m)
 						g_sig = NO_SIG;
 						m->exit_status[0] = 130;
 						dup2(saved_stdin, STDIN_FILENO);
-
 						break ;
 					}
 					if (!line || ft_strcmp(line, redir->redir) == 0)
@@ -57,7 +56,6 @@ int	preprocess_heredocs(t_command *cmd, t_minishell *m)
 				close(saved_stdin);
 				close(fd);
 				free(line);
-//				free(redir->redir);
 				redir->redir = safe_strdup(temp_file, ALLOC_COMMAND);
 				redir->type = R_INPUT;
 			}
@@ -70,9 +68,9 @@ int	preprocess_heredocs(t_command *cmd, t_minishell *m)
 
 void	get_exit_status(t_minishell *m, t_pids_list *pids)
 {
-	int			status;
+	int	status;
 
-	while(pids)
+	while (pids)
 	{
 		if (waitpid(pids->pid, &status, 0) > 0)
 		{
@@ -85,22 +83,19 @@ void	get_exit_status(t_minishell *m, t_pids_list *pids)
 	}
 }
 
-t_pids_list *pids_list_safe_addback(int pid, t_pids_list *first)
+t_pids_list	*pids_list_safe_addback(int pid, t_pids_list *first)
 {
-	t_pids_list *node;
-	t_pids_list *new_node;
+	t_pids_list	*node;
+	t_pids_list	*new_node;
 
 	new_node = safe_malloc(sizeof(t_pids_list), ALLOC_COMMAND);
 	new_node->pid = pid;
 	new_node->next = NULL;
-
 	if (!first)
 		return (new_node);
-
 	node = first;
 	while (node->next)
 		node = node->next;
-
 	node->next = new_node;
 	return (first);
 }
@@ -165,7 +160,7 @@ void	process_fork(t_command *cmd, t_minishell *m, t_pids_list **pids_list)
 void	process_input_line(char *line, t_minishell *m)
 {
 	t_command	*cmd;
-	t_pids_list *pids_list;
+	t_pids_list	*pids_list;
 
 	cmd = parsing(line, m);
 	if (cmd == NULL)

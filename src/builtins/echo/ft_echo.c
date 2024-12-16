@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:54:00 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 19:07:08 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 20:23:08 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ int	ft_echo(t_command *command)
 	else
 		error += echo_print(cmd, true, i);
 	if (error > 0)
-		return(nuclear_exit(EXIT_FAILURE));
+		return (nuclear_exit(EXIT_FAILURE));
 	return (nuclear_exit(EXIT_SUCCESS));
 }
