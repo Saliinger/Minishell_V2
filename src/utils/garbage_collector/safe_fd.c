@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   safe_fd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 17:36:32 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 03:20:28 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 19:50:40 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	add_safe_fd(int fd, enum e_fd type)
 	}
 	if (type == OPEN_FD)
 	{
-		block = (t_safe_fd *)safe_malloc(sizeof(t_safe_fd *), ALLOC_COMMAND);
+		block = (t_safe_fd *)safe_malloc(sizeof(t_safe_fd), ALLOC_COMMAND);
 		block->fd = fd;
 		block->next = NULL;
 		if (!head)
