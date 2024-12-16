@@ -6,20 +6,20 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:22:12 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 22:49:25 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/16 23:22:04 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdio.h>
 # include "../libft/libft/libft.h"
 # include "errors.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
 # include <stdbool.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <sys/stat.h>
 # include <sys/types.h>
@@ -350,4 +350,14 @@ char							**init_no_env(void);
 t_export_list					**init_no_env_export(void);
 
 char							*add_expand(char *s, char *to_add);
+
+char							**add_redir(char **tab, char **to_add);
+int								check_redir(char *in);
+void							handle_unquoted_section(char *line, int *start,
+									int *end);
+void							handle_quoted_section(char *line, int *start,
+									int *end);
+void							handle_redirection_symbols(char *line,
+									int *start, int *end);
+
 #endif
