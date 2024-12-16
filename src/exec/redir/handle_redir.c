@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 18:54:35 by ekrebs            #+#    #+#             */
-/*   Updated: 2024/12/16 20:45:11 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 20:57:33 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ int	get_fd(t_redir *redir)
 		fd = open(redir->redir, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else if (redir->type == R_INPUT)
 		fd = open(redir->redir, O_RDONLY);
-	// else if (redir->type == R_HEREDOC)
-	// 	fd = heredoc_handler(fd, redir);
 	else
 		return (perror("Type de redirection inconnu"), -1);
 	if (fd < 0)

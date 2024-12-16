@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:22:12 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 20:50:53 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 20:58:54 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,7 +298,7 @@ int								delete_var(t_minishell *minishell, int line);
 int								modify_value_env(t_minishell *minishell,
 									char *name, char *value);
 
-//EXEC
+// EXEC
 
 int								ft_exec(t_minishell *minishell,
 									t_command *command);
@@ -310,15 +310,18 @@ void							process_input_line(char *line, t_minishell *m);
 
 char							*get_cmd_path(char *cmd_name, t_minishell *m,
 									int *err);
-int								preprocess_heredocs(t_command *cmd, t_minishell *m);
+int								preprocess_heredocs(t_command *cmd,
+									t_minishell *m);
 int								handle_redirections(t_command *cmd);
 
 void							exec_error(char *error, t_minishell *minishell,
 									t_command *command);
 int								count_cmd(t_command *command);
-t_pids_list						*pids_list_safe_addback(int pid, t_pids_list *first);
-void							get_exit_status(t_minishell *m, t_pids_list *pids);
-//int								heredoc_handler(int fd, t_redir *redir);
+t_pids_list						*pids_list_safe_addback(int pid,
+									t_pids_list *first);
+void							get_exit_status(t_minishell *m,
+									t_pids_list *pids);
+// int								heredoc_handler(int fd, t_redir *redir);
 
 // signal
 # define NO_SIG 0

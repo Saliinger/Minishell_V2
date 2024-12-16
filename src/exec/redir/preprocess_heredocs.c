@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   preprocess_heredocs.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:42:48 by ekrebs            #+#    #+#             */
-/*   Updated: 2024/12/16 20:46:21 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/16 20:59:27 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	preprocess_heredocs(t_command *cmd, t_minishell *m)
 				if (fd < 0)
 					return (perror("Erreur ouverture heredoc"), -1);
 				saved_stdin = dup(STDIN_FILENO);
-				//add_safe_fd(saved_stdin, OPEN_FD);
 				while (1)
 				{
 					set_signals_to_heredoc();
