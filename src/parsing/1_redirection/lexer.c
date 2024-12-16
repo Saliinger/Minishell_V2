@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 09:51:50 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 23:23:38 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/17 00:10:11 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,46 @@
 
 void	extend_get_redir(char *line, int *start, int *end)
 {
+	int	status;
+
+	status = 0;
 	if (line[*start + *end] == '<' || line[*start + *end] == '>')
-		handle_redirection_symbols(line, start, end);
+	{
+		(*end)++;
+		while (line[*start + *end] && (line[*start + *end] == '<' || line[*start
+				+ *end] == '>'))
+			(*end)++;
+		return ;
+	}
 	else if (line[*start + *end] == '\'' || line[*start + *end] == '\"')
-		handle_quoted_section(line, start, end);
+	{
+		while (line[*start + *end] && line[*start + *end] != '<' && line[*start
+			+ *end] != '>' && line[*start + *end] != ' ' && line[*start
+			+ *end] != '\t' && line[*start + *end] != '\n')
+		{
+			if (line[*start + *end] == '\'' || line[*start + *end] == '\"')
+			{
+				status = in_quote(status, line[*start + *end]);
+				(*end)++;
+			}
+			while (line[*start + *end] && status != 0)
+			{
+				status = in_quote(status, line[*start + *end]);
+				(*end)++;
+			}
+		}
+		return ;
+	}
 	else
-		handle_unquoted_section(line, start, end);
-}
-
-static char	*extract_substring(char *line, int start, int end)
-{
-	char	*substring;
-
-	substring = (char *)safe_malloc(sizeof(char) * (end + 1), ALLOC_COMMAND);
-	ft_strlcpy(substring, line + start, end + 1);
-	return (substring);
+	{
+		while (line[*start + *end] && line[*start + *end] != '<' && line[*start
+			+ *end] != '>' && status == 0)
+		{
+			status = in_quote(status, line[*start + *end]);
+			(*end)++;
+		}
+		return ;
+	}
 }
 
 static char	**get_redir(char *line)
@@ -48,7 +73,9 @@ static char	**get_redir(char *line)
 		extend_get_redir(line, &start, &end);
 		if (end > 0)
 		{
-			to_add = extract_substring(line, start, end);
+			to_add = (char *)safe_malloc(sizeof(char) * (end + 1),
+					ALLOC_COMMAND);
+			ft_strlcpy(to_add, line + start, end + 1);
 			res = add_line(res, to_add, ALLOC_COMMAND);
 			start += end;
 			end = 0;
@@ -56,6 +83,8 @@ static char	**get_redir(char *line)
 		else
 			start++;
 	}
+	if (line[start])
+		res = add_line(res, line + start, ALLOC_COMMAND);
 	return (res);
 }
 
