@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:29:59 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/17 04:29:20 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/17 05:38:48 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ static char	*start_path(t_command *command, t_minishell *minishell)
 	{
 		if (command->clean_arg[1][0] == '~')
 			path = safe_strdup(command->clean_arg[1] + 1, ALLOC_COMMAND);
+		else if (ft_strlen(command->clean_arg[1]) == 1)
+			path = safe_strdup(command->clean_arg[1] + 1, ALLOC_COMMAND);
 		else
-			path = safe_strdup(command->clean_arg[1], ALLOC_COMMAND);
+			path = get_path(command->clean_arg[1], minishell);
 	}
 	else
 		path = get_path(command->clean_arg[1], minishell);
@@ -41,9 +43,8 @@ int	ft_cd(t_command *command, t_minishell *minishell)
 	if (nbr_of_line(command->clean_arg) > 2)
 		return (printerr(" too many arguments"), minishell->exit_status[0] = 1,
 			1);
-	if (ft_strlen(command->clean_arg[1]) == 1
-		&& command->clean_arg[1][0] == '.')
-		return (minishell->exit_status[0] = 0, 0);
+	if (!command->clean_arg[1])
+		path = get_home(&minishell);
 	path = start_path(command, minishell);
 	error = chdir(path);
 	if (error == 0)

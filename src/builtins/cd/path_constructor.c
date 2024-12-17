@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 12:37:06 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/17 04:48:08 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/17 05:40:51 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ static int	init_path(char *in, t_minishell *minishell, char **new_in)
 {
 	char	*temp;
 
+	if (*in == '/')
+	{
+		*new_in = safe_strdup(in, ALLOC_COMMAND);
+		return (0);
+	}
 	temp = get_current_path(minishell);
 	if (temp[ft_strlen(temp) - 1] != '/')
 		temp = ft_strjoin_safe(temp, "/", ALLOC_COMMAND);
@@ -59,10 +64,10 @@ char	*get_res(char *current_path)
 
 void	init_current_path(char **current_path)
 {
-	*current_path = (char *)safe_malloc(sizeof(char) * PATH_MAX + 1,
+	*current_path = (char *)safe_malloc(sizeof(char) * (PATH_MAX + 1),
 			ALLOC_COMMAND);
-	*current_path[0] = '/';
-	*current_path[1] = '\0';
+	ft_bzero(*current_path, PATH_MAX + 1);
+	(*current_path)[0] = '/';
 }
 
 char	*path_constructor(t_minishell *minishell, char *in)
