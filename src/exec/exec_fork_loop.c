@@ -6,7 +6,7 @@
 /*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 23:31:33 by ekrebs            #+#    #+#             */
-/*   Updated: 2024/12/16 23:55:10 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/17 02:55:09 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,15 @@ static void	handle_child_process(int prev_pipe_fd, t_command *cmd, \
 																t_minishell *m)
 {
 	if (prev_pipe_fd != -1)
+	{
 		dup2(prev_pipe_fd, STDIN_FILENO);
+		close(prev_pipe_fd);
+	}
 	if (cmd->subcommand)
+	{
 		dup2(cmd->pipe_fds[1], STDOUT_FILENO);
+		close(cmd->pipe_fds[1]);
+	}
 	if (handle_redirections(cmd) < 0)
 	{
 		if (cmd->subcommand)
@@ -28,8 +34,6 @@ static void	handle_child_process(int prev_pipe_fd, t_command *cmd, \
 		}
 		nuclear_exit(EXIT_FAILURE);
 	}
-	if (prev_pipe_fd != -1)
-		close(prev_pipe_fd);
 	if (cmd->subcommand)
 	{
 		close(cmd->pipe_fds[0]);
