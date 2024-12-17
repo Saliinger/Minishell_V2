@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 17:58:21 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 20:50:59 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/17 02:12:32 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ bool	check_start_end(char *s, char c, bool ends)
 		i = 0;
 	else
 		i = ft_strlen(s) - 1;
-	while (s[i] && (s[i] == '\n' || s[i] == '\t' || s[i] == ' '))
+	while (i > 0 && s[i] && (s[i] == '\n' || s[i] == '\t' || s[i] == ' '))
 	{
 		if (ends == true)
 			i++;
