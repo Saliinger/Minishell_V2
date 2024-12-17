@@ -6,7 +6,7 @@
 /*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 09:51:50 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/17 00:41:51 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/17 01:01:09 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,42 +20,11 @@ void	extend_get_redir(char *line, int *start, int *end)
 
 	status = 0;
 	if (line[*start + *end] == '<' || line[*start + *end] == '>')
-	{
-		(*end)++;
-		while (line[*start + *end] && (line[*start + *end] == '<' || line[*start
-				+ *end] == '>'))
-			(*end)++;
-		return ;
-	}
+		relexer_handle_redirection(line, start, end);
 	else if (line[*start + *end] == '\'' || line[*start + *end] == '\"')
-	{
-		while (line[*start + *end] && line[*start + *end] != '<' && line[*start
-			+ *end] != '>' && line[*start + *end] != ' ' && line[*start
-			+ *end] != '\t' && line[*start + *end] != '\n')
-		{
-			if (line[*start + *end] == '\'' || line[*start + *end] == '\"')
-			{
-				status = in_quote(status, line[*start + *end]);
-				(*end)++;
-			}
-			while (line[*start + *end] && status != 0)
-			{
-				status = in_quote(status, line[*start + *end]);
-				(*end)++;
-			}
-		}
-		return ;
-	}
+		relexer_handle_quotes(line, start, end, &status);
 	else
-	{
-		while (line[*start + *end] && line[*start + *end] != '<' && line[*start
-			+ *end] != '>' && status == 0)
-		{
-			status = in_quote(status, line[*start + *end]);
-			(*end)++;
-		}
-		return ;
-	}
+		relexer_handle_default(line, start, end, &status);
 }
 
 static char	**get_redir(char *line, char **res)

@@ -6,7 +6,7 @@
 /*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 19:22:12 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 23:54:03 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/17 01:00:23 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -354,11 +354,11 @@ char							*add_expand(char *s, char *to_add);
 
 char							**add_redir(char **tab, char **to_add);
 int								check_redir(char *in);
-void							handle_unquoted_section(char *line, int *start,
-									int *end);
-void							handle_quoted_section(char *line, int *start,
-									int *end);
-void							handle_redirection_symbols(char *line,
+void							relexer_handle_redirection(char *line,
 									int *start, int *end);
+void							relexer_handle_quotes(char *line, int *start,
+									int *end, int *status);
+void							relexer_handle_default(char *line, int *start,
+									int *end, int *status);
 
 #endif
