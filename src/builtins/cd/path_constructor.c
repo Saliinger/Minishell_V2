@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_constructor.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 12:37:06 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/17 02:40:30 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/17 02:47:08 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ bool	check_dot(char *in)
 	{
 		if (in[i] == '.')
 			nbr++;
-		while (in[i] == '.')
+		while (in[i] && in[i] == '.')
 			i++;
 		i++;
 	}
@@ -49,7 +49,7 @@ int	nbr_of_dot(char *line)
 	int	nbr;
 
 	nbr = 0;
-	while (line[nbr] == '.')
+	while (line[nbr] && line[nbr] == '.')
 		nbr++;
 	return (nbr);
 }
@@ -93,6 +93,5 @@ char	*path_constructor(t_minishell *minishell, char *in)
 			add_path(current_path, in_cut[i]);
 		i++;
 	}
-	res = get_res(current_path);
-	return (res);
+	return (res = get_res(current_path), res);
 }
