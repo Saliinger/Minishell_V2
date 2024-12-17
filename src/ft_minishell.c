@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 03:21:06 by ekrebs            #+#    #+#             */
-/*   Updated: 2024/12/16 03:13:34 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/17 13:33:44 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ int	ft_minishell(t_minishell *m)
 			free(line);
 	}
 	if (line)
-			free(line);
+		free(line);
 	return (EXIT_SUCCESS);
 }

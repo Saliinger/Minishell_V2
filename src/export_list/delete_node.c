@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   delete_node.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 23:18:10 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/17 08:02:08 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/17 13:33:33 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	delete_export_node(t_export_list **lst, char *name)
 	if (!to_delete)
 		return (0);
 	current = *lst;
-	if (to_delete== current)
+	if (to_delete == current)
 		*lst = (*lst)->next;
 	while (current && current->next != to_delete)
 		current = current->next;

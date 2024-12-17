@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:54:26 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/13 21:45:31 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/17 13:33:28 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ int	ft_unset(t_command *command, t_minishell *minishell)
 					ft_strlen(command->clean_arg[i]));
 			if (line != -1)
 				delete_var(minishell, line);
-                        delete_export_node(minishell->export_list,
-					command->clean_arg[i]);
+			delete_export_node(minishell->export_list, command->clean_arg[i]);
 			i++;
 		}
 	}
