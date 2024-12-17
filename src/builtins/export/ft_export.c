@@ -65,8 +65,7 @@ static void	export_handler(char *line, char *name, char *value,
 	if (status == 0)
 	{
 		add_node_export(minishell->export_list, name, value);
-		if (value)
-			create_var(minishell, line);
+                create_var(minishell, line);
 	}
 	else if (status == 1)
 	{
