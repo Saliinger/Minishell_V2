@@ -137,7 +137,7 @@ bonus:		all
 
 clean:
 			@$(MAKE) -C ./libft clean
-			@ ${RM} *.o */*.o */*/*.o
+			@ ${RM} $(OBJS)
 			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs"
 
 fclean:		clean
