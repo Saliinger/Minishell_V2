@@ -1,16 +1,11 @@
-#  |  |  ___ \    \  |         |
-#  |  |     ) |  |\/ |   _  |  |  /   _ 
-# ___ __|  __/   |   |  (   |    <    __/ 
-#    _|  _____| _|  _| \__,_| _|\_\ \___|
-#                              by jcluzet
 ################################################################################
 #                                     CONFIG                                   #
 ################################################################################
 
-NAME        := minishell
-CC        := cc
-FLAGS    := -Wall -Wextra -Werror 
-LIBS = -L./libft/compiled -lft -lprintf -lreadline
+NAME	:= minishell
+CC		:= cc
+FLAGS	:= -Wall -Wextra -Werror 
+LIBS	= -L./libft/compiled -lft -lprintf -lreadline
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
@@ -110,6 +105,7 @@ YELLOW		:= \033[1;33m
 BLUE		:= \033[1;34m
 CYAN 		:= \033[1;36m
 RM		    := rm -f
+RESET		:= \033[0m
 
 
 
@@ -135,19 +131,19 @@ clone_libft:
 ${NAME}:	${OBJS}
 			@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
 			${CC} ${FLAGS} -o ${NAME} ${OBJS} $(LIBS)
-			@echo "$(GREEN)$(NAME) created[0m ✔️"
+			@echo "$(GREEN)$(NAME) created $(RESET)"
 
 bonus:		all
 
 clean:
 			@$(MAKE) -C ./libft clean
 			@ ${RM} *.o */*.o */*/*.o
-			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✔️"
+			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs"
 
 fclean:		clean
 			@$(MAKE) -C ./libft fclean
 			@ ${RM} ${NAME}
-			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)binary ✔️"
+			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)binary"
 
 re:			fclean all
 
