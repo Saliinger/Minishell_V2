@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   preprocess_heredocs.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 20:42:48 by ekrebs            #+#    #+#             */
-/*   Updated: 2024/12/17 00:59:31 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/17 02:05:58 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,10 @@ static void	generate_temp_filename(char *buffer, int hd_id)
 	if (len >= 128)
 	{
 		printerr("Error: Temporary filename too long\n");
-		free(id_str);
 		return ;
 	}
 	ft_strlcpy(buffer, base_name, 128);
 	ft_strlcat(buffer, id_str, 128);
-	free(id_str);
 }
 
 int	handle_heredoc(t_redir *redir, t_minishell *m)
