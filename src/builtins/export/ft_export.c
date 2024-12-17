@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:54:16 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 20:47:13 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/17 13:27:07 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,20 @@ bool	check_name(char *str)
 	char	*name;
 	int		j;
 
-        j = 0;
-        name = get_name_env(str);
-        if (!ft_isalpha(name[j]) && name[j] != '_')
-                return (printerr("bash: export: `%s': not a valid identifier\n",
-                                name), false);
-        j++;
-        while (name[j])
-        {
-          if (!ft_isdigit(name[j]) && !ft_isalpha(name[j]) && name[j] != '_')
-            return (
-                printerr("bash: export: `%s': not a valid identifier\n", name),
-                false);
-          j++;
-        }
+	j = 0;
+	name = get_name_env(str);
+	printerr("name : %s\n", name);
+	if (!ft_isalpha(name[j]) && name[j] != '_')
+		return (printerr("bash: export: `%s': not a valid identifier\n", name),
+			false);
+	j++;
+	while (name[j])
+	{
+		if (!ft_isdigit(name[j]) && !ft_isalpha(name[j]) && name[j] != '_')
+			return (printerr("bash: export: `%s': not a valid identifier\n",
+					name), false);
+		j++;
+	}
 	return (true);
 }
 
@@ -65,7 +65,7 @@ static void	export_handler(char *line, char *name, char *value,
 	if (status == 0)
 	{
 		add_node_export(minishell->export_list, name, value);
-                create_var(minishell, line);
+		create_var(minishell, line);
 	}
 	else if (status == 1)
 	{
@@ -93,14 +93,13 @@ int	ft_export(t_command *command, t_minishell *minishell)
 		i = 1;
 		while (command->clean_arg[i])
 		{
-                      if (check_name(command->clean_arg[i]))
-                      {
-                          export_handler(command->clean_arg[i],
-                                         get_name_env(command->clean_arg[i]),
-                                         get_value_env(command->clean_arg[i]),
-                                         minishell);
-                      }
-                  i++;
+			if (check_name(command->clean_arg[i]))
+			{
+				export_handler(command->clean_arg[i],
+					get_name_env(command->clean_arg[i]),
+					get_value_env(command->clean_arg[i]), minishell);
+			}
+			i++;
 		}
 	}
 	else
