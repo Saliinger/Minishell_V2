@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 23:18:42 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/17 13:32:07 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/17 13:59:16 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*get_name_env(char *var)
 		i++;
 	if (var[i] == '=')
 		i++;
+	if (i == ft_strlen(var))
+		return (safe_strdup(var, ALLOC_MINISHELL));
 	name = (char *)safe_malloc(sizeof(char) * i + 1, ALLOC_MINISHELL);
 	ft_strlcpy(name, var, i);
 	return (name);

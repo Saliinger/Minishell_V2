@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:54:16 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/17 13:27:07 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/17 13:59:08 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ bool	check_name(char *str)
 	int		j;
 
 	j = 0;
+	name = NULL;
 	name = get_name_env(str);
-	printerr("name : %s\n", name);
 	if (!ft_isalpha(name[j]) && name[j] != '_')
 		return (printerr("bash: export: `%s': not a valid identifier\n", name),
 			false);
 	j++;
-	while (name[j])
+	while (name[j] && name[j] != '=')
 	{
 		if (!ft_isdigit(name[j]) && !ft_isalpha(name[j]) && name[j] != '_')
 			return (printerr("bash: export: `%s': not a valid identifier\n",
