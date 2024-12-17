@@ -6,7 +6,7 @@
 /*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:54:09 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/16 18:31:00 by ekrebs           ###   ########.fr       */
+/*   Updated: 2024/12/17 02:18:43 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ void	ft_exit(t_minishell *minishell, t_command *command, bool fail)
 	(void)command;
 	if (nbr_of_line(command->clean_arg) >= 3)
 	{
-		printerr("bash: exit: too many arguments\n");
+		printerr("minishell: exit: too many arguments\n");
 		ft_exit_extend(1);
 	}
 	if (nbr_of_line(command->clean_arg) == 2
 		&& check_arg(command->clean_arg[1]) == true)
 	{
-		printerr(" numeric argument required\n");
+		printerr("minishell: exit: numeric argument required\n");
 		ft_exit_extend(2);
 	}
 	else if (command->clean_arg[1] && fail == false)
