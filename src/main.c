@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:32:10 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/17 05:40:05 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/17 05:45:05 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,8 @@ int	main(int ac, char **av, char **env)
 
 	set_signals_to_minishell();
 	(void)av;
-	// if (ac > 1 || isatty(STDIN_FILENO) == 0 || isatty(STDOUT_FILENO) == 0)
-	// 	return (printerr("err: case not asked by subject.\n"), 1);
-	(void)ac;
+	if (ac > 1 || isatty(STDIN_FILENO) == 0 || isatty(STDOUT_FILENO) == 0)
+		return (printerr("err: case not asked by subject.\n"), 1);
 	exit_status = 0;
 	minishell = init(env, getcwd(buffer, 4096), &exit_status);
 	if (!minishell)
