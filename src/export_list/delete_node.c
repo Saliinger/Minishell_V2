@@ -25,6 +25,8 @@ int	delete_export_node(t_export_list **lst, char *name)
 	if (!to_delete)
 		return (0);
 	current = *lst;
+	if (to_delete== current)
+		*lst = (*lst)->next;
 	while (current && current->next != to_delete)
 		current = current->next;
 	if (current && current->next == to_delete)

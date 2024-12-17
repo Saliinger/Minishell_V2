@@ -26,11 +26,9 @@ int	ft_unset(t_command *command, t_minishell *minishell)
 			line = get_env_var(minishell, command->clean_arg[i],
 					ft_strlen(command->clean_arg[i]));
 			if (line != -1)
-			{
 				delete_var(minishell, line);
-				delete_export_node(minishell->export_list,
+                        delete_export_node(minishell->export_list,
 					command->clean_arg[i]);
-			}
 			i++;
 		}
 	}
