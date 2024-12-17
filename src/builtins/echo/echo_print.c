@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 21:50:14 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/10 18:22:06 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/17 03:23:16 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	echo_print(char **arg, bool eof, int i)
 	while (arg[i])
 	{
 		error += print_line(arg[i]);
-		if (arg[i + 1])
+		if (arg[i + 1] && ft_strlen(arg[i + 1]) > 0)
 			printf(" ");
 		i++;
 	}
