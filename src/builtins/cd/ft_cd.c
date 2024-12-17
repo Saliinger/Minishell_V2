@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ekrebs <ekrebs@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 12:29:59 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/17 05:38:48 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/17 09:20:11 by ekrebs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	ft_cd(t_command *command, t_minishell *minishell)
 	if (!command->clean_arg[1])
 		path = get_home(&minishell);
 	path = start_path(command, minishell);
+	if (!*path)
+		path = safe_strdup("/", ALLOC_COMMAND);
 	error = chdir(path);
 	if (error == 0)
 	{
