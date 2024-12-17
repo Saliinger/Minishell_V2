@@ -46,5 +46,7 @@ int	ft_minishell(t_minishell *m)
 		if (line)
 			free(line);
 	}
+	if (line)
+			free(line);
 	return (EXIT_SUCCESS);
 }
