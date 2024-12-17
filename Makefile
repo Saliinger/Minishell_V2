@@ -4,7 +4,7 @@
 
 NAME	:= minishell
 CC		:= cc
-FLAGS	:= -Wall -Wextra -Werror 
+FLAGS	:= -Wall -Wextra -Werror -g3
 LIBS	= -L./libft/compiled -lft -lprintf -lreadline
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
