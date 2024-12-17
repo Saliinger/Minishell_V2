@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 15:31:01 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/14 19:07:47 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/17 04:21:02 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,10 @@ void	remove_path(char *dest)
 
 void	add_path(char *dest, char *to_add)
 {
-	int	j;
-	int	i;
-	int	len;
+	size_t	len;
 
 	len = ft_strlen(dest);
-	if (dest[len] != '/')
-		dest[len] = '/';
-	j = len + 1;
-	i = 0;
-	while (to_add[i] && to_add[i + 1] != '/')
-	{
-		dest[j] = to_add[i];
-		j++;
-		i++;
-	}
-	dest[j] = '\0';
+	if (len > 0 && dest[len - 1] != '/')
+		ft_strlcat(dest, "/", PATH_MAX);
+	ft_strlcat(dest, to_add, PATH_MAX);
 }

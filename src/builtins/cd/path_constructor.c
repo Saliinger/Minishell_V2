@@ -6,7 +6,7 @@
 /*   By: anoukan <anoukan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 12:37:06 by anoukan           #+#    #+#             */
-/*   Updated: 2024/12/17 03:06:47 by anoukan          ###   ########.fr       */
+/*   Updated: 2024/12/17 04:21:06 by anoukan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int	init_path(char *in, t_minishell *minishell, char **new_in)
 	char	*temp;
 
 	temp = get_current_path(minishell);
-	temp = ft_strjoin_safe(temp, "/", ALLOC_COMMAND);
+	if (temp[ft_strlen(temp) - 1] != '/')
+		temp = ft_strjoin_safe(temp, "/", ALLOC_COMMAND);
 	*new_in = ft_strjoin_safe(temp, in, ALLOC_COMMAND);
 	return (0);
 }
@@ -57,13 +58,22 @@ int	nbr_of_dot(char *line)
 char	*get_res(char *current_path)
 {
 	char	*res;
+	int		i;
+	int		j;
 
-	res = NULL;
-	if (ft_strlen(current_path) > 0)
-		res = (char *)safe_strdup(current_path, ALLOC_COMMAND);
-	else
-		res = (char *)safe_strdup("/", ALLOC_COMMAND);
-	current_path = NULL;
+	i = 0;
+	j = 0;
+	res = (char *)safe_malloc(PATH_MAX + 1, ALLOC_COMMAND);
+	while (current_path[i])
+	{
+		res[j] = current_path[i];
+		if (current_path[i] == '/')
+			while (current_path[i + 1] == '/')
+				i++;
+		i++;
+		j++;
+	}
+	res[j] = '\0';
 	return (res);
 }
 

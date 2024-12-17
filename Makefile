@@ -133,8 +133,6 @@ ${NAME}:	${OBJS}
 			${CC} ${FLAGS} -o ${NAME} ${OBJS} $(LIBS)
 			@echo "$(GREEN)$(NAME) created $(RESET)"
 
-bonus:		all
-
 clean:
 			@$(MAKE) -C ./libft clean
 			@ ${RM} $(OBJS)
