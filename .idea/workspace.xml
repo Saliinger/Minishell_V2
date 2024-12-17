@@ -13,8 +13,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2891939a-b56b-4a37-9b20-363ea73b03aa" name="Changes" comment="fix exit">
-      <change beforePath="$PROJECT_DIR$/src/utils/garbage_collector/safe_malloc.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/garbage_collector/safe_malloc.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/nuclear_exit.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/nuclear_exit.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tester" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,6 +76,7 @@
       <option name="presentableId" value="Default" />
       <updated>1734369844636</updated>
       <workItem from="1734369846289" duration="2064000" />
+      <workItem from="1734390418984" duration="605000" />
     </task>
     <task id="LOCAL-00001" summary="fix exit">
       <option name="closed" value="true" />
