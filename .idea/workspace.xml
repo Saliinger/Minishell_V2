@@ -32,9 +32,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2891939a-b56b-4a37-9b20-363ea73b03aa" name="Changes" comment="fix exit">
-      <change beforePath="$PROJECT_DIR$/src/ft_minishell.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/ft_minishell.c" afterDir="false" />
-    </list>
+    <list default="true" id="2891939a-b56b-4a37-9b20-363ea73b03aa" name="Changes" comment="fix exit" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -176,7 +174,7 @@
       <workItem from="1734390418984" duration="605000" />
       <workItem from="1734404080729" duration="205000" />
       <workItem from="1734404292976" duration="1530000" />
-      <workItem from="1734431208449" duration="1295000" />
+      <workItem from="1734431208449" duration="1927000" />
     </task>
     <task id="LOCAL-00001" summary="fix exit">
       <option name="closed" value="true" />

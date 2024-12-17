@@ -12,30 +12,25 @@
 
 #include "../../../include/minishell.h"
 
-bool	check_name(t_command *command)
+bool	check_name(char *str)
 {
-	int		i;
 	char	*name;
 	int		j;
 
-	i = 1;
-	while (command->clean_arg[i])
-	{
-		j = 0;
-		name = get_name_env(command->clean_arg[i]);
-		if (!ft_isalpha(name[j]) && name[j] != '_')
-			return (printerr("bash: export: `%s': not a valid identifier\n",
-					name), false);
-		j++;
-		while (name[j])
-		{
-			if (!ft_isdigit(name[j]) && !ft_isalpha(name[j]) && name[j] != '_')
-				return (printerr("bash: export: `%s': not a valid identifier\n",
-						name), false);
-			j++;
-		}
-		i++;
-	}
+        j = 0;
+        name = get_name_env(str);
+        if (!ft_isalpha(name[j]) && name[j] != '_')
+                return (printerr("bash: export: `%s': not a valid identifier\n",
+                                name), false);
+        j++;
+        while (name[j])
+        {
+          if (!ft_isdigit(name[j]) && !ft_isalpha(name[j]) && name[j] != '_')
+            return (
+                printerr("bash: export: `%s': not a valid identifier\n", name),
+                false);
+          j++;
+        }
 	return (true);
 }
 
@@ -96,15 +91,17 @@ int	ft_export(t_command *command, t_minishell *minishell)
 	i = 1;
 	if (nbr_of_line(command->clean_arg) > 1)
 	{
-		if (!check_name(command))
-			return (minishell->exit_status[0] = 1, 1);
 		i = 1;
 		while (command->clean_arg[i])
 		{
-			export_handler(command->clean_arg[i],
-				get_name_env(command->clean_arg[i]),
-				get_value_env(command->clean_arg[i]), minishell);
-			i++;
+                      if (check_name(command->clean_arg[i]))
+                      {
+                          export_handler(command->clean_arg[i],
+                                         get_name_env(command->clean_arg[i]),
+                                         get_value_env(command->clean_arg[i]),
+                                         minishell);
+                      }
+                  i++;
 		}
 	}
 	else
